@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { App } from './app';
 
 export class Pool{
-    private _collider: THREE.Mesh[] = [];
+    private _colliders: THREE.Mesh[] = [];
 
     constructor() { 
         const gltfLoader = new GLTFLoader();
@@ -16,10 +16,14 @@ export class Pool{
                     const mesh = child as THREE.Mesh;
                     mesh.castShadow = true;
                     mesh.receiveShadow = true;
-                    this._collider.push(mesh);
+                    this._colliders.push(mesh);
                 }
             })
             App.scene.add(group);
         });
+    }
+
+    public get colliders() {
+        return this._colliders;
     }
 }
