@@ -7,10 +7,14 @@ export class Player{
 
     private _group: THREE.Group | null = null;
     private _mixer: THREE.AnimationMixer | null = null;
+    private _position: THREE.Vector3 = new THREE.Vector3();
+    private _rotation: THREE.Vector3 = new THREE.Vector3();
+    private _actionMap = new Map();
+    // private _currentAction = 'Idle';
 
     constructor() {
         const fbxLoader = new FBXLoader();
-        const gltfLoader = new GLTFLoader();
+        // const gltfLoader = new GLTFLoader();
         const texLoader = new THREE.TextureLoader();
 
         const tex = texLoader.load(require('@/assets/textures/SimplePeople_BeachBabe_White.png'));
@@ -27,15 +31,21 @@ export class Player{
                 }
             });
             fbx.scale.set(0.05, 0.05, 0.05);
-            fbx.position.set(10,0,10);
+            this._position = fbx.position.clone();
             App.scene.add(fbx);
 
             this._mixer = new THREE.AnimationMixer(fbx);
-            gltfLoader.load(require('@/assets/model/animations/Idle.glb'), (gltf) => {
-                const action = this._mixer!.clipAction(gltf.animations[0]);
-                action.play();
-                App.renderer.render();
+            const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Jumping', 'Idle'];
+            const gltfLoader = new GLTFLoader();
+            anims.forEach((anim) => {
+                gltfLoader.load(require(`@/assets/model/animations/${anim}.glb`), (gltf) => {
+                    this._actionMap.set(anim, this._mixer?.clipAction(gltf.animations[0]));
+                });
             });
+
+            setTimeout(() => {
+                this.animate('Idle');
+            }, 500); 
         });
     }
 
@@ -47,14 +57,20 @@ export class Player{
         return this._mixer;
     }
 
+    public animate (action:string = 'Idle') {
+        this._actionMap.get(action) && this._actionMap.get(action).play();
+        App.renderer.render();
+    };
+
     public move(action: string) {
         if (!this._group) {
             return;
         }
 
+        // this._currentAction = action;
         const camera = App.renderer.camera.camera
 
-        const p1 = this._group.position;
+        const p1 = this._position;
         const p2 = camera.position;
         const v1 = p1.clone().sub(p2);
         v1.y = 0;
@@ -83,6 +99,8 @@ export class Player{
                 step = 10;
                 break;
             default:
+                this._group.position.set(p1.x, p1.y, p1.z);
+                this._group.rotation.y = this._rotation.y;
                 return;
         }
 
@@ -133,7 +151,9 @@ export class Player{
             const radian = Math.acos(v1.dot(origin));
             // 叉乘求方向
             v1.cross(origin);
-            player.rotation.y = radian * (v1.z === 0 && 1 / v1.z < 0 ? -1 : 1);
+
+            this._rotation.y = radian * (v1.z === 0 && 1 / v1.z < 0 ? -1 : 1);
+            player.rotation.y = this._rotation.y;
         }
 
         rotateModel(this._group, camera);
@@ -142,6 +162,7 @@ export class Player{
             p2.x += dir.x * step * 0.1;
             p1.z += dir.z * step * 0.1;
             p2.z += dir.z * step * 0.1;
+            this._group.position.set(p1.x, p1.y, p1.z);
             App.renderer.controls.controls.target.set(p1.x, p1.y, p1.z);
         }
     }

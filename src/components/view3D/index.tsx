@@ -10,6 +10,7 @@ const View3D: React.FC = () => {
     const clock = new THREE.Clock();
     const actionRef = useRef<string>('Idle');
     actionRef.current = useInput();
+    const act =  useInput();
 
     useEffect(() => {
         if (canvasRef.current === null) { return; }
@@ -23,6 +24,7 @@ const View3D: React.FC = () => {
             const delta = clock.getDelta();
             App.scene.player.mixer && App.scene.player.mixer.update(delta);
             App.scene.player.move(actionRef.current);
+            // App.scene.player.animate('Idle');
             App.renderer.render();
             window.requestAnimationFrame(()=>render());
         };
@@ -36,6 +38,10 @@ const View3D: React.FC = () => {
             window.removeEventListener('resize', App.renderer.resize);
         }
     }, []);
+
+    useEffect(() => {
+        App.scene.player.animate(act)
+    },[act])
 
     return (
         <canvas ref={canvasRef} className='full-screen' />
