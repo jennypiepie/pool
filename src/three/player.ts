@@ -106,18 +106,18 @@ export class Player{
         }
 
         const rayOrigin = p1.clone();
-        rayOrigin.y += 60;
+        rayOrigin.y += 3;
         const raycaster = new THREE.Raycaster();
         raycaster.set(rayOrigin, dir);
         const intersects = raycaster.intersectObjects(App.scene.pool.colliders);
 
         if (intersects.length > 0) {
-            if (intersects[0].distance < 30) blocked = true;
+            if (intersects[0].distance < 2) blocked = true;
         }
         
         const dir2 = new THREE.Vector3(0, -1, 0);
         const rayOrigin2 = p1.clone();
-        rayOrigin2.y += 200;
+        rayOrigin2.y += 10;
         const raycaster2 = new THREE.Raycaster();
         raycaster2.set(rayOrigin2, dir2);
         const intersects2 = raycaster2.intersectObjects(App.scene.pool.colliders);

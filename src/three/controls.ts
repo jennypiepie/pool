@@ -6,11 +6,11 @@ export class Controls{
     
     constructor(camera:THREE.PerspectiveCamera,canvas:HTMLCanvasElement) { 
         this._controls = new OrbitControls(camera, canvas);
-        this._controls.minDistance = 30;
-        this._controls.maxDistance = 100;
+        this._controls.minDistance = 10;
+        this._controls.maxDistance = 80;
         this._controls.minPolarAngle = 0;
         this._controls.maxPolarAngle = Math.PI / 2.1;
-        this._controls.enablePan = false;
+        // this._controls.enablePan = false;
         this._controls.update();
     }
 

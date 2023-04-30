@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { Light } from './light';
+import { Painting } from './painting';
 import { Player } from './player';
 import { Pool } from './pool';
 
@@ -8,6 +9,7 @@ export class Scene{
     private _lights: Light;
     private _player: Player;
     private _pool: Pool;
+    private _paint: Painting;
 
     constructor() { 
         this._scene = new THREE.Scene();
@@ -19,6 +21,7 @@ export class Scene{
         })
         this._player = new Player();
         this._pool = new Pool();
+        this._paint = new Painting();
     }
 
     public get scene() {
@@ -31,6 +34,10 @@ export class Scene{
 
     public get pool() {
         return this._pool;
+    }
+
+    public get paint() {
+        return this._paint;
     }
 
     public add(obj: any) {
