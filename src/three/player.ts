@@ -57,8 +57,9 @@ export class Player{
         return this._mixer;
     }
 
-    public animate (action:string = 'Idle') {
-        this._actionMap.get(action) && this._actionMap.get(action).play();
+    public animate(curAction: string = 'Idle', preAction: string = 'Idle') {
+        this._actionMap.get(preAction)?.fadeOut(0.3);
+        this._actionMap.get(curAction)?.reset().fadeIn(0.3).play();
         App.renderer.render();
     };
 
