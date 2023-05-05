@@ -4,12 +4,15 @@ import { Painting } from './painting';
 import { Player } from './player';
 import { Pool } from './pool';
 import { Sculpture } from './sculpture';
+
+import imgSrc from '@/assets/textures/paintings/ff14.png';
+
 export class Scene{
     private _scene: THREE.Scene;
     private _lights: Light;
     private _player: Player;
     private _pool: Pool;
-    private _paint: Painting;
+    public colliders: THREE.Mesh[] = [];
 
     constructor() { 
         this._scene = new THREE.Scene();
@@ -21,8 +24,8 @@ export class Scene{
         })
         this._player = new Player();
         this._pool = new Pool();
-        this._paint = new Painting();
-        new Sculpture();
+        new Painting(imgSrc,[24, 16],[37, 15, 0],[0, -Math.PI / 2.55, 0]);
+        new Sculpture('Lucy100k.ply', [-85, 18, -20], [0, Math.PI, 0], 0.024);
     }
 
     public get scene() {
@@ -35,10 +38,6 @@ export class Scene{
 
     public get pool() {
         return this._pool;
-    }
-
-    public get paint() {
-        return this._paint;
     }
 
     public add(obj: any) {

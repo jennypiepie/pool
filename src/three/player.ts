@@ -109,7 +109,7 @@ export class Player{
         rayOrigin.y += 3;
         const raycaster = new THREE.Raycaster();
         raycaster.set(rayOrigin, dir);
-        const intersects = raycaster.intersectObjects(App.scene.pool.colliders);
+        const intersects = raycaster.intersectObjects(App.scene.colliders);
 
         if (intersects.length > 0) {
             if (intersects[0].distance < 2) blocked = true;
@@ -120,7 +120,7 @@ export class Player{
         rayOrigin2.y += 10;
         const raycaster2 = new THREE.Raycaster();
         raycaster2.set(rayOrigin2, dir2);
-        const intersects2 = raycaster2.intersectObjects(App.scene.pool.colliders);
+        const intersects2 = raycaster2.intersectObjects(App.scene.colliders);
         if (!intersects2[0]) {
             return;
         }

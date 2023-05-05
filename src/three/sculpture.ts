@@ -4,18 +4,18 @@ import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 
 export class Sculpture{
 
-    constructor() {
+    constructor(model:string,position:number[],rotation:number[],scale:number) {
         const plyLoader = new PLYLoader();
-        plyLoader.load(require('@/assets/model/Lucy100k.ply'), (geometry) => {
-            geometry.scale(0.024, 0.024, 0.024);
+        plyLoader.load(require(`@/assets/model/${model}`), (geometry) => {
+            geometry.scale(scale,scale,scale);
             geometry.computeVertexNormals();
             const material = new THREE.MeshLambertMaterial();
             const mesh = new THREE.Mesh(geometry, material);
-            mesh.rotation.y = Math.PI;
-            mesh.position.set(-85, 18, -20);
-            // mesh.position.y = 18;
+            mesh.rotation.set(rotation[0],rotation[1],rotation[2]);
+            mesh.position.set(position[0],position[1],position[2]);
             mesh.castShadow = true;
             mesh.receiveShadow = true;
+            App.scene.colliders.push(mesh);
             App.scene.add(mesh);
 
             // const spotLight = new THREE.SpotLight( 0xffffff, 5 );

@@ -1,8 +1,12 @@
+import Login from './components/login';
 import View3D from './components/view3D';
 
 function App() {
   return (
-    <View3D/>
+    <>
+      <Login />
+      <View3D/>
+    </>
   );
 }
 

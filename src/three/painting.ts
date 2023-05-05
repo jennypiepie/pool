@@ -1,20 +1,18 @@
 import * as THREE from 'three';
 import { App } from './app';
-import imgSrc from '@/assets/textures/paintings/ff14.png';
-
 export class Painting{
     private _mesh: THREE.Mesh;
 
-    constructor() {
+    constructor(texture:string,size:number[],position:number[],rotation:number[]) {
         const loader = new THREE.TextureLoader()
 
          const material = new THREE.MeshBasicMaterial({
-            map: loader.load(imgSrc)
+            map: loader.load(texture)
         })
 
-        const paint = new THREE.Mesh(new THREE.PlaneGeometry(24, 16), material);
-        paint.position.set(37, 15, 0);
-        paint.rotation.set(0, -Math.PI / 2.55, 0);
+        const paint = new THREE.Mesh(new THREE.PlaneGeometry(size[0],size[1]), material);
+        paint.position.set(position[0],position[1],position[2]);
+        paint.rotation.set(rotation[0],rotation[1],rotation[2]);
         this._mesh = paint;
         setTimeout(() => {
             App.scene.add(paint);
