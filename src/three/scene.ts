@@ -3,7 +3,7 @@ import { Light } from './light';
 import { Painting } from './painting';
 import { Player } from './player';
 import { Pool } from './pool';
-
+import { Sculpture } from './sculpture';
 export class Scene{
     private _scene: THREE.Scene;
     private _lights: Light;
@@ -22,6 +22,7 @@ export class Scene{
         this._player = new Player();
         this._pool = new Pool();
         this._paint = new Painting();
+        new Sculpture();
     }
 
     public get scene() {

@@ -11,7 +11,7 @@ export class Pool{
             const group = gltf.scene;
             group.position.set(0, 13.5, 0);
             group.scale.set(8, 8, 8);
-            group.traverse((child) => {
+            group.traverse((child: any) => {
                 if ((child as THREE.Mesh).isMesh) {
                     const mesh = child as THREE.Mesh;
                     mesh.castShadow = true;

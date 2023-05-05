@@ -135,29 +135,29 @@ export class Player{
             }
         }
 
-        const rotateModel = ( player: THREE.Group, camera: THREE.PerspectiveCamera) => {
-            if (!player || !camera) {
-                return;
-            }
-            // 获取人物中心点和相机中心点
-            const p1 = player.position;
-            const p2 = camera.position;
-            // 计算两者连接形成的向量
-            const v1 = p1.clone().sub(p2);
-            v1.y = 0;
-            v1.normalize();
-            // 人物的初始面向
-            const origin = new THREE.Vector3(0, 0, 1);
-            // 点乘求夹角
-            const radian = Math.acos(v1.dot(origin));
-            // 叉乘求方向
-            v1.cross(origin);
+        // const rotateModel = ( player: THREE.Group, camera: THREE.PerspectiveCamera) => {
+        //     if (!player || !camera) {
+        //         return;
+        //     }
+        //     // 获取人物中心点和相机中心点
+        //     const p1 = player.position;
+        //     const p2 = camera.position;
+        //     // 计算两者连接形成的向量
+        //     const v1 = p1.clone().sub(p2);
+        //     v1.y = 0;
+        //     v1.normalize();
+        //     // 人物的初始面向
+        //     const origin = new THREE.Vector3(0, 0, 1);
+        //     // 点乘求夹角
+        //     const radian = Math.acos(v1.dot(origin));
+        //     // 叉乘求方向
+        //     v1.cross(origin);
 
-            this._rotation.y = radian * (v1.z === 0 && 1 / v1.z < 0 ? -1 : 1);
-            player.rotation.y = this._rotation.y;
-        }
+        //     this._rotation.y = radian * (v1.z === 0 && 1 / v1.z < 0 ? -1 : 1);
+        //     player.rotation.y = this._rotation.y;
+        // }
 
-        rotateModel(this._group, camera);
+        // rotateModel(this._group, camera);
         if (!blocked) {
             p1.x += dir.x * step * 0.1;
             p2.x += dir.x * step * 0.1;
