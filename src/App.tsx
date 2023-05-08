@@ -4,7 +4,7 @@ import View3D from './components/view3D';
 function App() {
   return (
     <>
-      <Login />
+      {/* <Login /> */}
       <View3D/>
     </>
   );
