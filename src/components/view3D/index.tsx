@@ -3,8 +3,10 @@ import * as THREE from 'three'
 import './index.scss'
 import { App } from '@/src/three/app'
 import { useInput } from '@/src/hooks/useInput'
+import { useBGM } from '@/src/hooks/useBGM'
 
 const View3D: React.FC = () => {
+    useBGM();
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const AppRef = useRef<App | null>(null);
     const clock = new THREE.Clock();
