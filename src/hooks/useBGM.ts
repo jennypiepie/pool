@@ -4,7 +4,7 @@ import bgmUrl from '@/assets/audio/D254-from-the-deep-sea.mp3';
 
 export const useBGM = () => {
     const bgmHowl = useMemo(() => new Howl({
-        volume: 0.5,
+        volume: 0.3,
         src: bgmUrl,
         loop: true,
     }), []);

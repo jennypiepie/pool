@@ -17,7 +17,7 @@ export class Light{
 		this._directionalLight.shadow.camera.far = 500;
 		this._directionalLight.shadow.camera.right = 100;
 		this._directionalLight.shadow.camera.left = -100;
-		this._directionalLight.shadow.camera.top	= 100;
+		this._directionalLight.shadow.camera.top = 100;
 		this._directionalLight.shadow.camera.bottom = -100;
 		this._directionalLight.shadow.mapSize.width = 1024;
 		this._directionalLight.shadow.mapSize.height = 1024;

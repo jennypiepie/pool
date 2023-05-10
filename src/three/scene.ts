@@ -11,7 +11,6 @@ export class Scene{
     private _scene: THREE.Scene;
     private _lights: Light;
     private _player: Player;
-    private _pool: Pool;
     public colliders: THREE.Mesh[] = [];
 
     constructor() { 
@@ -23,7 +22,7 @@ export class Scene{
             this._scene.add(light);
         })
         this._player = new Player();
-        this._pool = new Pool();
+        new Pool();
         new Painting(imgSrc,[24, 16],[37, 15, 0],[0, -Math.PI / 2.55, 0]);
         new Sculpture('Lucy100k.ply', [-85, 18, -20], [0, Math.PI, 0], 0.024);
     }
@@ -34,10 +33,6 @@ export class Scene{
 
     public get player() {
         return this._player;
-    }
-
-    public get pool() {
-        return this._pool;
     }
 
     public add(obj: any) {

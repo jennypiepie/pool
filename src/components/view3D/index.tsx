@@ -41,7 +41,6 @@ const View3D: React.FC = () => {
 
     useEffect(() => {
 
-
          if (actionRef.current !== act) {
             App.scene.player.animate(act,actionRef.current);
             actionRef.current = act
