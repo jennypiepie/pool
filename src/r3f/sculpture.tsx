@@ -1,7 +1,7 @@
 import { useLoader } from '@react-three/fiber';
 import { BufferGeometry } from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
-import { RigidBody } from "@react-three/rapier";
+// import { RigidBody } from "@react-three/rapier";
 
 interface ISculptureProps {
     name: string,
@@ -20,7 +20,7 @@ function Sculpture(props:ISculptureProps) {
     ply.computeVertexNormals();
 
     return (
-        <RigidBody>
+        // <RigidBody>
             <mesh position={[position[0], position[1], position[2]]}
                 rotation={[rotation[0], rotation[1], rotation[2]]}
                 castShadow
@@ -29,7 +29,7 @@ function Sculpture(props:ISculptureProps) {
                 <bufferGeometry attach="geometry" {...ply} />
                 <meshLambertMaterial attach="material" />
             </mesh>
-        </RigidBody>
+        // </RigidBody>
         
     )
 }

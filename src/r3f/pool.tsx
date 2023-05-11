@@ -1,25 +1,31 @@
 import { useGLTF } from '@react-three/drei';
-import { RigidBody } from "@react-three/rapier";
+// import { RigidBody } from "@react-three/rapier";
+import { Mesh } from 'three';
+interface IPoolProps{
+    getColliders: (colliders:Mesh[]) => void;
+}
 
-function Pool() {
+function Pool(props: IPoolProps) {
+    const colliders: Mesh[] = [];
     const gltf = useGLTF(require('@/assets/model/pool.glb'));
-
     //@ts-ignore
     const group = gltf.scene;
-    group.position.set(0, 13.5, 0);
+    group.position.set(0, 14, 0);
     group.scale.set(8, 8, 8);
     group.traverse((child: any) => {
         if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
             mesh.castShadow = true;
             mesh.receiveShadow = true;
+            colliders.push(mesh);
         }
-    })
+    });
+    props.getColliders(colliders);
 
     return (
-        <RigidBody>
+        // <RigidBody colliders='trimesh' type='fixed'>
             <primitive object={group}/>
-        </RigidBody>
+        // </RigidBody>
     );
 }
 

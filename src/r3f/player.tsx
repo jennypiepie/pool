@@ -1,16 +1,21 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useTexture,useFBX,useGLTF} from '@react-three/drei';
 import { useEffect,useRef } from 'react'; 
-import { AnimationMixer, Vector3, Raycaster } from 'three';
+import { AnimationMixer, Vector3, Raycaster, Mesh} from 'three';
 import { useInput } from '../hooks/useInput';
 import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
 import modelSrc from '@/assets/model/BeachBabe.fbx';
-import { RigidBody } from "@react-three/rapier";
+// import { RigidBody } from "@react-three/rapier";
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-function Player() {
+interface IPlayerProps{
+    controlsRef: React.MutableRefObject<OrbitControls | null>;
+    collidersRef: React.MutableRefObject<Mesh[] | null>;
+}
+
+function Player(props: IPlayerProps) {
     const action = useInput();
 
-    // const controlsRef = useRef(null);
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Mesh>(null);
 
@@ -36,7 +41,7 @@ function Player() {
     //@ts-ignore
     actions[action].play()
 
-    let up = true
+    // let up = true
     function move(action: string) {
         const p1 = meshRef!.current!.position
         const p2 = camera.position
@@ -46,24 +51,24 @@ function Player() {
         let dir = v1
         let step = 3
         let blocked = false
-        const initY = -20
+        // const initY = -20
         
-        if (action === 'Jumping') {
-            if (up) {
-                p1.y += 4
-            } else {
-                p1.y -= 4
-                if (p1.y < initY) {
-                    p1.y = initY
-                }
-            }
-            if (p1.y > 100) {
-                up = false
-            }
+        // if (action === 'Jumping') {
+        //     if (up) {
+        //         p1.y += 4
+        //     } else {
+        //         p1.y -= 4
+        //         if (p1.y < initY) {
+        //             p1.y = initY
+        //         }
+        //     }
+        //     if (p1.y > 100) {
+        //         up = false
+        //     }
 
-            //@ts-ignore
-            // controlsRef.current.target.set( ...p1 )
-        }
+        //     //@ts-ignore
+        //     props.controlsRef.current.target.set( ...p1 )
+        // }
 
         switch (action) {
             case 'Walking':
@@ -88,32 +93,37 @@ function Player() {
         }
         // console.log(dir);
 
+        //水平方向碰撞检测
         const rayOrigin = p1.clone()
-        rayOrigin.y += 60
+        rayOrigin.y += 5;
         const raycaster = new Raycaster()
         raycaster.set(rayOrigin, dir)
+        const intersects = raycaster.intersectObjects(props.collidersRef.current!);
+
         // console.log(intersects);
 
-        // if (intersects.length > 0) {
-        //     if(intersects[0].distance < 50) blocked = true
-        // }
+        if (intersects.length > 0) {
+            if(intersects[0].distance < 5) blocked = true
+        }
         
+        //垂直方向碰撞检测
         const dir2 = new Vector3(0, -1, 0)
         const rayOrigin2 = p1.clone()
-        rayOrigin2.y += 200
+        rayOrigin2.y += 10;
         const raycaster2 = new Raycaster()
         raycaster2.set(rayOrigin2, dir2)
+        const intersects2 = raycaster2.intersectObjects(props.collidersRef.current!);
         // console.log(intersects2);
-        // const targetY = rayOrigin2.y - intersects2[0].distance
-        // if (targetY > p1.y) {
-        //     // p1.y = targetY
-        //     p1.y = 0.8 * p1.y + 0.2 * targetY
-        // } else {
-        //     p1.y -= 9
-        //     if (p1.y < targetY) {
-        //         p1.y = targetY
-        //     }
-        // }
+        const targetY = rayOrigin2.y - intersects2[0].distance
+        if (targetY > p1.y) {
+            // p1.y = targetY
+            p1.y = 0.8 * p1.y + 0.2 * targetY
+        } else {
+            p1.y -= 9;
+            if (p1.y < targetY) {
+                p1.y = targetY
+            }
+        }
 
 
         rotateModel()
@@ -123,7 +133,7 @@ function Player() {
             p1.z += dir.z * step * 0.1;
             p2.z += dir.z * step * 0.1;
             //@ts-ignore
-            // controlsRef.current.target.set(...p1);
+            props.controlsRef.current.target.set(...p1);
         }
 
     }
@@ -180,11 +190,11 @@ function Player() {
     },[action])
 
     return (
-        <RigidBody>
+        // <RigidBody>
             <mesh ref={meshRef} position={[0,0,0]}>
                 <primitive object={fbx}/>
             </mesh>
-        </RigidBody>
+        // </RigidBody>
     );
 }
 
