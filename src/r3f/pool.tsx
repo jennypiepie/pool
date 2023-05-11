@@ -1,4 +1,5 @@
-import {useGLTF} from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
+import { RigidBody } from "@react-three/rapier";
 
 function Pool() {
     const gltf = useGLTF(require('@/assets/model/pool.glb'));
@@ -16,8 +17,9 @@ function Pool() {
     })
 
     return (
-        //@ts-ignore
-        <primitive object={group}/>
+        <RigidBody>
+            <primitive object={group}/>
+        </RigidBody>
     );
 }
 

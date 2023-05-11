@@ -1,15 +1,16 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls,useTexture,useFBX,useGLTF} from '@react-three/drei';
+import { useTexture,useFBX,useGLTF} from '@react-three/drei';
 import { useEffect,useRef } from 'react'; 
 import { AnimationMixer, Vector3, Raycaster } from 'three';
 import { useInput } from '../hooks/useInput';
 import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
 import modelSrc from '@/assets/model/BeachBabe.fbx';
+import { RigidBody } from "@react-three/rapier";
 
 function Player() {
     const action = useInput();
 
-    const controlsRef = useRef(null);
+    // const controlsRef = useRef(null);
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Mesh>(null);
 
@@ -61,7 +62,7 @@ function Player() {
             }
 
             //@ts-ignore
-            controlsRef.current.target.set( ...p1 )
+            // controlsRef.current.target.set( ...p1 )
         }
 
         switch (action) {
@@ -122,7 +123,7 @@ function Player() {
             p1.z += dir.z * step * 0.1;
             p2.z += dir.z * step * 0.1;
             //@ts-ignore
-            controlsRef.current.target.set(...p1);
+            // controlsRef.current.target.set(...p1);
         }
 
     }
@@ -179,17 +180,11 @@ function Player() {
     },[action])
 
     return (
-        <>
-            <OrbitControls ref={controlsRef} target={[0,0,0]}
-                minDistance={10} maxDistance={80}
-                minPolarAngle={0}
-                maxPolarAngle={Math.PI / 2.1}
-                enablePan={false}
-                />
+        <RigidBody>
             <mesh ref={meshRef} position={[0,0,0]}>
-            <primitive object={fbx}/>
+                <primitive object={fbx}/>
             </mesh>
-        </>
+        </RigidBody>
     );
 }
 
