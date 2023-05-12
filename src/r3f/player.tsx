@@ -51,7 +51,7 @@ function Player(props: IPlayerProps) {
         let step = 3
         let blocked = false
         let vy = 0;
-        const gravity = 20;
+        const gravity = 70;
 
         switch (action) {
             case 'Walking':

@@ -10,6 +10,7 @@ import * as THREE from 'three';
 import { OrbitControls } from '@react-three/drei';
 import { Mesh } from 'three';
 import Display from '../components/display';
+import Npc from './npc';
 
 
 function Scene() {
@@ -45,6 +46,10 @@ function Scene() {
           <Suspense>
             {/* <Physics debug> */}
                 <Player controlsRef={controlsRef} collidersRef={collidersRef}/>
+                <Npc  modelName='Prostitute.fbx' 
+                  textureName='SimplePeople_Prostitute_White.png'
+                  position={[28,0,-18]}
+                  rotateY={-1.23} />
                 <Pool getColliders={getColliders}/>
                 <Sculpture 
                     name='Lucy100k.ply'
@@ -56,7 +61,7 @@ function Scene() {
                     name='ff14.png'
                     size={[24, 16]}
                     position={[37, 15, 0]}
-                    rotation={[0, -Math.PI / 2.55, 0]}
+                    rotation={[0, -1.23, 0]}
                     onClickPainting={displayPainting}
                 />
               {/* </Physics> */}

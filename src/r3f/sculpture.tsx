@@ -1,12 +1,12 @@
 import { useLoader } from '@react-three/fiber';
-import { BufferGeometry } from 'three';
+import { BufferGeometry,Vector3Tuple } from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 // import { RigidBody } from "@react-three/rapier";
 
 interface ISculptureProps {
     name: string,
-    position: number[],
-    rotation: number[],
+    position: Vector3Tuple,
+    rotation: Vector3Tuple,
     scale:number,
 }
 
@@ -21,8 +21,8 @@ function Sculpture(props:ISculptureProps) {
 
     return (
         // <RigidBody>
-            <mesh position={[position[0], position[1], position[2]]}
-                rotation={[rotation[0], rotation[1], rotation[2]]}
+            <mesh position={position}
+                rotation={rotation}
                 castShadow
                 receiveShadow
             >

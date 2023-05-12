@@ -1,11 +1,11 @@
 import { useTexture } from "@react-three/drei";
-import { Texture } from "three";
+import { Texture,Vector3Tuple } from "three";
 
 interface IPaintingProps{
     name: string,
     size: number[],
-    position: number[],
-    rotation: number[],
+    position: Vector3Tuple,
+    rotation: Vector3Tuple,
     onClickPainting:()=>void,
 }
 
@@ -14,8 +14,8 @@ function Painting(props: IPaintingProps) {
     const texture = useTexture(require(`@/assets/textures/paintings/${name}`)) as Texture;
 
     return (
-        <mesh position={[position[0], position[1], position[2]]}
-            rotation={[rotation[0], rotation[1], rotation[2]]}
+        <mesh position={position}
+            rotation={rotation}
             onClick={onClickPainting}
         >
             <planeGeometry attach="geometry" args={[size[0], size[1]]} />
