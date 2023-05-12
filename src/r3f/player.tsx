@@ -41,8 +41,7 @@ function Player(props: IPlayerProps) {
     //@ts-ignore
     actions[action].play()
 
-    // let up = true
-    function move(action: string) {
+    function move(action: string,dt: number) {
         const p1 = meshRef!.current!.position
         const p2 = camera.position
         const v1 = p1.clone().sub(p2)
@@ -51,24 +50,8 @@ function Player(props: IPlayerProps) {
         let dir = v1
         let step = 3
         let blocked = false
-        // const initY = -20
-        
-        // if (action === 'Jumping') {
-        //     if (up) {
-        //         p1.y += 4
-        //     } else {
-        //         p1.y -= 4
-        //         if (p1.y < initY) {
-        //             p1.y = initY
-        //         }
-        //     }
-        //     if (p1.y > 100) {
-        //         up = false
-        //     }
-
-        //     //@ts-ignore
-        //     props.controlsRef.current.target.set( ...p1 )
-        // }
+        let vy = 0;
+        const gravity = 20;
 
         switch (action) {
             case 'Walking':
@@ -116,11 +99,13 @@ function Player(props: IPlayerProps) {
         // console.log(intersects2);
         const targetY = rayOrigin2.y - intersects2[0].distance
         if (targetY > p1.y) {
-            // p1.y = targetY
             p1.y = 0.8 * p1.y + 0.2 * targetY
+            vy = 0;
         } else {
-            p1.y -= 9;
+            vy += dt * gravity;
+			p1.y -= vy;
             if (p1.y < targetY) {
+                vy = 0;
                 p1.y = targetY
             }
         }
@@ -160,7 +145,7 @@ function Player(props: IPlayerProps) {
 
     useFrame((_, delta) => {
         mixer?.update(delta)
-        move(action)
+        move(action,delta)
     })
 
     useEffect(() => {

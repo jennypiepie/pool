@@ -1,4 +1,4 @@
-import { useRef, Suspense } from 'react';
+import { useRef, Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Player from './player';
 import Pool from './pool';
@@ -9,6 +9,7 @@ import * as THREE from 'three';
 // import { Physics } from "@react-three/rapier";
 import { OrbitControls } from '@react-three/drei';
 import { Mesh } from 'three';
+import Display from '../components/display';
 
 
 function Scene() {
@@ -16,11 +17,23 @@ function Scene() {
 
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
+  const [visible, setVisible] = useState(false);
+  const [painting, setPainting] = useState('');
+
+  
   const getColliders = (colliders: Mesh[]) => {
     collidersRef.current = colliders;
   };
+
+  const displayPainting = () => {
+    setVisible(true);
+    setPainting('ff14.png');
+  }
+
+
   
-  return (
+  return (<>
+    {visible && <Display painting={painting} />}
       <Canvas
           gl={{
             pixelRatio: window.devicePixelRatio,
@@ -37,13 +50,14 @@ function Scene() {
                     name='Lucy100k.ply'
                     position={[-85,20,-20]}
                     rotation={[0, Math.PI, 0]}
-                    scale={0.3}
+                    scale={0.4}
                   />
                 <Painting
                     name='ff14.png'
                     size={[24, 16]}
                     position={[37, 15, 0]}
                     rotation={[0, -Math.PI / 2.55, 0]}
+                    onClickPainting={displayPainting}
                 />
               {/* </Physics> */}
               <OrbitControls 
@@ -53,8 +67,8 @@ function Scene() {
                 // enablePan={false}
                 ref={controlsRef}
             />
-            <hemisphereLight groundColor='#0x002244' intensity={0.8} />
-            <directionalLight color='0xffffff'
+            <hemisphereLight groundColor='#002244' intensity={0.8} />
+            <directionalLight color='#ffffff'
                 position={[- 5, 100, - 1]}
                 castShadow
                 shadow-bias={-0.0006}
@@ -65,7 +79,7 @@ function Scene() {
             </directionalLight>
         </Suspense>
       </Canvas >
-  );
+  </>);
 }
 
 export default Scene;
