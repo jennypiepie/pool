@@ -26,15 +26,18 @@ function Scene() {
     collidersRef.current = colliders;
   };
 
-  const displayPainting = () => {
+  const onOpen = () => {
     setVisible(true);
     setPainting('ff14.png');
   }
 
+  const onClose = () => {
+    setVisible(false);
+  }
 
   
   return (<>
-    {visible && <Display painting={painting} />}
+    {visible && <Display painting={painting} onClose={onClose} />}
       <Canvas
           gl={{
             pixelRatio: window.devicePixelRatio,
@@ -62,7 +65,7 @@ function Scene() {
                     size={[24, 16]}
                     position={[37, 15, 0]}
                     rotation={[0, -1.23, 0]}
-                    onClickPainting={displayPainting}
+                    onClickPainting={onOpen}
                 />
               {/* </Physics> */}
               <OrbitControls 
