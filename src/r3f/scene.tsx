@@ -1,5 +1,5 @@
 import { useRef, Suspense, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import Player from './player';
 import Pool from './pool';
 import * as THREE from 'three';
@@ -20,6 +20,8 @@ function Scene() {
   const collidersRef = useRef<Mesh[] | null>(null);
   const [visible, setVisible] = useState(false);
   const [painting, setPainting] = useState('');
+  const [photoSrc, setPhotoSrc] = useState('');
+  const [shoot, setShoot] = useState(false);
 
   
   const getColliders = (colliders: Mesh[]) => {
@@ -35,6 +37,16 @@ function Scene() {
     setVisible(false);
   }
 
+  const GetRenderer = () =>{
+    const { gl, scene, camera } = useThree();
+    if (shoot) {
+      gl.render(scene, camera);
+      const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
+      setPhotoSrc(imgData);
+      setShoot(false);
+    }
+    return null;
+  }
   
   return (<>
     <Suspense fallback={<Loading/>}>
@@ -65,9 +77,10 @@ function Scene() {
                 // enablePan={false}
           ref={controlsRef}
         />
-        <Lights/>
+        <Lights />
+        <GetRenderer />
       </Canvas >
-      <Panel />
+      <Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>
       {visible && <Display painting={painting} onClose={onClose} />}
     </Suspense>
   </>);
