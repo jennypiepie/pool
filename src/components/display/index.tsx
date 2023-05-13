@@ -8,7 +8,9 @@ interface IDisplayProps{
 function Display(props: IDisplayProps) {
   return ReactDOM.createPortal(
     <div className="display">
-      <img src={require(`@/assets/textures/paintings/${props.painting}`)} alt="" />
+      <div>
+        <img src={require(`@/assets/textures/paintings/${props.painting}`)} alt="" />
+      </div>
     </div>,
     document.body
   )

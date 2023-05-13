@@ -1,7 +1,7 @@
-import { useLoader } from '@react-three/fiber';
-import { BufferGeometry,Vector3Tuple } from 'three';
-import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
-// import { RigidBody } from "@react-three/rapier";
+import { useFBX } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import { Vector3Tuple, Mesh} from 'three';
 
 interface ISculptureProps {
     name: string,
@@ -12,24 +12,26 @@ interface ISculptureProps {
 
 function Sculpture(props:ISculptureProps) {
     const { name, position, rotation, scale } = props;
-    const ply = useLoader(
-        PLYLoader,
-        require(`@/assets/model/${name}`),
-    ) as BufferGeometry;
-    ply.scale(scale,scale,scale);
-    ply.computeVertexNormals();
+    const model = useFBX(require(`@/assets/model/${name}`));
+    const modelRef = useRef();
 
+    useFrame((state) => {
+    if (modelRef.current) {
+        const t = state.clock.getElapsedTime();
+        const mesh = modelRef.current as Mesh;
+        mesh.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
+        mesh.rotation.x = Math.cos(t / 4) / 8;
+        mesh.rotation.y = Math.sin(t / 4) / 8;
+        mesh.position.y = (1 + Math.sin(t / 1.5)) / 5;
+    }
+  })
     return (
-        // <RigidBody>
-            <mesh position={position}
-                rotation={rotation}
-                castShadow
-                receiveShadow
-            >
-                <bufferGeometry attach="geometry" {...ply} />
-                <meshLambertMaterial attach="material" />
-            </mesh>
-        // </RigidBody>
+        <primitive object={model}
+            position={position}
+            rotation={rotation}
+            scale={[scale, scale, scale]}
+            ref={modelRef}
+        />
         
     )
 }

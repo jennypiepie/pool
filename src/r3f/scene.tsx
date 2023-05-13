@@ -52,10 +52,10 @@ function Scene() {
                   rotateY={-1.23} />
                 <Pool getColliders={getColliders}/>
                 <Sculpture 
-                    name='Lucy100k.ply'
-                    position={[-85,20,-20]}
-                    rotation={[0, Math.PI, 0]}
-                    scale={0.4}
+                    name='Cat.fbx'
+                    position={[-85,4,-20]}
+                    rotation={[0, 0, 0]}
+                    scale={10}
                   />
                 <Painting
                     name='ff14.png'

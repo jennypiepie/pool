@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 export const useInput = () => {
     const [action, setAction] = useState('Idle');
 
-    type Key = 'KeyW' | 'KeyS' | 'KeyA' | 'KeyD' | 'KeyR' | 'Space';
+    type Key = 'KeyW' | 'KeyS' | 'KeyA' | 'KeyD' | 'KeyE' | 'Space';
 
     const keys = {
         KeyW: 'Walking',
         KeyS: 'Backwards',
         KeyA: 'Left',
         KeyD: 'Right',
-        KeyR: 'Running',
+        KeyE: 'Running',
         Space: 'Jumping',
     }
 
