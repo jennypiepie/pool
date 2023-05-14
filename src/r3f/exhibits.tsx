@@ -2,8 +2,11 @@ import Sculpture from './sculpture';
 import Painting from './painting';
 import { Vector3Tuple } from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
+import { useEffect, useState } from 'react';
+import { getExhibitsList } from '../request/api';
 
 export interface IExhibits{
+    id:number
     name: string;
     title: string;
     desc: string;
@@ -11,33 +14,32 @@ export interface IExhibits{
     rotation: Vector3Tuple;
     size: number[];
 }
-
-const exhibitsList:IExhibits[] = [
-    {
-        name: 'pic1.png',
-        title: 'title1',
-        desc: 'desc1 nciwnc icvfnvw ufcnwinccw nwci iwecfnc rewncv cvvfdw',
-        position: [37, 15, 0],
-        rotation: [0, -1.23, 0],
-        size: [24, 16],
-    },
-    {
-        name: 'pic2.png',
-        title: 'title2',
-        desc: 'desc2 nciwnc icvfnvw ufcnwinccw nwci iwecfnc rewncv cvvfdw',
-        position: [80, 15, -30],
-        rotation: [0, 0, 0],
-        size: [32, 20],
-    },
-]
+  
 
 function Exhibits() {
-    const {select} = useExhibitsStore();
+    const { select } = useExhibitsStore();
+    const [exhibitsList, setExhibitsList] = useState([]);
+
+    const getList = async () => {
+    await getExhibitsList().then(res => {
+        //@ts-ignore
+        if (res.errCode === 0) {
+          const list = res.data.list;
+          list.forEach((item: any) => {
+              item.position = item.position.split(',');
+              item.rotation = item.rotation.split(',');
+              item.size = item.size.split(',');
+          });
+        setExhibitsList(list)
+      }
+    })
+}
 
     const exhibits = exhibitsList.map((item) => {
-        const { name,size,position,rotation } = item;
+        const { id, name,size,position,rotation } = item;
         return (
             <Painting
+                key={id}
                 name={name}
                 size={size}
                 position={position}
@@ -46,6 +48,11 @@ function Exhibits() {
             />
         )
     })
+
+
+    useEffect(() => { 
+        getList();
+    },[])
 
     return (<>
         <Sculpture
@@ -68,21 +75,6 @@ function Exhibits() {
         />
         
         {exhibits}
-        {/* <Painting
-            name='pic1.png'
-            size={[24, 16]}
-            position={[37, 15, 0]}
-            rotation={[0, -1.23, 0]}
-            onClickPainting={()=>onOpen('pic1.png')}
-        />
-
-         <Painting
-            name='pic2.png'
-            size={[32, 20]}
-            position={[80, 15, -30]}
-            rotation={[0, 0, 0]}
-            onClickPainting={()=>onOpen('pic2.png')}
-        /> */}
     </>);
     
 }

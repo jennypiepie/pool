@@ -1,7 +1,5 @@
 import { create } from 'zustand'
 import { IExhibits } from '../r3f/exhibits';
-
-
 interface IDisplay{
     name: string,
     title: string,
@@ -41,5 +39,5 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 visible: false,
             }
         }
-    })
+    }),
 }));
