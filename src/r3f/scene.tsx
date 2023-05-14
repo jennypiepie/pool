@@ -14,7 +14,8 @@ import Panel from '../components/panel';
 import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useGlobalStore } from '../store/useGlobalStore';
-import { usePlayerStore } from '../store/usePlayerStore';
+import OutfitPanel from '../components/outfitPanel';
+// import { useWasdMove } from '../hooks/useWsadMove';
 
 
 function Scene() {
@@ -24,7 +25,7 @@ function Scene() {
   const [photoSrc, setPhotoSrc] = useState('');
   const [shoot, setShoot] = useState(false);
   const { outfit } = useGlobalStore();
-  const { player } = usePlayerStore();
+  // const { controlsHook, } = useWasdMove();
   
   const getColliders = (colliders: Mesh[]) => {
     collidersRef.current = colliders;
@@ -46,11 +47,7 @@ function Scene() {
   const MoveCamera = () => {
     const { camera } = useThree();
     useFrame(() => {
-      const distance = 20;
-      const p1 = player.position;
-      const rotateY = player.rotateY;
-      const cameraPos = new Vector3(p1.x + distance * Math.sin(rotateY), p1.y+20, p1.z + distance * Math.cos(rotateY));
-      camera.position.lerp(cameraPos, 0.05);
+      camera.position.lerp(new Vector3(0,8,20), 0.05);
     });
     return null
   }
@@ -76,19 +73,22 @@ function Scene() {
         <Pool getColliders={getColliders} />
         <Exhibits />
               {/* </Physics> */}
-        <OrbitControls 
+        {<OrbitControls 
                 // minDistance={10} maxDistance={80}
                 // minPolarAngle={0}
                 // maxPolarAngle={Math.PI / 2.1}
                 // enablePan={false}
           ref={controlsRef}
-        />
+        />}
         <Lights />
         <GetPhotos />
         {outfit && <MoveCamera />}
+        {/* {controlsHook} */}
+        <axesHelper args={[50]} />
       </Canvas >
-      <Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>
+      {!outfit&&<Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>}
       {display.visible && <Display />}
+      {outfit && <OutfitPanel />}
     </Suspense>
   </>);
 }

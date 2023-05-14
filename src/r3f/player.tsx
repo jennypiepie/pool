@@ -7,7 +7,7 @@ import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
 import modelSrc from '@/assets/model/BeachBabe.fbx';
 // import { RigidBody } from "@react-three/rapier";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { usePlayerStore } from '../store/usePlayerStore';
+import { useGlobalStore } from '../store/useGlobalStore';
 
 interface IPlayerProps{
     controlsRef: React.MutableRefObject<OrbitControls | null>;
@@ -16,7 +16,8 @@ interface IPlayerProps{
 
 function Player(props: IPlayerProps) {
 
-    const { setPosition } = usePlayerStore();
+    const { outfit } = useGlobalStore();
+
     const action = useInput();
 
     const camera = useThree((state) => state.camera);
@@ -121,9 +122,9 @@ function Player(props: IPlayerProps) {
             p1.z += dir.z * step * 0.1;
             p2.z += dir.z * step * 0.1;
             //@ts-ignore
-            props.controlsRef.current.target.set(...p1);
+            props.controlsRef.current.target.set(p1.x,p1.y+8,p1.z);
+
         }
-        // setPosition(p1, meshRef!.current!.rotation.y);
     }
 
     function rotateModel() {
@@ -145,10 +146,14 @@ function Player(props: IPlayerProps) {
         meshRef.current.rotation.y = radian * (v1.z === 0 && 1 / v1.z < 0 ? -1 : 1);
     }
 
-
     useFrame((_, delta) => {
         mixer?.update(delta);
-        move(action, delta);
+        !outfit && move(action, delta);
+        if (outfit) {
+            meshRef.current?.position.lerp(new Vector3(0, 0, 0), 0.05);
+            meshRef.current?.rotation.set(0, 0, 0);
+            props.controlsRef.current?.target.set(0, 8, 0);
+        }
     })
 
     useEffect(() => {
