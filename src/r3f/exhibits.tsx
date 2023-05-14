@@ -21,19 +21,20 @@ function Exhibits() {
     const [exhibitsList, setExhibitsList] = useState([]);
 
     const getList = async () => {
-    await getExhibitsList().then(res => {
-        //@ts-ignore
-        if (res.errCode === 0) {
-          const list = res.data.list;
-          list.forEach((item: any) => {
-              item.position = item.position.split(',');
-              item.rotation = item.rotation.split(',');
-              item.size = item.size.split(',');
-          });
-        setExhibitsList(list)
-      }
-    })
-}
+        await getExhibitsList().then(res => {
+            //@ts-ignore
+            if (res.errCode === 0) {
+            const list = res.data.list;
+            list.forEach((item: any) => {
+                item.position = item.position.split(',');
+                item.rotation = item.rotation.split(',');
+                item.size = item.size.split(',');
+            });
+            setExhibitsList(list)
+            }
+        })
+    }
+    
 
     const exhibits = exhibitsList.map((item) => {
         const { id, name,size,position,rotation } = item;

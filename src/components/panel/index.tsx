@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import './index.scss';
 import { Popover,Image } from "antd";
 import Menu from "../menu";
+import { useGlobalStore } from "@/src/store/useGlobalStore";
 
 interface IProps{
 	shoot: () => void;
@@ -15,6 +16,7 @@ interface IProps{
 function Panel(props: IProps) {
 	const { shoot, photoSrc } = props;
 	const [playing, setPlaying] = useState(true);
+	const { onClick } = useGlobalStore();
 
 	const bgmHowl = useMemo(() => new Howl({
         volume: 0.3,
@@ -35,7 +37,7 @@ function Panel(props: IProps) {
 			</div>
 			<div className="btn_group">
 				<div className="btn" onClick={()=>setPlaying(!playing)}><SoundFilled /></div>
-				<div className="btn"><SkinFilled /></div>
+				<div className="btn" onClick={onClick}><SkinFilled /></div>
 				{photoSrc !== '' ?
 					<Popover
 						placement="left"

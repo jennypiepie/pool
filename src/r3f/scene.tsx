@@ -1,11 +1,11 @@
 import { useRef, Suspense, useState } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import Player from './player';
 import Pool from './pool';
 import * as THREE from 'three';
 // import { Physics } from "@react-three/rapier";
 import { OrbitControls } from '@react-three/drei';
-import { Mesh } from 'three';
+import { Mesh, Vector3 } from 'three';
 import Display from '../components/display';
 import Npc from './npc';
 import Exhibits from './exhibits';
@@ -13,6 +13,8 @@ import Loading from '../components/loading';
 import Panel from '../components/panel';
 import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
+import { useGlobalStore } from '../store/useGlobalStore';
+import { usePlayerStore } from '../store/usePlayerStore';
 
 
 function Scene() {
@@ -21,6 +23,8 @@ function Scene() {
   const collidersRef = useRef<Mesh[] | null>(null);
   const [photoSrc, setPhotoSrc] = useState('');
   const [shoot, setShoot] = useState(false);
+  const { outfit } = useGlobalStore();
+  const { player } = usePlayerStore();
   
   const getColliders = (colliders: Mesh[]) => {
     collidersRef.current = colliders;
@@ -28,7 +32,7 @@ function Scene() {
 
   const { display } = useExhibitsStore();
 
-  const GetRenderer = () =>{
+  const GetPhotos = () => {
     const { gl, scene, camera } = useThree();
     if (shoot) {
       gl.render(scene, camera);
@@ -37,6 +41,18 @@ function Scene() {
       setShoot(false);
     }
     return null;
+  };
+
+  const MoveCamera = () => {
+    const { camera } = useThree();
+    useFrame(() => {
+      const distance = 20;
+      const p1 = player.position;
+      const rotateY = player.rotateY;
+      const cameraPos = new Vector3(p1.x + distance * Math.sin(rotateY), p1.y+20, p1.z + distance * Math.cos(rotateY));
+      camera.position.lerp(cameraPos, 0.05);
+    });
+    return null
   }
   
   return (<>
@@ -68,7 +84,8 @@ function Scene() {
           ref={controlsRef}
         />
         <Lights />
-        <GetRenderer />
+        <GetPhotos />
+        {outfit && <MoveCamera />}
       </Canvas >
       <Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>
       {display.visible && <Display />}

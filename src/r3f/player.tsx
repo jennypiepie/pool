@@ -7,6 +7,7 @@ import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
 import modelSrc from '@/assets/model/BeachBabe.fbx';
 // import { RigidBody } from "@react-three/rapier";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { usePlayerStore } from '../store/usePlayerStore';
 
 interface IPlayerProps{
     controlsRef: React.MutableRefObject<OrbitControls | null>;
@@ -14,6 +15,8 @@ interface IPlayerProps{
 }
 
 function Player(props: IPlayerProps) {
+
+    const { setPosition } = usePlayerStore();
     const action = useInput();
 
     const camera = useThree((state) => state.camera);
@@ -120,7 +123,7 @@ function Player(props: IPlayerProps) {
             //@ts-ignore
             props.controlsRef.current.target.set(...p1);
         }
-
+        // setPosition(p1, meshRef!.current!.rotation.y);
     }
 
     function rotateModel() {

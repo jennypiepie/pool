@@ -1,7 +1,8 @@
 // import { Object3D, Raycaster, Vector3, Vector3Tuple } from 'three';
-// import { create } from 'zustand'
+import { Vector3 } from 'three'
+import { create } from 'zustand'
 
-// interface IPlayerStore {
+interface IPlayerStore {
 //     player: {
 //         position: Vector3Tuple;
 //         rotation: number;
@@ -10,16 +11,31 @@
 //     };
 //     moveRelativeY: (distance: number) => void;
 //     move: (action: string,dt: number) => void;
-// };
+    
+    player: {
+        position: Vector3;
+        rotateY: number;
+    };
+    setPosition: (position: Vector3, rotateY: number) => void;
+};
 
 
-// export const usePlayerStore = create<IPlayerStore>((set) => ({
-//     player: {
-//         position: [0, 0, 0,],
-//         rotation: 0,
+export const usePlayerStore = create<IPlayerStore>((set) => ({
+    player: {
+        position: new Vector3(),
+        rotateY: 0,
 //         status: 'Idle',
 //         colliders: [],
-//     },
+    },
+
+    setPosition: (position: Vector3,rotateY:number) => set(() => {
+        return {
+            player: {
+                position,
+                rotateY
+            }
+        }
+    }),
 //     move: (action: string,dt: number) => set(({ player, }) => {
 //         // const { position, status,colliders } = player;
 //         // if (status !== 'Idle' && status !== 'Walking') {
@@ -137,5 +153,4 @@
 //             },
 //         }
 //     }),
-// }))
-export {}
+}))
