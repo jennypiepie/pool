@@ -1,12 +1,51 @@
 import Sculpture from './sculpture';
 import Painting from './painting';
+import { Vector3Tuple } from 'three';
+import { useExhibitsStore } from '../store/useExhibitsStore';
 
-interface IProps{
-    onOpen: (name:string) => void;
+export interface IExhibits{
+    name: string;
+    title: string;
+    desc: string;
+    position: Vector3Tuple;
+    rotation: Vector3Tuple;
+    size: number[];
 }
 
-function Exhibits(props: IProps) {
-    const {onOpen} = props
+const exhibitsList:IExhibits[] = [
+    {
+        name: 'pic1.png',
+        title: 'title1',
+        desc: 'desc1 nciwnc icvfnvw ufcnwinccw nwci iwecfnc rewncv cvvfdw',
+        position: [37, 15, 0],
+        rotation: [0, -1.23, 0],
+        size: [24, 16],
+    },
+    {
+        name: 'pic2.png',
+        title: 'title2',
+        desc: 'desc2 nciwnc icvfnvw ufcnwinccw nwci iwecfnc rewncv cvvfdw',
+        position: [80, 15, -30],
+        rotation: [0, 0, 0],
+        size: [32, 20],
+    },
+]
+
+function Exhibits() {
+    const {select} = useExhibitsStore();
+
+    const exhibits = exhibitsList.map((item) => {
+        const { name,size,position,rotation } = item;
+        return (
+            <Painting
+                name={name}
+                size={size}
+                position={position}
+                rotation={rotation}
+                onClickPainting={()=>select(item)}
+            />
+        )
+    })
 
     return (<>
         <Sculpture
@@ -28,13 +67,22 @@ function Exhibits(props: IProps) {
             scale={0.1}
         />
         
-        <Painting
-            name='ff14.png'
+        {exhibits}
+        {/* <Painting
+            name='pic1.png'
             size={[24, 16]}
             position={[37, 15, 0]}
             rotation={[0, -1.23, 0]}
-            onClickPainting={()=>onOpen('ff14.png')}
+            onClickPainting={()=>onOpen('pic1.png')}
         />
+
+         <Painting
+            name='pic2.png'
+            size={[32, 20]}
+            position={[80, 15, -30]}
+            rotation={[0, 0, 0]}
+            onClickPainting={()=>onOpen('pic2.png')}
+        /> */}
     </>);
     
 }

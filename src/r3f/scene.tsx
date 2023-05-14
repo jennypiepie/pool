@@ -12,30 +12,21 @@ import Exhibits from './exhibits';
 import Loading from '../components/loading';
 import Panel from '../components/panel';
 import Lights from './lights';
+import { useExhibitsStore } from '../store/useExhibitsStore';
 
 
 function Scene() {
 
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
-  const [visible, setVisible] = useState(false);
-  const [painting, setPainting] = useState('');
   const [photoSrc, setPhotoSrc] = useState('');
   const [shoot, setShoot] = useState(false);
-
   
   const getColliders = (colliders: Mesh[]) => {
     collidersRef.current = colliders;
   };
 
-  const onOpen = (name:string) => {
-    setVisible(true);
-    setPainting(name);
-  }
-
-  const onClose = () => {
-    setVisible(false);
-  }
+  const { display } = useExhibitsStore();
 
   const GetRenderer = () =>{
     const { gl, scene, camera } = useThree();
@@ -67,8 +58,7 @@ function Scene() {
           position={[28, 0, -18]}
           rotateY={-1.23} />
         <Pool getColliders={getColliders} />
-        <Exhibits onOpen={onOpen} />
-        
+        <Exhibits />
               {/* </Physics> */}
         <OrbitControls 
                 // minDistance={10} maxDistance={80}
@@ -81,7 +71,7 @@ function Scene() {
         <GetRenderer />
       </Canvas >
       <Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>
-      {visible && <Display painting={painting} onClose={onClose} />}
+      {display.visible && <Display />}
     </Suspense>
   </>);
 }

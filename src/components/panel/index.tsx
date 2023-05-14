@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
 import './index.scss';
 import { Popover,Image } from "antd";
+import Menu from "../menu";
 
 interface IProps{
 	shoot: () => void;
@@ -28,7 +29,9 @@ function Panel(props: IProps) {
 	return ReactDOM.createPortal(
 		<div className="container">
 			<div className="top_right">
-				<div className="btn"><SmileFilled /></div>
+				<Popover placement="left" content={<Menu />}> 
+					<div className="btn"><SmileFilled /></div>
+				</Popover>
 			</div>
 			<div className="btn_group">
 				<div className="btn" onClick={()=>setPlaying(!playing)}><SoundFilled /></div>
