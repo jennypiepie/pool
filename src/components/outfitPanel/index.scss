@@ -1,12 +1,90 @@
 .outfit{
     .finish_btn {
-      width: 120px;
-      height: 80px;
-      border-radius: 5px;
-      background: #ccc;
+      width: 100px;
+      height: 40px;
+      border-radius: 20px;
+      line-height: 40px;
+      text-align: center;
+      background: rgba(255,255,255,.3);
+      border: 2px solid #fff;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
       position: absolute;
       left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
+      bottom: 20px;
+      transform: translateX(-50%);
+      transition: all .5s;
+      &:hover{
+        background: #4febf6;
+        border: 2px solid #4febf6;
+        box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, .3);
+      }
+    }
+    .pre_btn, .next_btn {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, .3);
+      border: 2px solid #fff;
+      top:50%;
+      transform: translateY(-50%);
+
+      .anticon {
+        width: 100%;
+        height: 100%;
+        transition: all .3s;
+      
+        &:hover {
+          transform: scale(1.2);
+        }
+      
+        >svg {
+          color: #fff;
+          width: 100%;
+          height: 100%;
+          transform: scale(0.5);
+        }
+      }
+    }
+    .pre_btn{
+      left: 150px;
+    }
+
+    .next_btn{
+      right: 150px;
+    }
+
+    .skin_btn {
+      position: absolute;
+      top: 15px;
+      width: 140px;
+      box-sizing: border-box;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      border: 2px solid #fff;
+      padding: 8px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.3);
+
+      >li{
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        list-style: none;
+        box-sizing: border-box;
+      }
+      :nth-child(1){
+        background: #fff;
+      }
+      :nth-child(2){
+        background:#7d2727
+      }
+      :nth-child(3){
+        background: #000;
+      }
     }
 }

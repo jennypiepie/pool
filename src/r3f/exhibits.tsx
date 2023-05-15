@@ -64,7 +64,7 @@ function Exhibits() {
         />
         <Sculpture 
             name='Bird.fbx'
-            position={[10, 4, 10]}
+            position={[38, 14, 92]}
             rotation={[0, 0, 0]}
             scale={1}
         />

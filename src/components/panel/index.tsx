@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import './index.scss';
 import { Popover,Image } from "antd";
 import Menu from "../menu";
-import { useGlobalStore } from "@/src/store/useGlobalStore";
+import { useOutfitStore } from "@/src/store/useOutfitStore";
 
 interface IProps{
 	shoot: () => void;
@@ -16,7 +16,7 @@ interface IProps{
 function Panel(props: IProps) {
 	const { shoot, photoSrc } = props;
 	const [playing, setPlaying] = useState(true);
-	const { onClick } = useGlobalStore();
+	const { onClick } = useOutfitStore();
 
 	const bgmHowl = useMemo(() => new Howl({
         volume: 0.3,

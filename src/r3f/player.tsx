@@ -3,11 +3,11 @@ import { useTexture,useFBX,useGLTF} from '@react-three/drei';
 import { useEffect,useRef } from 'react'; 
 import { AnimationMixer, Vector3, Raycaster, Mesh} from 'three';
 import { useInput } from '../hooks/useInput';
-import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
-import modelSrc from '@/assets/model/BeachBabe.fbx';
+// import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
+// import modelSrc from '@/assets/model/BeachBabe.fbx';
 // import { RigidBody } from "@react-three/rapier";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { useGlobalStore } from '../store/useGlobalStore';
+import { useOutfitStore } from '../store/useOutfitStore';
 
 interface IPlayerProps{
     controlsRef: React.MutableRefObject<OrbitControls | null>;
@@ -16,17 +16,17 @@ interface IPlayerProps{
 
 function Player(props: IPlayerProps) {
 
-    const { outfit } = useGlobalStore();
-
+    const { outfit, player } = useOutfitStore();
+    const { role, skin } = player;
     const action = useInput();
-
     const camera = useThree((state) => state.camera);
-    const meshRef = useRef<THREE.Mesh>(null);
-
+    const meshRef = useRef<THREE.Group>(null);
     const currentAction = useRef('Idle');
+    const texture = useTexture(require(`@/assets/textures/SimplePeople_${role}_${skin}.png`));
+    const fbx = useFBX(require(`@/assets/model/${role}.fbx`));
 
-    const texture = useTexture(texSrc);
-    const fbx = useFBX(modelSrc);
+    // const [currentFbx, setCurrentFbx] = useState(fbx);
+
     fbx.scale.set(0.05, 0.05, 0.05);
     
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Jumping', 'Idle'];
@@ -157,6 +157,7 @@ function Player(props: IPlayerProps) {
     })
 
     useEffect(() => {
+        // setCurrentFbx(fbx);
         if (!fbx) return
         fbx.traverse(function (child) {
             //@ts-ignore
@@ -167,7 +168,7 @@ function Player(props: IPlayerProps) {
                 child.material.map = texture;
             }
         });
-    }, [])
+    }, [fbx,texture])
 
 
     useEffect(() => {
@@ -184,9 +185,9 @@ function Player(props: IPlayerProps) {
 
     return (
         // <RigidBody>
-            <mesh ref={meshRef} position={[0,0,0]}>
-                <primitive object={fbx}/>
-            </mesh>
+            <group ref={meshRef} position={[0,0,0]} dispose={null}>
+            <primitive object={fbx} key={role} />
+            </group>
         // </RigidBody>
     );
 }

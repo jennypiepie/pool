@@ -7,13 +7,13 @@ import * as THREE from 'three';
 import { OrbitControls } from '@react-three/drei';
 import { Mesh, Vector3 } from 'three';
 import Display from '../components/display';
-import Npc from './npc';
+// import Npc from './npc';
 import Exhibits from './exhibits';
 import Loading from '../components/loading';
 import Panel from '../components/panel';
 import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
-import { useGlobalStore } from '../store/useGlobalStore';
+import { useOutfitStore } from '../store/useOutfitStore';
 import OutfitPanel from '../components/outfitPanel';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
@@ -24,7 +24,7 @@ function Scene() {
   const collidersRef = useRef<Mesh[] | null>(null);
   const [photoSrc, setPhotoSrc] = useState('');
   const [shoot, setShoot] = useState(false);
-  const { outfit } = useGlobalStore();
+  const { outfit } = useOutfitStore();
   // const { controlsHook, } = useWasdMove();
   
   const getColliders = (colliders: Mesh[]) => {
@@ -66,10 +66,10 @@ function Scene() {
         <fog attach="fog" color="#88ccee" near={1} far={600} />
             {/* <Physics debug> */}
         <Player controlsRef={controlsRef} collidersRef={collidersRef} />
-        <Npc modelName='Prostitute.fbx'
+        {/* <Npc modelName='Prostitute.fbx'
           textureName='SimplePeople_Prostitute_White.png'
           position={[28, 0, -18]}
-          rotateY={-1.23} />
+          rotateY={-1.23} /> */}
         <Pool getColliders={getColliders} />
         <Exhibits />
               {/* </Physics> */}
