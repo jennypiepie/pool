@@ -9,7 +9,7 @@ function OutfitPanel() {
 
   const selectStyle = (color: string) => {
     return {
-      border: player.skin === color ? '2px solid #4febf6' : 'none',
+      border: player.skin === color ? '2px solid #85cbf8' : 'none',
     }
   }
 

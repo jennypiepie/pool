@@ -2,7 +2,7 @@
 function Menu() {
   return (
     <div className='menu'>
-      <div>username</div>
+      <div>{localStorage.getItem('username')}</div>
       <div>liked</div>
       <div>photos</div>
     </div>

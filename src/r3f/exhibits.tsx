@@ -13,6 +13,7 @@ export interface IExhibits{
     position: Vector3Tuple;
     rotation: Vector3Tuple;
     size: number[];
+    beliked: string;
 }
   
 
@@ -21,8 +22,8 @@ function Exhibits() {
     const [exhibitsList, setExhibitsList] = useState([]);
 
     const getList = async () => {
-        await getExhibitsList().then(res => {
-            //@ts-ignore
+        await getExhibitsList().then(result => {
+            const res = result as any;
             if (res.errCode === 0) {
             const list = res.data.list;
             list.forEach((item: any) => {
