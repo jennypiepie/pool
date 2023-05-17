@@ -18,22 +18,23 @@ export interface IExhibits{
   
 
 function Exhibits() {
-    const { select } = useExhibitsStore();
+    const { select,needUpdate } = useExhibitsStore();
     const [exhibitsList, setExhibitsList] = useState([]);
 
     const getList = async () => {
         await getExhibitsList().then(result => {
             const res = result as any;
             if (res.errCode === 0) {
-            const list = res.data.list;
-            list.forEach((item: any) => {
-                item.position = item.position.split(',');
-                item.rotation = item.rotation.split(',');
-                item.size = item.size.split(',');
-            });
-            setExhibitsList(list)
+                const list = res.data.list;
+                list.forEach((item: any) => {
+                    // console.log(item);
+                    item.position = item.position.split(',');
+                    item.rotation = item.rotation.split(',');
+                    item.size = item.size.split(',');
+                });
+                setExhibitsList(list)
             }
-        })
+        });
     }
     
 
@@ -51,10 +52,9 @@ function Exhibits() {
         )
     })
 
-
-    useEffect(() => { 
+    useEffect(() => {
         getList();
-    },[])
+    },[needUpdate])
 
     return (<>
         <Sculpture

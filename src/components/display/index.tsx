@@ -9,16 +9,22 @@ import { collectExhibits } from "@/src/request/api";
 
 function Display() {
   const { display,close } = useExhibitsStore();
-  const { title, desc, name, exhibitsId,beliked } = display;
+  const { title, desc, name, exhibitsId,beliked,likedNum } = display;
   const [liked, setLiked] = useState(beliked);
+  const [lNum,setLNum] = useState(likedNum)
 
-  const finish = () => {
+  const finish = async () => {
     const userId = Number(localStorage.getItem('userId'));
     if (userId > 0 && exhibitsId > 0) {
-      collectExhibits({userId, exhibitsId ,liked});
+      await collectExhibits({ userId, exhibitsId, liked });
     }
     close();
-  } 
+  }
+
+  const onClick = () => {
+    setLiked(!liked);
+    liked ? setLNum(lNum - 1) : setLNum(lNum + 1);
+  }
 
   return ReactDOM.createPortal(
     <div className="display">
@@ -31,9 +37,10 @@ function Display() {
           <div className="desc">{desc}</div>
           <div className="liked_btn"
             style={{ color: liked ? '#85cbf8' : '#8d8d8d' }}
-            onClick={()=>setLiked(!liked)}
+            onClick={onClick}
           >
             <HeartFilled />
+            <span className="btn_num">{lNum}</span>
           </div>
         </div>
         

@@ -8,9 +8,11 @@ interface IDisplay{
     desc: string,
     visible: boolean,
     beliked: boolean;
+    likedNum: number;
 }
 interface IExhibitsStore {
     display: IDisplay;
+    needUpdate: boolean;
     select: (selected: IExhibits) => void;
     close: () => void;
 };
@@ -23,9 +25,12 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         title: '',
         desc: '',
         beliked: false,
+        likedNum: 0,
     },
+    needUpdate:true,
     select: (selected: IExhibits) => set(() => {
-        const list = selected.beliked.split(',');
+        const list = selected.beliked.split(',').filter(item=>item!=="");
+        const likedNum = list.length;
         const beliked = list.includes(localStorage.getItem('userId')||'');
         return {
             display: {
@@ -34,8 +39,10 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 title: selected.title,
                 desc: selected.desc,
                 visible: true,
-                beliked
-            }
+                beliked,
+                likedNum
+            },
+            needUpdate:true,
         }
     }),
 
@@ -44,7 +51,8 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             display: {
                 ...display,
                 visible: false,
-            }
+            },
+            needUpdate:false,
         }
     }),
 }));

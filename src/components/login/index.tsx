@@ -119,7 +119,7 @@ function Login() {
                     <Form.Item>
                         <Button size='large'
                         style={{
-                            background: 'radial-gradient(#70cccc, #b7e1e4, #e2f5f5)',
+                            background: 'radial-gradient(#4460f1, #f64f59, #c471ed)',
                             color: '#e2f5f5'
                         }} htmlType="submit" block>{show ? ' 注册 ':'登录'}</Button>
                     </Form.Item>
