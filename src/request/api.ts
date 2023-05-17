@@ -18,7 +18,7 @@ export const RegisterApi = (params:ILoginParams) => request.post('/register', pa
 export const LoginApi = (params:ILoginParams) => request.post('/login', params)
 
 // 获取展品列表
-export const getExhibitsList = () => request.get('/exhibits/list');
+export const getExhibitsList = (params?:any) => request.post('/exhibits/list',params);
 
 //收藏展品
 export const collectExhibits = (params: ICollectParams) => request.post('./exhibits/collect',params);

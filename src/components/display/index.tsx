@@ -5,16 +5,19 @@ import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { HeartFilled } from "@ant-design/icons";
 import { useState } from "react";
 import { collectExhibits } from "@/src/request/api";
+import { useUserStore } from "@/src/store/useUserStore";
 
 
 function Display() {
-  const { display,close } = useExhibitsStore();
+  const { display, close } = useExhibitsStore();
+  const { user } = useUserStore();
   const { title, desc, name, exhibitsId,beliked,likedNum } = display;
   const [liked, setLiked] = useState(beliked);
   const [lNum,setLNum] = useState(likedNum)
 
   const finish = async () => {
-    const userId = Number(localStorage.getItem('userId'));
+    const userId = user.userId;
+    // const userId = Number(localStorage.getItem('userId'));
     if (userId > 0 && exhibitsId > 0) {
       await collectExhibits({ userId, exhibitsId, liked });
     }

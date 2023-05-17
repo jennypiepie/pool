@@ -1,4 +1,5 @@
 import { ILoginParams, LoginApi, RegisterApi } from '@/src/request/api';
+import { useUserStore } from '@/src/store/useUserStore';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import './index.scss';
 function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
+    const { setUser } = useUserStore();
 
     const login = (params: ILoginParams) => {
         LoginApi({
@@ -20,7 +22,16 @@ function Login() {
                 message.success(res.message);
                 localStorage.setItem('userId', res.data.userId);
                 localStorage.setItem('token', res.data['token']);
-                localStorage.setItem('username', res.data.username);
+                // localStorage.setItem('username', res.data.username);
+
+                const userInfo = {
+                    username: res.data.username,
+                    userId: res.data.userId,
+                    liked: res.data.liked,
+                    likedList: [],
+                }
+                setUser(userInfo);
+
                 setTimeout(() => {
                     navigate('/scene');
                 }, 1500);
