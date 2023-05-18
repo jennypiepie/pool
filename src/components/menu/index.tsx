@@ -1,24 +1,12 @@
-import { getExhibitsList } from "@/src/request/api";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 
 function Menu() {
-  const { user,setList } = useUserStore();
-
-  const openLikedListPanel = async () => {
-
-    const res = await getExhibitsList({idList: user.liked}) as any;
-    if (res.errCode === 0) {
-      const list: any[] = res.data.list;
-      const nameList = list.map(l => l.name);
-      setList(nameList);
-      
-    }
-  }
+  const {openLikedList } = useExhibitsStore();
 
   return (
     <div className='menu'>
-      <div>{user.username}</div>
-      <div onClick={openLikedListPanel}>liked</div>
+      <div>{localStorage.getItem('username')}</div>
+      <div onClick={openLikedList}>liked</div>
       <div>photos</div>
     </div>
   );

@@ -12,10 +12,13 @@ export interface ICollectParams {
 }
 
 // 注册
-export const RegisterApi = (params:ILoginParams) => request.post('/register', params)
+export const registerApi = (params: ILoginParams) => request.post('/user/register', params);
 
 // 登录
-export const LoginApi = (params:ILoginParams) => request.post('/login', params)
+export const loginApi = (params: ILoginParams) => request.post('/user/login', params);
+
+//获取用户信息
+export const getUserInfo = (params: {userId:number}) => request.post('/user/list', params);
 
 // 获取展品列表
 export const getExhibitsList = (params?:any) => request.post('/exhibits/list',params);

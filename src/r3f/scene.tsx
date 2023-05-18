@@ -15,6 +15,7 @@ import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useOutfitStore } from '../store/useOutfitStore';
 import OutfitPanel from '../components/outfitPanel';
+import LikedListPanel from '../components/likedListPanel';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 
@@ -25,6 +26,7 @@ function Scene() {
   const [photoSrc, setPhotoSrc] = useState('');
   const [shoot, setShoot] = useState(false);
   const { outfit } = useOutfitStore();
+  const { likedList } = useExhibitsStore();
   // const { controlsHook, } = useWasdMove();
   
   const getColliders = (colliders: Mesh[]) => {
@@ -86,9 +88,10 @@ function Scene() {
         {/* {controlsHook} */}
         <axesHelper args={[50]} />
       </Canvas >
-      {!outfit&&<Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>}
+      {!outfit && <Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>}
       {display.visible && <Display />}
       {outfit && <OutfitPanel />}
+      {likedList.visible && <LikedListPanel/>}
     </Suspense>
   </>);
 }

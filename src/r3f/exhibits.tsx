@@ -21,8 +21,8 @@ function Exhibits() {
     const { select,needUpdate } = useExhibitsStore();
     const [exhibitsList, setExhibitsList] = useState([]);
 
-    const getList = async () => {
-        await getExhibitsList().then(result => {
+    const getList = () => {
+        getExhibitsList().then(result => {
             const res = result as any;
             if (res.errCode === 0) {
                 const list = res.data.list;

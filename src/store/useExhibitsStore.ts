@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { IExhibits } from '../r3f/exhibits';
-
-interface IDisplay{
+interface IDisplay {
     exhibitsId: number;
     name: string,
     title: string,
@@ -10,11 +9,18 @@ interface IDisplay{
     beliked: boolean;
     likedNum: number;
 }
+
+interface ILikedList {
+    visible: boolean;
+}
 interface IExhibitsStore {
     display: IDisplay;
     needUpdate: boolean;
+    likedList: ILikedList,
     select: (selected: IExhibits) => void;
     close: () => void;
+    openLikedList: () => void;
+    closeLikedList: () => void;
 };
 
 export const useExhibitsStore = create<IExhibitsStore>((set) => ({
@@ -27,7 +33,10 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         beliked: false,
         likedNum: 0,
     },
-    needUpdate:true,
+    needUpdate: true,
+    likedList: {
+        visible: false,
+    },
     select: (selected: IExhibits) => set(() => {
         const list = selected.beliked.split(',').filter(item=>item!=="");
         const likedNum = list.length;
@@ -45,7 +54,6 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             needUpdate:true,
         }
     }),
-
     close: () => set(({display}) => {
         return {
             display: {
@@ -53,6 +61,20 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 visible: false,
             },
             needUpdate:false,
+        }
+    }),
+    openLikedList:() => set(() => {
+        return {
+            likedList: {
+                visible:true
+            }
+        }
+    }),
+    closeLikedList:() => set(() => {
+        return {
+            likedList: {
+                visible:false
+            }
         }
     }),
 }));
