@@ -7,16 +7,15 @@ import './index.scss';
 import { Popover,Image } from "antd";
 import Menu from "../menu";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
+import { usePhotoStore } from "@/src/store/usePhotoStore";
 
-interface IProps{
-	shoot: () => void;
-	photoSrc: string;
-}
-
-function Panel(props: IProps) {
-	const { shoot, photoSrc } = props;
+function Panel() {
+	// const { shoot, photoSrc } = props;
 	const [playing, setPlaying] = useState(true);
+	const [open, setOpen] = useState(false);
 	const { onClick } = useOutfitStore();
+  	const { setShoot, photos } = usePhotoStore();
+
 
 	const bgmHowl = useMemo(() => new Howl({
         volume: 0.3,
@@ -31,21 +30,21 @@ function Panel(props: IProps) {
 	return ReactDOM.createPortal(
 		<div className="container">
 			<div className="top_right">
-				<Popover placement="left" content={<Menu />}> 
-					<div className="btn"><SmileFilled /></div>
+				<Popover placement="left" content={<Menu />} open={open}> 
+					<div className="btn" onClick={()=>setOpen(!open)}><SmileFilled /></div>
 				</Popover>
 			</div>
 			<div className="btn_group">
 				<div className="btn" onClick={()=>setPlaying(!playing)}><SoundFilled /></div>
 				<div className="btn" onClick={onClick}><SkinFilled /></div>
-				{photoSrc !== '' ?
+				{photos.current !== '' ?
 					<Popover
 						placement="left"
-						content={<div style={{ width: 100, height:60}}><Image src={photoSrc} /></div>}
+						content={<div style={{ width: 100, height:60}}><Image src={photos.current} /></div>}
 						open={true}>
-						<div className="btn" onClick={shoot}><CameraFilled /></div>
+						<div className="btn" onClick={()=>setShoot(true)}><CameraFilled /></div>
 					</Popover> :
-					<div className="btn" onClick={shoot}><CameraFilled /></div>
+					<div className="btn" onClick={()=>setShoot(true)}><CameraFilled /></div>
 				}
 			</div>
 		</div>,

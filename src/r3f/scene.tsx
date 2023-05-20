@@ -1,4 +1,4 @@
-import { useRef, Suspense, useState } from 'react';
+import { useRef, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import Player from './player';
 import Pool from './pool';
@@ -14,8 +14,11 @@ import Panel from '../components/panel';
 import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useOutfitStore } from '../store/useOutfitStore';
+import { usePhotoStore } from '../store/usePhotoStore';
 import OutfitPanel from '../components/outfitPanel';
-import LikedListPanel from '../components/likedListPanel';
+import LikedList from '../components/likedList';
+// import { addPhoto, upload } from '../request/api';
+import PhotoList from '../components/photoList';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 
@@ -23,24 +26,51 @@ function Scene() {
 
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
-  const [photoSrc, setPhotoSrc] = useState('');
-  const [shoot, setShoot] = useState(false);
+
+  const { display } = useExhibitsStore();
   const { outfit } = useOutfitStore();
   const { likedList } = useExhibitsStore();
-  // const { controlsHook, } = useWasdMove();
+  const { setShoot, addPhoto, photos } = usePhotoStore();
   
+
+
+// function dataURLtoFile(dataurl:string, filename:string) {
+//   const arr = dataurl.split(',');
+//   //@ts-ignore
+// 	let mime = arr[0].match(/:(.*?);/)[1];
+// 	let bstr = window.atob(arr[1]);
+// 	let n = bstr.length;
+// 	let u8arr = new Uint8Array(n);
+// 	while (n--) {
+// 		u8arr[n] = bstr.charCodeAt(n);
+// 	}
+// 	return new File([u8arr], filename, {
+// 		type: mime
+// 	});
+// }
+  
+  // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
     collidersRef.current = colliders;
   };
-
-  const { display } = useExhibitsStore();
-
   const GetPhotos = () => {
     const { gl, scene, camera } = useThree();
-    if (shoot) {
+    if (photos.shoot) {
       gl.render(scene, camera);
       const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
-      setPhotoSrc(imgData);
+      const userId = Number(localStorage.getItem('userId'));
+      const timestamp=(new Date()).valueOf();
+      const name = `${userId}_${timestamp}`;
+      // const file = dataURLtoFile(imgData,'userId');
+      // console.log(file);
+
+      const pObj = {
+        name,
+        url: imgData
+      };
+
+      
+      addPhoto(pObj)
       setShoot(false);
     }
     return null;
@@ -88,10 +118,11 @@ function Scene() {
         {/* {controlsHook} */}
         <axesHelper args={[50]} />
       </Canvas >
-      {!outfit && <Panel photoSrc={photoSrc} shoot={()=>setShoot(true)}/>}
+      {!outfit && <Panel />}
       {display.visible && <Display />}
       {outfit && <OutfitPanel />}
-      {likedList.visible && <LikedListPanel/>}
+      {likedList.visible && <LikedList />}
+      {photos.visible && <PhotoList />}
     </Suspense>
   </>);
 }

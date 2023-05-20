@@ -16,7 +16,7 @@ function OutfitPanel() {
   return (
     <div className="outfit">
       <div className="skin_btn">
-        {skinList.map(skin=><li onClick={() => changeSkin(skin)} style={selectStyle(skin)}/>)}
+        {skinList.map((skin, index) => <li onClick={() => changeSkin(skin)} style={selectStyle(skin)} key={index} />)}
       </div>
       <div className="pre_btn" onClick={()=>changeRole('pre')}><LeftOutlined /></div>
       <div className="next_btn" onClick={()=>changeRole('next')}><RightOutlined /></div>
