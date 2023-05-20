@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface IOutfitStore {
-    outfit: boolean;
-    player: {
+    outfitShow: boolean;
+    outfit: {
         role: string;
         skin:string;
     }
@@ -16,37 +16,37 @@ const roleList = ['BeachBabe', 'BusinessMan', 'Doctor', 'FireFighter', 'Policema
     'Prostitute', 'Punk', 'RiotCop', 'Robber', 'Sheriff', 'StreetMan', 'Waitress'];
 
 export const useOutfitStore = create<IOutfitStore>((set) => ({
-    outfit: false,
-    player: {
+    outfitShow: false,
+    outfit: {
         role: 'BeachBabe',
         skin:'White',
     },
     onClick: () => set(() => {
         return {
-            outfit: true,
+            outfitShow: true,
         }
     }),
 
     onFinish: () => set(() => {
         return {
-            outfit: false
+            outfitShow: false
         }
     }),
-    changeRole: (dir:string) => set(({player}) => {
-        const currentIndex = roleList.findIndex(item => item === player.role);
+    changeRole: (dir:string) => set(({outfit}) => {
+        const currentIndex = roleList.findIndex(item => item === outfit.role);
         const index = dir === 'pre' ? (currentIndex + roleList.length - 1) % roleList.length
             : (currentIndex + 1) % roleList.length;
         return {
-            player: {
+            outfit: {
                 role: roleList[index],
-                skin: player.skin,
+                skin: outfit.skin,
             }
         }
     }),
-    changeSkin:(color:string) => set(({player}) => {
+    changeSkin:(color:string) => set(({outfit}) => {
         return {
-            player: {
-                role: player.role,
+            outfit: {
+                role: outfit.role,
                 skin: color,
             }
         }

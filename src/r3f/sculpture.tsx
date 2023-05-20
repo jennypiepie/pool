@@ -2,20 +2,25 @@ import { useFBX } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import { Vector3Tuple, Mesh} from 'three';
+import { useExhibitsStore } from '../store/useExhibitsStore';
 
 interface ISculptureProps {
     name: string,
     position: Vector3Tuple,
     rotation: Vector3Tuple,
-    scale:number,
+    scale: number,
+    onClickSculpture: () => void,
 }
 
-function Sculpture(props:ISculptureProps) {
-    const { name, position, rotation, scale } = props;
+function Sculpture(props: ISculptureProps) {
+    const { sculpture } = useExhibitsStore();
+    const { name, position, rotation, scale,onClickSculpture } = props;
     const model = useFBX(require(`@/assets/model/exhibits/${name}`));
+    
     const modelRef = useRef();
     const positionY = position[1];
     const rotationY = rotation[1];
+    const visible = !sculpture.hide || sculpture.name === name;
 
     useFrame((state) => {
     if (modelRef.current) {
@@ -33,6 +38,8 @@ function Sculpture(props:ISculptureProps) {
             rotation={rotation}
             scale={[scale, scale, scale]}
             ref={modelRef}
+            onClick={onClickSculpture}
+            visible={visible}
         />
         
     )

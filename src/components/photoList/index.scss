@@ -22,8 +22,7 @@
             justify-content: space-between;
             .photo_item {
                 position: relative;
-                height: calc(100vh * 0.22);
-                width: calc(100vw * 0.22);
+                width: 40%;
         
                 >img {
                     width: 100%;

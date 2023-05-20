@@ -8,6 +8,7 @@ import { useInput } from '../hooks/useInput';
 // import { RigidBody } from "@react-three/rapier";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useOutfitStore } from '../store/useOutfitStore';
+import { useExhibitsStore } from '../store/useExhibitsStore';
 
 interface IPlayerProps{
     controlsRef: React.MutableRefObject<OrbitControls | null>;
@@ -16,8 +17,9 @@ interface IPlayerProps{
 
 function Player(props: IPlayerProps) {
 
-    const { outfit, player } = useOutfitStore();
-    const { role, skin } = player;
+    const { outfit, outfitShow } = useOutfitStore();
+    const { sculpture } = useExhibitsStore();
+    const { role, skin } = outfit;
     const action = useInput();
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Group>(null);
@@ -114,7 +116,6 @@ function Player(props: IPlayerProps) {
             }
         }
 
-
         rotateModel()
         if (!blocked) {
             p1.x += dir.x * step * 0.1;
@@ -122,8 +123,7 @@ function Player(props: IPlayerProps) {
             p1.z += dir.z * step * 0.1;
             p2.z += dir.z * step * 0.1;
             //@ts-ignore
-            props.controlsRef.current.target.set(p1.x,p1.y+8,p1.z);
-
+            props.controlsRef.current.target.set(p1.x, p1.y + 8, p1.z);
         }
     }
 
@@ -148,8 +148,8 @@ function Player(props: IPlayerProps) {
 
     useFrame((_, delta) => {
         mixer?.update(delta);
-        !outfit && move(action, delta);
-        if (outfit) {
+        !outfitShow && move(action, delta);
+        if (outfitShow) {
             meshRef.current?.position.lerp(new Vector3(0, 0, 0), 0.05);
             meshRef.current?.rotation.set(0, 0, 0);
             props.controlsRef.current?.target.set(0, 8, 0);
@@ -185,8 +185,8 @@ function Player(props: IPlayerProps) {
 
     return (
         // <RigidBody>
-            <group ref={meshRef} position={[0,0,0]} dispose={null}>
-            <primitive object={fbx} key={role} />
+            <group ref={meshRef} position={[0,0,0]} dispose={null} visible={!sculpture.hide}>
+                <primitive object={fbx} key={role} />
             </group>
         // </RigidBody>
     );

@@ -19,6 +19,7 @@ import OutfitPanel from '../components/outfitPanel';
 import LikedList from '../components/likedList';
 // import { addPhoto, upload } from '../request/api';
 import PhotoList from '../components/photoList';
+import SculpturePanel from '../components/sculpturePanel';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 
@@ -27,12 +28,11 @@ function Scene() {
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
 
-  const { display } = useExhibitsStore();
-  const { outfit } = useOutfitStore();
+  const { display,sculpture } = useExhibitsStore();
+  const { outfitShow } = useOutfitStore();
   const { likedList } = useExhibitsStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
   
-
 
 // function dataURLtoFile(dataurl:string, filename:string) {
 //   const arr = dataurl.split(',');
@@ -98,10 +98,6 @@ function Scene() {
         <fog attach="fog" color="#88ccee" near={1} far={600} />
             {/* <Physics debug> */}
         <Player controlsRef={controlsRef} collidersRef={collidersRef} />
-        {/* <Npc modelName='Prostitute.fbx'
-          textureName='SimplePeople_Prostitute_White.png'
-          position={[28, 0, -18]}
-          rotateY={-1.23} /> */}
         <Pool getColliders={getColliders} />
         <Exhibits />
               {/* </Physics> */}
@@ -110,19 +106,21 @@ function Scene() {
                 // minPolarAngle={0}
                 // maxPolarAngle={Math.PI / 2.1}
                 // enablePan={false}
+          target={sculpture.position}
           ref={controlsRef}
         />}
         <Lights />
         <GetPhotos />
-        {outfit && <MoveCamera />}
+        {outfitShow && <MoveCamera />}
         {/* {controlsHook} */}
-        <axesHelper args={[50]} />
+        {/* <axesHelper args={[50]} /> */}
       </Canvas >
-      {!outfit && <Panel />}
+      {!outfitShow && <Panel />}
       {display.visible && <Display />}
-      {outfit && <OutfitPanel />}
+      {outfitShow && <OutfitPanel />}
       {likedList.visible && <LikedList />}
       {photos.visible && <PhotoList />}
+      {sculpture.hide && <SculpturePanel/>}
     </Suspense>
   </>);
 }

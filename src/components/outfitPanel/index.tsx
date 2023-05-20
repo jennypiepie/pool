@@ -5,11 +5,11 @@ import './index.scss'
 const skinList = ['White', 'Brown', 'Black'];
 
 function OutfitPanel() {
-  const { onFinish, changeRole,changeSkin,player } = useOutfitStore();
+  const { onFinish, changeRole,changeSkin,outfit } = useOutfitStore();
 
   const selectStyle = (color: string) => {
     return {
-      border: player.skin === color ? '2px solid #85cbf8' : 'none',
+      border: outfit.skin === color ? '2px solid #85cbf8' : 'none',
     }
   }
 

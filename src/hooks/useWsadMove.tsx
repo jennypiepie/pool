@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useFrame, useThree } from '@react-three/fiber';
 import { Quaternion, Vector3 } from 'three'
-import { usePlayerStore } from "../store/usePlayerStore";
+import { usePlayerStore } from "../store/usePlayerStore2";
 
 const useCodes = () => {
     const [codes] = useState(() => new Set<string>());

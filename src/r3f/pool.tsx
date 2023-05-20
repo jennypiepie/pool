@@ -1,6 +1,7 @@
 import { useGLTF } from '@react-three/drei';
 // import { RigidBody } from "@react-three/rapier";
 import { Mesh } from 'three';
+import { useExhibitsStore } from '../store/useExhibitsStore';
 interface IPoolProps{
     getColliders: (colliders:Mesh[]) => void;
 }
@@ -8,6 +9,8 @@ interface IPoolProps{
 function Pool(props: IPoolProps) {
     const colliders: Mesh[] = [];
     const gltf = useGLTF(require('@/assets/model/pool.glb'));
+    const { sculpture } = useExhibitsStore();
+
     //@ts-ignore
     const group = gltf.scene;
     group.position.set(0, 14, 0);
@@ -24,7 +27,7 @@ function Pool(props: IPoolProps) {
 
     return (
         // <RigidBody colliders='trimesh' type='fixed'>
-            <primitive object={group}/>
+        <primitive object={group} visible={!sculpture.hide} />
         // </RigidBody>
     );
 }
