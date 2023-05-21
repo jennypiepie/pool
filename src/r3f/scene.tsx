@@ -17,9 +17,9 @@ import { useOutfitStore } from '../store/useOutfitStore';
 import { usePhotoStore } from '../store/usePhotoStore';
 import OutfitPanel from '../components/outfitPanel';
 import LikedList from '../components/likedList';
-// import { addPhoto, upload } from '../request/api';
 import PhotoList from '../components/photoList';
 import SculpturePanel from '../components/sculpturePanel';
+import BGM from '../hooks/bgm';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 
@@ -85,7 +85,8 @@ function Scene() {
   }
   
   return (<>
-    <Suspense fallback={<Loading/>}>
+    <Suspense fallback={<Loading />}>
+      <BGM />
       <Canvas
         gl={{
           pixelRatio: window.devicePixelRatio,
@@ -106,7 +107,8 @@ function Scene() {
                 // minPolarAngle={0}
                 // maxPolarAngle={Math.PI / 2.1}
                 // enablePan={false}
-          target={sculpture.position}
+          target={[sculpture.position[0],
+          sculpture.position[1] + 10, sculpture.position[2]]}
           ref={controlsRef}
         />}
         <Lights />
@@ -115,7 +117,7 @@ function Scene() {
         {/* {controlsHook} */}
         {/* <axesHelper args={[50]} /> */}
       </Canvas >
-      {!outfitShow && <Panel />}
+      {!outfitShow&& !sculpture.hide && <Panel />}
       {display.visible && <Display />}
       {outfitShow && <OutfitPanel />}
       {likedList.visible && <LikedList />}

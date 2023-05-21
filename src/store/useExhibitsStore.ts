@@ -52,7 +52,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
     sculpture: {
         hide: false,
         name:'',
-        position: [0, 8, 0],
+        position: [0, -2, 0],
         title: '',
         desc:'',
     },

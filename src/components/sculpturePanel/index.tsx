@@ -4,12 +4,16 @@ import './index.scss';
 
 
 function SculpturePanel() {
-  const { closeSculpture } = useExhibitsStore();
+  const { closeSculpture,sculpture } = useExhibitsStore();
 
   
   return ReactDOM.createPortal(
     <div className="sculpture">
       <div className="container">
+        <div className="content">
+          <div className="title">{sculpture.title}</div>
+          <div className="desc">{sculpture.desc}</div>
+        </div>
         <div className="close_btn" onClick={closeSculpture}>X</div>
       </div>
     </div>,

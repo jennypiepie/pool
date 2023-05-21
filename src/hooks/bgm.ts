@@ -1,8 +1,12 @@
 import { Howl } from 'howler';
 import { useEffect, useMemo } from 'react';
 import bgmUrl from '@/assets/audio/D254-from-the-deep-sea.mp3';
+import { useGlobalStore } from '../store/useGlobalStore';
 
-export const useBGM = () => {
+
+const BGM = () => {
+    const { bgm } = useGlobalStore();
+
     const bgmHowl = useMemo(() => new Howl({
         volume: 0.3,
         src: bgmUrl,
@@ -10,11 +14,11 @@ export const useBGM = () => {
     }), []);
 
     useEffect(() => {
-        bgmHowl.play();
+        bgm ? bgmHowl.play() : bgmHowl.pause();
+    }, [bgmHowl,bgm]);
 
-        return () => {
-            bgmHowl.stop();
-        }
-    }, [bgmHowl]);
-
+    
+    return null
 }
+
+export default BGM;
