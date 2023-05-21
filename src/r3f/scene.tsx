@@ -107,6 +107,7 @@ function Scene() {
                 // minPolarAngle={0}
                 // maxPolarAngle={Math.PI / 2.1}
                 // enablePan={false}
+          enableDamping={true}
           target={[sculpture.position[0],
           sculpture.position[1] + 10, sculpture.position[2]]}
           ref={controlsRef}

@@ -92,51 +92,37 @@ function Exhibits() {
 
     return (<>
         {/* <Sculpture
-            name='Cat.fbx'
-            position={[-85, 4, -20]}
+            name='Monument.fbx'
+            position={[0, 4, 0]}
             rotation={[0, 0, 0]}
-            scale={10}
+            scale={15}
             onClickSculpture={() => clickSculpture(
-                {id:1,
-                name: 'Cat.fbx',
+                {id:4,
+                name: 'Monument.fbx',
                 title: 'ttt',
                 desc: 'dannaafa',
-                position: [-85, 4, -20],
+                position: [0,4,0],
                 rotation: [0, 0, 0],
                 scale: 10}
             )}
         /> */}
-        {/* <Sculpture 
-            name='Bird.fbx'
-            position={[38, 14, 92]}
-            rotation={[0, 0, 0]}
-            scale={1}
-            onClickSculpture={() => clickSculpture(
-                {id:2,
-                name: 'Bird.fbx',
-                title: 'ttt',
-                desc: 'dannaafa',
-                position: [38, 14, 92],
-                rotation: [0, 0, 0],
-                scale: 1}
-            )}
-        />
-        <Sculpture 
-            name='Dog.fbx'
-            position={[-80, 24, 100]}
-            rotation={[0, -3, 0]}
-            scale={0.1}
-            onClickSculpture={() => clickSculpture(
-                {id:3,
-                name: 'Dog.fbx',
-                title: 'ttt',
-                desc: 'dannaafa',
-                position: [-80, 24, 100],
-                rotation: [0, -3, 0],
-                scale: 0.1}
-            )}
-        />
-         */}
+        {/* <Painting
+            key={3}
+            name='pic3.png'
+            size={[24,16]}
+            position={[45,15,-35]}
+            rotation={[0,Math.PI,0]}
+            onClickPainting={() => select({
+                id:4,
+                name:'pic3.png',
+                title:'titieeee',
+                desc:'bvansg hbwiwwi',
+                position: [0,0,0],
+                rotation:[0,0,0] ,
+                size: [24,16],
+                beliked:'', 
+            })}
+        /> */}
         {paintings}
         {sculptures}
     </>);

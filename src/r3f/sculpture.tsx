@@ -14,7 +14,7 @@ interface ISculptureProps {
 
 function Sculpture(props: ISculptureProps) {
     const { sculpture } = useExhibitsStore();
-    const { name, position, rotation, scale,onClickSculpture } = props;
+    const { name, position, rotation, scale, onClickSculpture } = props;
     const model = useFBX(require(`@/assets/model/exhibits/${name}`));
     
     const modelRef = useRef();
