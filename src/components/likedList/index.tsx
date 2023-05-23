@@ -1,5 +1,6 @@
 import { getExhibitsList } from "@/src/request/api";
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
+import { FolderOpenFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import './index.scss';
@@ -31,6 +32,7 @@ function LikedList() {
     <div className="liked_list">
       <div className="container">
         {listRender}
+        {likedList.length===0&& <div className="empty"><FolderOpenFilled /></div>}
         <div className="close_btn" onClick={closeLikedList}>X</div>
       </div>
       <div className="mask" />

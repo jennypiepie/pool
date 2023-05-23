@@ -10,7 +10,7 @@ import { useGlobalStore } from "@/src/store/useGlobalStore";
 function Panel() {
 	const { onClick } = useOutfitStore();
 	const { setShoot, photos } = usePhotoStore();
-    const { changeState } = useGlobalStore();
+    const { changeState,bgm } = useGlobalStore();
 
 	return ReactDOM.createPortal(
 		<div className="container">
@@ -20,7 +20,7 @@ function Panel() {
 				</Popover>
 			</div>
 			<div className="btn_group">
-				<div className="btn" onClick={()=>changeState}><SoundFilled /></div>
+				<div className="btn" onClick={()=>changeState(!bgm)}><SoundFilled /></div>
 				<div className="btn" onClick={onClick}><SkinFilled /></div>
 				{photos.current !== '' ?
 					<Popover

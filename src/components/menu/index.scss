@@ -1,3 +1,15 @@
 .menu{
-    
+    min-width: 70px;
+    .user{
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 3px;
+        font-size: 16px;
+    }
+    .menu_item{
+        transition: all .3s;
+        padding: 3px 0;
+        &:hover{
+            color: #85cbf8;
+        }
+    }
 }

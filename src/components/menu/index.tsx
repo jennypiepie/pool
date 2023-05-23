@@ -1,7 +1,8 @@
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { useGlobalStore } from "@/src/store/useGlobalStore";
 import { usePhotoStore } from "@/src/store/usePhotoStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
+import './index.scss'
 
 function Menu() {
   const { openLikedList } = useExhibitsStore();
@@ -16,16 +17,16 @@ function Menu() {
     localStorage.removeItem('time');
     setTimeout(() => {
       navigate('/login');
-      changeState(true);
+      changeState(false);
     }, 500);
   }
 
   return (
     <div className='menu'>
-      <div>{localStorage.getItem('username')}</div>
-      <div onClick={openLikedList}>liked</div>
-      <div onClick={openPhotoList}>photos</div>
-      <div onClick={logout}>logout</div>
+      <div className="user">{localStorage.getItem('username')}</div>
+      <div className='menu_item' onClick={openLikedList}>liked</div>
+      <div className='menu_item' onClick={openPhotoList}>photos</div>
+      <div className='menu_item' onClick={logout}>logout</div>
     </div>
   );
 }
