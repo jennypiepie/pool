@@ -7,7 +7,6 @@ import * as THREE from 'three';
 import { OrbitControls } from '@react-three/drei';
 import { Mesh, Vector3 } from 'three';
 import Display from '../components/display';
-// import Npc from './npc';
 import Exhibits from './exhibits';
 import Loading from '../components/loading';
 import Panel from '../components/panel';
@@ -20,8 +19,8 @@ import LikedList from '../components/likedList';
 import PhotoList from '../components/photoList';
 import SculpturePanel from '../components/sculpturePanel';
 import BGM from '../hooks/bgm';
+// import RetroTV from './retroTV';
 // import { useWasdMove } from '../hooks/useWsadMove';
-
 
 function Scene() {
 
@@ -32,22 +31,6 @@ function Scene() {
   const { outfitShow } = useOutfitStore();
   const { likedList } = useExhibitsStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
-  
-
-// function dataURLtoFile(dataurl:string, filename:string) {
-//   const arr = dataurl.split(',');
-//   //@ts-ignore
-// 	let mime = arr[0].match(/:(.*?);/)[1];
-// 	let bstr = window.atob(arr[1]);
-// 	let n = bstr.length;
-// 	let u8arr = new Uint8Array(n);
-// 	while (n--) {
-// 		u8arr[n] = bstr.charCodeAt(n);
-// 	}
-// 	return new File([u8arr], filename, {
-// 		type: mime
-// 	});
-// }
   
   // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
@@ -61,8 +44,6 @@ function Scene() {
       const userId = Number(localStorage.getItem('userId'));
       const timestamp=(new Date()).valueOf();
       const name = `${userId}_${timestamp}`;
-      // const file = dataURLtoFile(imgData,'userId');
-      // console.log(file);
 
       const pObj = {
         name,
@@ -101,6 +82,7 @@ function Scene() {
         <Player controlsRef={controlsRef} collidersRef={collidersRef} />
         <Pool getColliders={getColliders} />
         <Exhibits />
+        {/* <RetroTV/> */}
               {/* </Physics> */}
         {<OrbitControls 
                 // minDistance={10} maxDistance={80}

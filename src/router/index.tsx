@@ -1,14 +1,13 @@
 import App from '../App'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Scene from '../r3f/scene';
-// import Login from '../components/login';
+import Login from '../components/login';
+import AuthRoute from '../components/AuthRoute';
 
 const BaseRouter = () => (
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<App />}></Route>
-            <Route path='/scene' element={<Scene />}></Route>
-            {/* <Route path='/login' element={<Login />}></Route> */}
+            <Route path='/' element={<AuthRoute><App /></AuthRoute>}></Route>
+            <Route path='/login' element={<Login />}></Route>
         </Routes>
     </BrowserRouter>
 )

@@ -1,4 +1,5 @@
 import { ILoginParams, loginApi, registerApi } from '@/src/request/api';
+import { useGlobalStore } from '@/src/store/useGlobalStore';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
@@ -9,6 +10,8 @@ import './index.scss';
 function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
+    const { changeState } = useGlobalStore();
+
 
     const login = (params: ILoginParams) => {
         loginApi({
@@ -18,11 +21,27 @@ function Login() {
             const res = result as any;
             if (res.errCode === 0) {
                 message.success(res.message);
+                
+                let obj;
+                if (localStorage.hasOwnProperty('time')) {
+                    const time = JSON.parse(localStorage.getItem('time')!)
+                    obj = {
+                        lastLoginTime: time.curLoginTime,
+                        curLoginTime: Date.now(),
+                    }
+                } else {
+                    obj = {
+                        lastLoginTime: Date.now(),
+                        curLoginTime: Date.now(),
+                    }
+                }
                 localStorage.setItem('userId', res.data.userId);
                 localStorage.setItem('token', res.data['token']);
                 localStorage.setItem('username', res.data.username);
+                localStorage.setItem('time',JSON.stringify(obj));
                 setTimeout(() => {
-                    navigate('/scene');
+                    navigate('/');
+                    changeState(true);
                 }, 1500);
             } else {
                 message.error(res.message);

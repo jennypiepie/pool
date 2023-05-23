@@ -18,7 +18,7 @@ const roleList = ['BeachBabe', 'BusinessMan', 'Doctor', 'FireFighter', 'Policema
 export const useOutfitStore = create<IOutfitStore>((set) => ({
     outfitShow: false,
     outfit: {
-        role: 'BeachBabe',
+        role: 'Waitress',
         skin:'White',
     },
     onClick: () => set(() => {

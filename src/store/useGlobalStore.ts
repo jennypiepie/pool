@@ -2,14 +2,14 @@ import { create } from 'zustand';
 
 interface IGlobalStore {
     bgm: boolean;
-    changeState: () => void;
+    changeState: (forceClose?:boolean) => void;
 };
 
 export const useGlobalStore = create<IGlobalStore>((set) => ({
     bgm: true,
-    changeState: () => set(({bgm}) => {
+    changeState: (forceClose?:boolean) => set(({bgm}) => {
         return {
-            bgm:!bgm
+            bgm: forceClose!==undefined ? !bgm : forceClose,
         }
     })
 }));

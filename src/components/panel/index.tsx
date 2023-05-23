@@ -15,12 +15,12 @@ function Panel() {
 	return ReactDOM.createPortal(
 		<div className="container">
 			<div className="top_right">
-				<Popover placement="left" content={<Menu />}> 
+				<Popover placement="leftTop" arrow={false} content={<Menu />}> 
 					<div className="btn"><SmileFilled /></div>
 				</Popover>
 			</div>
 			<div className="btn_group">
-				<div className="btn" onClick={changeState}><SoundFilled /></div>
+				<div className="btn" onClick={()=>changeState}><SoundFilled /></div>
 				<div className="btn" onClick={onClick}><SkinFilled /></div>
 				{photos.current !== '' ?
 					<Popover
