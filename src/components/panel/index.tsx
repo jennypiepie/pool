@@ -10,7 +10,7 @@ import { useGlobalStore } from "@/src/store/useGlobalStore";
 function Panel() {
 	const { onClick } = useOutfitStore();
 	const { setShoot, photos } = usePhotoStore();
-    const { changeState,bgm } = useGlobalStore();
+    const { changeState,bgm,photoPopVisible,changePopoverState } = useGlobalStore();
 
 	return ReactDOM.createPortal(
 		<div className="container">
@@ -25,8 +25,10 @@ function Panel() {
 				{photos.current !== '' ?
 					<Popover
 						placement="left"
-						content={<div style={{ width: 100, height:60}}><Image src={photos.current} /></div>}
-						open={true}>
+						content={<div style={{ width: 100, height: 50 }} onClick={()=>changePopoverState(false)}>
+							<Image src={photos.current} />
+						</div>}
+						open={photoPopVisible}>
 						<div className="btn" onClick={()=>setShoot(true)}><CameraFilled /></div>
 					</Popover> :
 					<div className="btn" onClick={()=>setShoot(true)}><CameraFilled /></div>

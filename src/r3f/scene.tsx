@@ -19,6 +19,7 @@ import LikedList from '../components/likedList';
 import PhotoList from '../components/photoList';
 import SculpturePanel from '../components/sculpturePanel';
 import BGM from '../hooks/bgm';
+import { useGlobalStore } from '../store/useGlobalStore';
 // import RetroTV from './retroTV';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
@@ -31,6 +32,7 @@ function Scene() {
   const { outfitShow } = useOutfitStore();
   const { likedList } = useExhibitsStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
+  const { changePopoverState } = useGlobalStore()
   
   // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
@@ -53,6 +55,7 @@ function Scene() {
       
       addPhoto(pObj)
       setShoot(false);
+      changePopoverState(true);
     }
     return null;
   };

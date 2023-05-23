@@ -15,8 +15,8 @@ function PhotoList() {
     a.dispatchEvent(event);
   }
 
-  const listRender = list.map((item) =>
-    <div className="photo_item" onClick={() => download(item)}>
+  const listRender = list.map((item,index) =>
+    <div className="photo_item" onClick={() => download(item)} key={index}>
       <img src={item.url} alt='' ></img>
       <div className="cover">
         <span className="text"><DownloadOutlined />Download</span>

@@ -24,9 +24,9 @@ function Menu() {
   return (
     <div className='menu'>
       <div className="user">{localStorage.getItem('username')}</div>
-      <div className='menu_item' onClick={openLikedList}>liked</div>
-      <div className='menu_item' onClick={openPhotoList}>photos</div>
-      <div className='menu_item' onClick={logout}>logout</div>
+      <div className='menu_item' onClick={openLikedList}>Like</div>
+      <div className='menu_item' onClick={openPhotoList}>Photos</div>
+      <div className='menu_item' onClick={logout}>Logout</div>
     </div>
   );
 }
