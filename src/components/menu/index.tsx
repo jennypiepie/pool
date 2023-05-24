@@ -1,5 +1,6 @@
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { useGlobalStore } from "@/src/store/useGlobalStore";
+import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { usePhotoStore } from "@/src/store/usePhotoStore";
 import { useNavigate } from "react-router-dom"; 
 import './index.scss'
@@ -8,6 +9,7 @@ function Menu() {
   const { openLikedList } = useExhibitsStore();
   const { openPhotoList } = usePhotoStore();
   const { changeState } = useGlobalStore();
+  const { reset } = useOutfitStore();
   const navigate = useNavigate();
 
   const logout = () => {
@@ -18,6 +20,7 @@ function Menu() {
     setTimeout(() => {
       navigate('/login');
       changeState(false);
+      reset();
     }, 500);
   }
 

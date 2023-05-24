@@ -1,3 +1,4 @@
+import { updateOutfit } from "@/src/request/api";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import './index.scss'
@@ -13,6 +14,13 @@ function OutfitPanel() {
     }
   }
 
+  const finish = () => {
+    onFinish();
+    const userId = Number(localStorage.getItem('userId'));
+    const outfitStr = `${outfit.role},${outfit.skin}`;
+    updateOutfit({ userId, outfit: outfitStr });
+  }
+
   return (
     <div className="outfit">
       <div className="skin_btn">
@@ -20,7 +28,7 @@ function OutfitPanel() {
       </div>
       <div className="pre_btn" onClick={()=>changeRole('pre')}><LeftOutlined /></div>
       <div className="next_btn" onClick={()=>changeRole('next')}><RightOutlined /></div>
-      <div className="finish_btn" onClick={onFinish}>Finish</div>
+      <div className="finish_btn" onClick={finish}>Finish</div>
     </div>
   );
 }

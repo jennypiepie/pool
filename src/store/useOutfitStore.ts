@@ -8,6 +8,8 @@ interface IOutfitStore {
     }
     onClick: () => void;
     onFinish: () => void;
+    init: (outfits: string) => void;
+    reset: () => void;
     changeRole: (dir: string) => void;
     changeSkin: (color: string) => void;
 };
@@ -30,6 +32,23 @@ export const useOutfitStore = create<IOutfitStore>((set) => ({
     onFinish: () => set(() => {
         return {
             outfitShow: false
+        }
+    }),
+    init: (outfits: string) => set(() => {
+        const list = outfits.split(',');
+        return {
+            outfit: {
+                role: list[0],
+                skin: list[1],
+            }
+        }
+    }),
+    reset: () => set(() => {
+        return {
+            outfit: {
+                role: 'Waitress',
+                skin:'White',
+            }
         }
     }),
     changeRole: (dir:string) => set(({outfit}) => {
