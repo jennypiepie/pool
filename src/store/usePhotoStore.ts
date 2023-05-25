@@ -15,6 +15,7 @@ interface IPhotoStore {
     addPhoto: (pObj:IPhotoInfo) => void;
     openPhotoList: () => void;
     onClose: () => void;
+    clear: () => void;
 };
 
 export const usePhotoStore = create<IPhotoStore>((set) => ({
@@ -39,7 +40,6 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
                 ...photos,
                 current:pObj.url
             },
-            // list:newList
         }
     }),
     openPhotoList: () => set(({photos}) => {
@@ -57,5 +57,10 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
                 visible:false
             },
         }
-    }),
+     }),
+    clear: () => set(() => {
+        return {
+            list:[],
+        }
+     })
 }));

@@ -7,10 +7,17 @@ import './index.scss'
 
 function Menu() {
   const { openLikedList } = useExhibitsStore();
-  const { openPhotoList } = usePhotoStore();
-  const { changeState } = useGlobalStore();
+  const { openPhotoList,clear } = usePhotoStore();
+  const { changeState,changePopoverState } = useGlobalStore();
   const { reset } = useOutfitStore();
   const navigate = useNavigate();
+
+  const clearStore = () => {
+    changeState(false);
+    changePopoverState(false)
+    reset();
+    clear();
+  }
 
   const logout = () => {
     localStorage.removeItem('userId');
@@ -19,8 +26,7 @@ function Menu() {
     localStorage.removeItem('time');
     setTimeout(() => {
       navigate('/login');
-      changeState(false);
-      reset();
+      clearStore();
     }, 500);
   }
 

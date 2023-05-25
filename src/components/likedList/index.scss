@@ -15,10 +15,50 @@
         padding: 20px;
         z-index: 999;
 
-        >img{
-            width: 40%;
-            object-fit: contain;
+        .liked_title {
+            position: absolute;
+            top: 65px;
+            right: 50px;
+            font-size: 25px;
+            font-weight: 700;
         }
+
+        .imgs{
+            margin-top:40px;
+            height: 320px;
+            overflow: auto;
+
+            >img {
+                width: 40%;
+                object-fit: contain;
+                margin-right:30px;
+                transition: all .3s;
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+
+            &::-webkit-scrollbar{
+                width:5px;
+                height:10px;
+            }
+            &::-webkit-scrollbar-track{
+                background: rgb(239, 239, 239);
+                border-radius:2px;
+            }
+            &::-webkit-scrollbar-thumb{
+                background: #bfbfbf;
+                border-radius:10px;
+            }
+            &::-webkit-scrollbar-thumb:hover{
+                background: #333;
+            }
+            &::-webkit-scrollbar-corner{
+                background: #179a16;
+            }
+
+        }
+
         
         .empty{
             width: 240px;

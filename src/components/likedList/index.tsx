@@ -31,7 +31,10 @@ function LikedList() {
   return ReactDOM.createPortal(
     <div className="liked_list">
       <div className="container">
-        {listRender}
+        <div className="imgs">
+          {listRender}
+        </div>
+        <div className="liked_title">Like</div>
         {likedList.length===0&& <div className="empty"><FolderOpenFilled /></div>}
         <div className="close_btn" onClick={closeLikedList}>X</div>
       </div>

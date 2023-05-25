@@ -142,8 +142,10 @@ function Player(props: IPlayerProps) {
         const radian = Math.acos(v1.dot(origin));
         // 叉乘求方向
         v1.cross(origin);
+        // console.log(v1);
+        
         //@ts-ignore
-        meshRef.current.rotation.y = radian * (v1.z === 0 && 1 / v1.z < 0 ? -1 : 1);
+        meshRef.current.rotation.y = radian * (v1.y > 0 ? -1 : 1);
     }
 
     useFrame((_, delta) => {

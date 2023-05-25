@@ -29,6 +29,7 @@ function PhotoList() {
         <div className="photo_items">
           {listRender}
         </div>
+        <div className="photo_title">Photos</div>
         {list.length===0&& <div className="empty"><FolderOpenFilled /></div>}
         <div className="close_btn" onClick={onClose}>X</div>
       </div>

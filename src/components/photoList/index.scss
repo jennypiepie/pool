@@ -15,14 +15,25 @@
         padding: 20px;
         z-index: 999;
 
+        .photo_title{
+            position: absolute;
+            top: 65px;
+            right: 40px;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
         .photo_items {
-            width: 600px;
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            height: 320px;
+            overflow: auto;
+
             .photo_item {
                 position: relative;
                 width: 40%;
+                margin-right: 30px;
         
                 >img {
                     width: 100%;
@@ -54,6 +65,25 @@
                     transition: all .3s;
                     opacity: 1;
                 }
+            }
+
+            &::-webkit-scrollbar{
+                width:5px;
+                height:10px;
+            }
+            &::-webkit-scrollbar-track{
+                background: rgb(239, 239, 239);
+                border-radius:2px;
+            }
+            &::-webkit-scrollbar-thumb{
+                background: #bfbfbf;
+                border-radius:10px;
+            }
+            &::-webkit-scrollbar-thumb:hover{
+                background: #333;
+            }
+            &::-webkit-scrollbar-corner{
+                background: #179a16;
             }
         }
 

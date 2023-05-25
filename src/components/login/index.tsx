@@ -74,13 +74,12 @@ function Login() {
     }
 
   return (
-    <div id="page" className="site">
-    <div className="container">
-        <div className="login">
-            <div className="hero">
-                <h1>WELCOME<br/>TO MY DREAM</h1>
-            </div>
-            <div className="main">
+      <div className="site">
+        <div className="hero">
+            <h1>WELCOME</h1>
+        </div>
+        <div className="container">
+            <div className="login">
                 <Form
                     name="basic"
                     initialValues={{
@@ -89,60 +88,62 @@ function Login() {
                     onFinish={show ? register : login}
                     autoComplete="off"
                 >
-                    <Form.Item
-                        name="username"
-                        className='input'
-                        rules={[
-                        {
-                            required: true,
-                            message: '请输入用户名！',
-                        },
-                        ]}
-                    >
-                        <Input size="large" prefix={<UserOutlined />} placeholder="请输入用户名" />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="password"
-                        className='input'
-                        rules={[
-                        {
-                            required: true,
-                            message: '请输入密码！',
-                        },
-                        ]}
-                    >
-                        <Input.Password size="large" prefix={<LockOutlined />} placeholder="请输入密码" />
-                    </Form.Item>
-          
-                    {show&&<Form.Item
-                        name="confirm"
-                        className='input'
-                        dependencies={['password']}
-                        hasFeedback
-                        rules={[
-                        {
-                            required: true,
-                            message: '请再次确认密码！',
-                        },
-                        ({ getFieldValue }) => ({
-                            validator(_, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve();
-                            }
-                            return Promise.reject(new Error('请输入相同密码！'));
+                        <Form.Item
+                            name="username"
+                            className='input'
+                            rules={[
+                            {
+                                required: true,
+                                message: '请输入用户名！',
                             },
-                        }),
-                        ]}
-                    >
-                        <Input.Password size="large" prefix={<LockOutlined />} placeholder="请再次确认密码" />
-                    </Form.Item>}
+                            ]}
+                        >
+                            <Input size="large" prefix={<UserOutlined />} placeholder="请输入用户名" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="password"
+                            className='input'
+                            rules={[
+                            {
+                                required: true,
+                                message: '请输入密码！',
+                            },
+                            ]}
+                        >
+                            <Input.Password size="large" prefix={<LockOutlined />} placeholder="请输入密码" />
+                        </Form.Item>
+            
+                        {show&&<Form.Item
+                            name="confirm"
+                            className='input'
+                            dependencies={['password']}
+                            hasFeedback
+                            rules={[
+                            {
+                                required: true,
+                                message: '请再次确认密码！',
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('请输入相同密码！'));
+                                },
+                            }),
+                            ]}
+                        >
+                            <Input.Password size="large" prefix={<LockOutlined />} placeholder="请再次确认密码" />
+                        </Form.Item>}
 
                     <Form.Item>
                         <Button size='large'
                         style={{
-                            background: 'radial-gradient(#4460f1, #f64f59, #c471ed)',
-                            color: '#e2f5f5'
+                            background: '#6a9e9c',
+                            color: '#e2f5f5',
+                            outline: 'none',
+                            border:'none',
                         }} htmlType="submit" block>{show ? ' 注册 ':'登录'}</Button>
                     </Form.Item>
                     <Form.Item>
@@ -152,7 +153,6 @@ function Login() {
             </div>
         </div>
     </div>
-</div>
   );
 }
 
