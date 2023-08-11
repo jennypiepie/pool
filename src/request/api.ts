@@ -6,9 +6,8 @@ export interface ILoginParams {
 }
 
 export interface ICollectParams {
-    userId: number;
-    exhibitsId: number;
-    liked: boolean;
+    exhibitsName: string;
+    userName: string;
 }
 
 export interface IOutfitParams{
@@ -24,6 +23,6 @@ export const updateUser = (params: IOutfitParams) => request.post('/updateUser',
 
 export const getExhibitsList = (params?:any) => request.post('/getExhibits',params);
 
-export const collectExhibits = (params: ICollectParams) => request.post('./updateLikes', params);
+export const updateLikes = (params: ICollectParams) => request.post('./updateLikes', params);
 
 export const getSculptures = () => request.get('/getSculptures');

@@ -4,18 +4,18 @@ import {Image} from 'antd'
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { HeartFilled } from "@ant-design/icons";
 import { useState } from "react";
-import { collectExhibits } from "@/src/request/api";
+import { updateLikes } from "@/src/request/api";
 
 function Display() {
   const { display, close } = useExhibitsStore();
-  const { title, desc, name, exhibitsId,beliked,likedNum } = display;
+  const { title, desc, name,beliked,likedNum } = display;
   const [liked, setLiked] = useState(beliked);
   const [lNum,setLNum] = useState(likedNum)
 
   const finish = async () => {
-    const userId = Number(localStorage.getItem('userId'));
-    if (userId && exhibitsId > 0) {
-      await collectExhibits({ userId, exhibitsId, liked });
+    const userName = localStorage.getItem('userName');
+    if (userName && name) {
+      await updateLikes({ exhibitsName:name, userName });
     }
     close();
   }
