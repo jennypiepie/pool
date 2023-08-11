@@ -2,7 +2,7 @@ import { Vector3Tuple } from 'three';
 import { create } from 'zustand'
 import { IExhibits,ISculpture } from '../r3f/exhibits';
 interface IDisplay {
-    exhibitsId: number;
+    exhibitsId: string;
     name: string,
     title: string,
     desc: string,
@@ -37,7 +37,7 @@ interface IExhibitsStore {
 
 export const useExhibitsStore = create<IExhibitsStore>((set) => ({
     display: {
-        exhibitsId: -1,
+        exhibitsId: '-1',
         visible:false,
         name: '',
         title: '',

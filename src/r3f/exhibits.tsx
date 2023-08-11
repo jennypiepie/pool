@@ -3,10 +3,10 @@ import Painting from './painting';
 import { Vector3Tuple } from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useEffect, useState } from 'react';
-import { getExhibitsList, getSculptureList } from '../request/api';
+import { getExhibitsList, getSculptures } from '../request/api';
 
 export interface IExhibits{
-    _id:number
+    _id: string;
     name: string;
     title: string;
     desc: string;
@@ -17,7 +17,7 @@ export interface IExhibits{
 }
 
 export interface ISculpture{
-    id:number
+    _id: string;
     name: string;
     title: string;
     desc: string;
@@ -32,10 +32,10 @@ function Exhibits() {
     const [sculpList, setSculpList] = useState([]);
 
     const sculptures = sculpList.map((item) => {
-        const { id, name,scale,position,rotation } = item;
+        const { _id, name,scale,position,rotation } = item;
         return (
             <Sculpture 
-                key={id}
+                key={_id}
                 name={name}
                 scale={scale}
                 position={position}
@@ -60,15 +60,15 @@ function Exhibits() {
     })
 
     useEffect(() => {
-        getSculptureList().then(result => {
-            const res = result as any;
-            if (res.errCode === 0) {
-                const list = res.data.list;
-                list.forEach((item: any) => {
-                    item.position = item.position.split(',').map(Number);
-                    item.rotation = item.rotation.split(',').map(Number);
-                });
-                setSculpList(list)
+        getSculptures().then(result => {
+            const data = result.data;
+            if (data.length) {
+                // const list = res.data.list;
+                // list.forEach((item: any) => {
+                //     item.position = item.position.split(',').map(Number);
+                //     item.rotation = item.rotation.split(',').map(Number);
+                // });
+                setSculpList(data)
             }
         });
     },[])

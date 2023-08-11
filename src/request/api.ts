@@ -26,4 +26,4 @@ export const getExhibitsList = (params?:any) => request.post('/getExhibits',para
 
 export const collectExhibits = (params: ICollectParams) => request.post('./updateLikes', params);
 
-export const getSculptureList = () => request.get('/getSculptures');
+export const getSculptures = () => request.get('/getSculptures');
