@@ -1,6 +1,6 @@
 import { ILoginParams, loginApi, registerApi } from '@/src/request/api';
 import { useGlobalStore } from '@/src/store/useGlobalStore';
-// import { useOutfitStore } from '@/src/store/useOutfitStore';
+import { useOutfitStore } from '@/src/store/useOutfitStore';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
@@ -12,45 +12,44 @@ function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const { changeState } = useGlobalStore();
-    // const { init } = useOutfitStore();
+    const { init } = useOutfitStore();
 
     const login = (params: ILoginParams) => {
         loginApi({
             username: params.username,
             password: params.password,
         }).then(result => {
-            const res = result as any;
-            // if (res.errCode === 0) {
-                // message.success(res.message);
-            console.log(res);
-            
-                
-                // let obj;
-                // if (localStorage.hasOwnProperty('time')) {
-                //     const time = JSON.parse(localStorage.getItem('time')!)
-                //     obj = {
-                //         lastLoginTime: time.curLoginTime,
-                //         curLoginTime: Date.now(),
-                //     }
-                // } else {
-                //     obj = {
-                //         lastLoginTime: Date.now(),
-                //         curLoginTime: Date.now(),
-                //     }
-                // }
+            const data = result.data;
+            if (data.username) {
+                message.success(data.message);
+                console.log(result);
+                let obj;
+                if (localStorage.hasOwnProperty('time')) {
+                    const time = JSON.parse(localStorage.getItem('time')!)
+                    obj = {
+                        lastLoginTime: time.curLoginTime,
+                        curLoginTime: Date.now(),
+                    }
+                } else {
+                    obj = {
+                        lastLoginTime: Date.now(),
+                        curLoginTime: Date.now(),
+                    }
+                }
                 // localStorage.setItem('userId', res.data.userId);
-                // localStorage.setItem('token', res.data['token']);
-                // localStorage.setItem('username', res.data.username);
-                // localStorage.setItem('time', JSON.stringify(obj));
-                // res.data.outfit && init(res.data.outfit);
-                
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('time', JSON.stringify(obj));
+                init(data.outfit);
                 setTimeout(() => {
                     navigate('/');
                     changeState(true);
                 }, 1500);
-            // } else {
-            //     message.error(res.message);
-            // }
+            } else {
+                message.error(data.message);
+            }
+        }).catch(err => {
+            console.log(err);
         })
     };
 
