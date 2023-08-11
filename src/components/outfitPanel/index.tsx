@@ -1,4 +1,4 @@
-import { updateOutfit } from "@/src/request/api";
+import { updateUser } from "@/src/request/api";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import './index.scss'
@@ -16,9 +16,9 @@ function OutfitPanel() {
 
   const finish = () => {
     onFinish();
-    const userId = Number(localStorage.getItem('userId'));
+    const userName = localStorage.getItem('userId')||'';
     const outfitStr = `${outfit.role},${outfit.skin}`;
-    updateOutfit({ userId, outfit: outfitStr });
+    updateUser({ userName, outfit: outfitStr });
   }
 
   return (

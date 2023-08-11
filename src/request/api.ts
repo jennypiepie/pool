@@ -12,19 +12,18 @@ export interface ICollectParams {
 }
 
 export interface IOutfitParams{
-    userId: number,
+    userName: string,
     outfit:string
 }
 
-export const registerApi = (params: ILoginParams) => request.post('/user/register', params);
+export const registerApi = (params: ILoginParams) => request.post('/register', params);
 
-// export const loginApi = (params: ILoginParams) => request.post('/user/login', params);
 export const loginApi = (params: ILoginParams) => request.post('/login', params);
 
-export const updateOutfit = (params: IOutfitParams) => request.post('/user/update', params);
+export const updateUser = (params: IOutfitParams) => request.post('/updateUser', params);
 
-export const getExhibitsList = (params?:any) => request.post('/exhibits/list',params);
+export const getExhibitsList = (params?:any) => request.post('/getExhibits',params);
 
-export const collectExhibits = (params: ICollectParams) => request.post('./exhibits/collect', params);
+export const collectExhibits = (params: ICollectParams) => request.post('./updateLikes', params);
 
-export const getSculptureList = () => request.get('/sculptures/list');
+export const getSculptureList = () => request.get('/getSculptures');

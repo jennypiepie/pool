@@ -57,12 +57,12 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         desc:'',
     },
     select: (selected: IExhibits) => set(() => {
-        const list = selected.beliked.split(',').filter(item=>item!=="");
+        const list = selected.likes;
         const likedNum = list.length;
-        const beliked = list.includes(localStorage.getItem('userId')||'');
+        const beliked = list.includes(localStorage.getItem('userName')||'');
         return {
             display: {
-                exhibitsId: selected.id,
+                exhibitsId: selected._id,
                 name: selected.name,
                 title: selected.title,
                 desc: selected.desc,
