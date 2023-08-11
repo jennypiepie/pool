@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 配置项
 const axiosOption = {
-    baseURL: 'http://127.0.0.1:9000',
+    baseURL: 'https://pool-server-vercel.vercel.app/api',
     timeout: 5000
 };
 

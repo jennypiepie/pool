@@ -1,7 +1,7 @@
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const apiProxy = createProxyMiddleware('/api', {
-  target: 'http://127.0.0.1:9000',
+  target: 'https://pool-server-vercel.vercel.app/api',
   changeOrigin: true,
   // pathRewrite: { '^/api': '/' }
 });

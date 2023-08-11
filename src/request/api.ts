@@ -18,7 +18,8 @@ export interface IOutfitParams{
 
 export const registerApi = (params: ILoginParams) => request.post('/user/register', params);
 
-export const loginApi = (params: ILoginParams) => request.post('/user/login', params);
+// export const loginApi = (params: ILoginParams) => request.post('/user/login', params);
+export const loginApi = (params: ILoginParams) => request.post('/login', params);
 
 export const updateOutfit = (params: IOutfitParams) => request.post('/user/update', params);
 
