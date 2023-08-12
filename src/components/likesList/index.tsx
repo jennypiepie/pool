@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import './index.scss';
 
 
-function LikedList() {
+function LikesList() {
   const { needUpdate, closeLikesList } = useExhibitsStore();
   const [likesList, setLikesList] = useState<any[]>([]);
 
@@ -44,4 +44,4 @@ function LikedList() {
   )
 }
 
-export default LikedList;
+export default LikesList;

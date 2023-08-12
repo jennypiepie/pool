@@ -15,7 +15,7 @@ import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useOutfitStore } from '../store/useOutfitStore';
 import { usePhotoStore } from '../store/usePhotoStore';
 import OutfitPanel from '../components/outfitPanel';
-import LikedList from '../components/likedList';
+import LikesList from '../components/likesList';
 import PhotoList from '../components/photoList';
 import SculpturePanel from '../components/sculpturePanel';
 import BGM from '../hooks/bgm';
@@ -30,7 +30,7 @@ function Scene() {
 
   const { display,sculpture } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
-  const { likedList } = useExhibitsStore();
+  const { likesList } = useExhibitsStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
   const { changePopoverState } = useGlobalStore()
   
@@ -106,7 +106,7 @@ function Scene() {
       {!outfitShow&& !sculpture.hide && <Panel />}
       {display.visible && <Display />}
       {outfitShow && <OutfitPanel />}
-      {likedList.visible && <LikedList />}
+      {likesList.visible && <LikesList />}
       {photos.visible && <PhotoList />}
       {sculpture.hide && <SculpturePanel/>}
     </Suspense>
