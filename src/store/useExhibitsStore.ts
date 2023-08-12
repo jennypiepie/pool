@@ -25,12 +25,12 @@ interface ISculptureInfo {
 interface IExhibitsStore {
     display: IDisplay;
     needUpdate: boolean;
-    likedList: ILikedList,
+    likesList: ILikedList,
     sculpture: ISculptureInfo;
     select: (selected: IExhibits) => void;
     close: () => void;
-    openLikedList: () => void;
-    closeLikedList: () => void;
+    openLikesList: () => void;
+    closeLikesList: () => void;
     clickSculpture: (selected:ISculpture) => void;
     closeSculpture: () => void;
 };
@@ -46,7 +46,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         likedNum: 0,
     },
     needUpdate: true,
-    likedList: {
+    likesList: {
         visible: false,
     },
     sculpture: {
@@ -82,16 +82,16 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             needUpdate:false,
         }
     }),
-    openLikedList:() => set(() => {
+    openLikesList:() => set(() => {
         return {
-            likedList: {
+            likesList: {
                 visible:true
             }
         }
     }),
-    closeLikedList:() => set(() => {
+    closeLikesList:() => set(() => {
         return {
-            likedList: {
+            likesList: {
                 visible:false
             }
         }

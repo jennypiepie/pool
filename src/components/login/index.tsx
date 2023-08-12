@@ -22,7 +22,6 @@ function Login() {
             const data = result.data;
             if (data.username) {
                 message.success(data.message);
-                console.log(result);
                 let obj;
                 if (localStorage.hasOwnProperty('time')) {
                     const time = JSON.parse(localStorage.getItem('time')!)
@@ -36,7 +35,7 @@ function Login() {
                         curLoginTime: Date.now(),
                     }
                 }
-                // localStorage.setItem('userId', res.data.userId);
+                
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('time', JSON.stringify(obj));

@@ -21,7 +21,7 @@ export const loginApi = (params: ILoginParams) => request.post('/login', params)
 
 export const updateUser = (params: IOutfitParams) => request.post('/updateUser', params);
 
-export const getExhibitsList = (params?:any) => request.post('/getExhibits',params);
+export const getExhibits = (params?:any) => request.post('/getExhibits',params);
 
 export const updateLikes = (params: ICollectParams) => request.post('./updateLikes', params);
 

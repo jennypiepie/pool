@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import './index.scss'
 
 function Menu() {
-  const { openLikedList } = useExhibitsStore();
+  const { openLikesList } = useExhibitsStore();
   const { openPhotoList,clear } = usePhotoStore();
   const { changeState,changePopoverState } = useGlobalStore();
   const { reset } = useOutfitStore();
@@ -20,7 +20,6 @@ function Menu() {
   }
 
   const logout = () => {
-    localStorage.removeItem('userId');
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('time');
@@ -33,7 +32,7 @@ function Menu() {
   return (
     <div className='menu'>
       <div className="user">{localStorage.getItem('username')}</div>
-      <div className='menu_item' onClick={openLikedList}>Like</div>
+      <div className='menu_item' onClick={openLikesList}>Like</div>
       <div className='menu_item' onClick={openPhotoList}>Photos</div>
       <div className='menu_item' onClick={logout}>Logout</div>
     </div>

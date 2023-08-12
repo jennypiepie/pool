@@ -3,7 +3,7 @@ import Painting from './painting';
 import { Vector3Tuple } from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useEffect, useState } from 'react';
-import { getExhibitsList, getSculptures } from '../request/api';
+import { getExhibits, getSculptures } from '../request/api';
 
 export interface IExhibits{
     _id: string;
@@ -63,26 +63,15 @@ function Exhibits() {
         getSculptures().then(result => {
             const data = result.data;
             if (data.length) {
-                // const list = res.data.list;
-                // list.forEach((item: any) => {
-                //     item.position = item.position.split(',').map(Number);
-                //     item.rotation = item.rotation.split(',').map(Number);
-                // });
                 setSculpList(data)
             }
         });
     },[])
 
     useEffect(() => {
-        getExhibitsList().then(result => {
+        getExhibits().then(result => {
             const data = result.data;
             if (data.length) {
-                // const list = res.data.list;
-                // data.forEach((item: any) => {
-                //     item.position = item.position.split(',').map(Number);
-                //     item.rotation = item.rotation.split(',').map(Number);
-                //     item.size = item.size.split(',').map(Number);
-                // });
                 setPaintList(data);
             }
         });
