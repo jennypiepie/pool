@@ -13,9 +13,9 @@ function Display() {
   const [lNum,setLNum] = useState(likedNum)
 
   const finish = async () => {
-    const userName = localStorage.getItem('userName');
-    if (userName && name) {
-      await updateLikes({ exhibitsName:name, userName });
+    const username = localStorage.getItem('username');
+    if (username && name) {
+      await updateLikes({ exhibitsName:name, username });
     }
     close();
   }

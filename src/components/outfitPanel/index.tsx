@@ -16,9 +16,9 @@ function OutfitPanel() {
 
   const finish = () => {
     onFinish();
-    const userName = localStorage.getItem('userName')||'';
+    const username = localStorage.getItem('username')||'';
     const outfitStr = `${outfit.role},${outfit.skin}`;
-    updateUser({ userName, outfit: outfitStr });
+    updateUser({ username, outfit: outfitStr });
   }
 
   return (

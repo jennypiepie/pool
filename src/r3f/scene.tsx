@@ -43,9 +43,9 @@ function Scene() {
     if (photos.shoot) {
       gl.render(scene, camera);
       const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
-      const userName = Number(localStorage.getItem('userName'));
+      const username = Number(localStorage.getItem('username'));
       const timestamp=(new Date()).valueOf();
-      const name = `${userName}_${timestamp}`;
+      const name = `${username}_${timestamp}`;
 
       const pObj = {
         name,

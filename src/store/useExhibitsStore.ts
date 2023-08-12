@@ -59,7 +59,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
     select: (selected: IExhibits) => set(() => {
         const list = selected.likes;
         const likedNum = list.length;
-        const beliked = list.includes(localStorage.getItem('userName')||'');
+        const beliked = list.includes(localStorage.getItem('username')||'');
         return {
             display: {
                 exhibitsId: selected._id,

@@ -7,11 +7,11 @@ export interface ILoginParams {
 
 export interface ICollectParams {
     exhibitsName: string;
-    userName: string;
+    username: string;
 }
 
 export interface IOutfitParams{
-    userName: string,
+    username: string,
     outfit:string
 }
 

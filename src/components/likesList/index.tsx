@@ -12,9 +12,9 @@ function LikesList() {
 
 
   useEffect(() => {
-    const userName = localStorage.getItem('userName');
-    if (userName) {
-        getExhibits({ userName: userName }).then(result => {
+    const username = localStorage.getItem('username');
+    if (username) {
+        getExhibits({ username: username }).then(result => {
           const data = result.data;
           if (data.length) {
             const resList = (data as any[]).map(item => item.name);
