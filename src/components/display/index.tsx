@@ -14,7 +14,7 @@ function Display() {
 
   const finish = async () => {
     const username = localStorage.getItem('username');
-    if (username && name) {
+    if (username && name && beliked!==liked) {
       await updateLikes({ exhibitsName:name, username });
     }
     close();
