@@ -57,14 +57,14 @@ function Login() {
         username: params.username,
         password: params.password
         }).then(result => {
-            const res = result as any;
-            if (res.errCode === 0) {
-                message.success(res.message);
+            const data = result.data;
+            if (data.message==='注册成功') {
+                message.success(data.message);
             setTimeout(() => {
                 changeView();
             }, 1500);
         }else{
-            message.error(res.message);
+            message.error(data.message);
         }
         })
     };
