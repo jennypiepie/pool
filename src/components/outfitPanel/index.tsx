@@ -6,11 +6,12 @@ import './index.scss'
 const skinList = ['White', 'Brown', 'Black'];
 
 function OutfitPanel() {
-  const { onFinish, changeRole,changeSkin,outfit } = useOutfitStore();
-
+  const { onFinish, changeRole, changeSkin, outfit } = useOutfitStore();
+  const list = localStorage.getItem('outfit')?.split(',')!;
+  
   const selectStyle = (color: string) => {
     return {
-      border: outfit.skin === color ? '2px solid #85cbf8' : 'none',
+      border: (outfit.skin || list[1] )=== color ? '2px solid #85cbf8' : 'none',
     }
   }
 
@@ -18,6 +19,7 @@ function OutfitPanel() {
     onFinish();
     const username = localStorage.getItem('username')||'';
     const outfitStr = `${outfit.role},${outfit.skin}`;
+    localStorage.setItem('outfit', outfitStr);
     updateUser({ username, outfit: outfitStr });
   }
 

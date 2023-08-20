@@ -1,6 +1,5 @@
 import { ILoginParams, loginApi, registerApi } from '@/src/request/api';
 import { useGlobalStore } from '@/src/store/useGlobalStore';
-import { useOutfitStore } from '@/src/store/useOutfitStore';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
@@ -12,7 +11,6 @@ function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const { changeState } = useGlobalStore();
-    const { init } = useOutfitStore();
 
     const login = (params: ILoginParams) => {
         loginApi({
@@ -38,8 +36,8 @@ function Login() {
                 
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', data.username);
+                localStorage.setItem('outfit', data.outfit);
                 localStorage.setItem('time', JSON.stringify(obj));
-                init(data.outfit);
                 setTimeout(() => {
                     navigate('/');
                     changeState(true);

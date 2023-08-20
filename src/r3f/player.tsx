@@ -19,7 +19,8 @@ function Player(props: IPlayerProps) {
 
     const { outfit, outfitShow } = useOutfitStore();
     const { sculpture } = useExhibitsStore();
-    const { role, skin } = outfit;
+    const list = localStorage.getItem('outfit')?.split(',')!;
+    const { role, skin } = (outfit.role&&outfit.skin) ? outfit : { role: list[0], skin: list[1] };
     const action = useInput();
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Group>(null);

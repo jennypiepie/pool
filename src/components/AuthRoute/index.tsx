@@ -10,6 +10,7 @@ const AuthRoute = (props:any) => {
         isLoggedIn = false;
     } else {
         const time = localStorage.getItem('time') && JSON.parse(localStorage.getItem('time')!);
+        console.log(Date.now(),time.lastLoginTime);
         isLoggedIn = Date.now() - time.lastLoginTime < expire;
     } 
 
