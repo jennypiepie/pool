@@ -20,24 +20,10 @@ function Login() {
             const data = result.data;
             if (data.username) {
                 message.success(data.message);
-                let obj;
-                if (localStorage.hasOwnProperty('time')) {
-                    const time = JSON.parse(localStorage.getItem('time')!)
-                    obj = {
-                        lastLoginTime: time.curLoginTime,
-                        curLoginTime: Date.now(),
-                    }
-                } else {
-                    obj = {
-                        lastLoginTime: Date.now(),
-                        curLoginTime: Date.now(),
-                    }
-                }
-                
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('outfit', data.outfit);
-                localStorage.setItem('time', JSON.stringify(obj));
+                localStorage.setItem('time', Date.now().toString());
                 setTimeout(() => {
                     navigate('/');
                     changeState(true);

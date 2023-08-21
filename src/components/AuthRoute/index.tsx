@@ -9,10 +9,9 @@ const AuthRoute = (props:any) => {
     if (!localStorage.hasOwnProperty('time')) {
         isLoggedIn = false;
     } else {
-        const time = localStorage.getItem('time') && JSON.parse(localStorage.getItem('time')!);
-        console.log(Date.now(),time.lastLoginTime);
-        isLoggedIn = Date.now() - time.lastLoginTime < expire;
-    } 
+        const time = localStorage.getItem('time');
+        isLoggedIn = Date.now() - Number(time) < expire;
+    }
 
     return isLoggedIn ? (
     // 如果是登录用户，则可以访问传入的 children 组件
