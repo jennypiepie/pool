@@ -10,7 +10,6 @@ function LikesList() {
   const { needUpdate, closeLikesList } = useExhibitsStore();
   const [likesList, setLikesList] = useState<any[]>([]);
 
-
   useEffect(() => {
     const username = localStorage.getItem('username');
     if (username) {

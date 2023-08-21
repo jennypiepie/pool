@@ -33,4 +33,58 @@
             }
         }
     }
+    .tips_container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background: rgba(255,255,255,0.7);
+        transform: translate(-50%,-50%);
+        padding: 10px 20px 50px;
+        border-radius: 20px;
+        font-weight: 700;
+        p{
+            height: 50px;
+            line-height: 50px;
+            margin-bottom: 20px;
+        }
+        .title {
+            text-align: center;
+            font-size: 35px;
+        }
+        .action {
+            font-size: 30px;
+            margin-right: 20px;
+        }
+        .keyboard{
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: #ccc;
+            line-height: 35px;
+            text-align: center;
+            border: 2px solid #212121;
+            border-radius: 8px;
+            font-size: 30px;
+            box-shadow: 2px 1px;
+            margin-right: 10px;
+        }
+         .tips_btn{
+            width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #212121;
+            color: #212121;
+            font-size: 18px;
+            transition: all .2s;
+            &:hover{
+                font-size: 24px;
+                background: #212121;
+                color: #fff;
+            }
+        }
+    }
 }

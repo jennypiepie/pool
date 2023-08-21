@@ -28,9 +28,8 @@ function Scene() {
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
 
-  const { display,sculpture } = useExhibitsStore();
+  const { display,sculpture,likesList } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
-  const { likesList } = useExhibitsStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
   const { changePopoverState } = useGlobalStore()
   
@@ -104,13 +103,13 @@ function Scene() {
         {/* {controlsHook} */}
         {/* <axesHelper args={[50]} /> */}
       </Canvas >
+      {!outfitShow&& !sculpture.hide && <Panel />}
+      {display.visible && <Display />}
+      {outfitShow && <OutfitPanel />}
+      {likesList.visible && <LikesList />}
+      {photos.visible && <PhotoList />}
+      {sculpture.hide && <SculpturePanel />}
     </Suspense>
-    {!outfitShow&& !sculpture.hide && <Panel />}
-    {display.visible && <Display />}
-    {outfitShow && <OutfitPanel />}
-    {likesList.visible && <LikesList />}
-    {photos.visible && <PhotoList />}
-    {sculpture.hide && <SculpturePanel/>}
   </>);
 }
 
