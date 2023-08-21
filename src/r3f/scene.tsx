@@ -88,11 +88,12 @@ function Scene() {
         {/* <RetroTV/> */}
               {/* </Physics> */}
         {<OrbitControls 
-                // minDistance={10} maxDistance={80}
-                // minPolarAngle={0}
-                // maxPolarAngle={Math.PI / 2.1}
-                // enablePan={false}
+          minDistance={10} maxDistance={80}
+          minPolarAngle={0}
+          maxPolarAngle={Math.PI / 2.1}
+          enablePan={false}
           enableDamping={true}
+          dampingFactor={0.5}
           target={[sculpture.position[0],
           sculpture.position[1] + 10, sculpture.position[2]]}
           ref={controlsRef}
@@ -103,13 +104,13 @@ function Scene() {
         {/* {controlsHook} */}
         {/* <axesHelper args={[50]} /> */}
       </Canvas >
-      {!outfitShow&& !sculpture.hide && <Panel />}
-      {display.visible && <Display />}
-      {outfitShow && <OutfitPanel />}
-      {likesList.visible && <LikesList />}
-      {photos.visible && <PhotoList />}
-      {sculpture.hide && <SculpturePanel/>}
     </Suspense>
+    {!outfitShow&& !sculpture.hide && <Panel />}
+    {display.visible && <Display />}
+    {outfitShow && <OutfitPanel />}
+    {likesList.visible && <LikesList />}
+    {photos.visible && <PhotoList />}
+    {sculpture.hide && <SculpturePanel/>}
   </>);
 }
 

@@ -17,10 +17,12 @@ function OutfitPanel() {
 
   const finish = () => {
     onFinish();
-    const username = localStorage.getItem('username')||'';
-    const outfitStr = `${outfit.role},${outfit.skin}`;
-    localStorage.setItem('outfit', outfitStr);
-    updateUser({ username, outfit: outfitStr });
+    const username = localStorage.getItem('username') || '';
+    if (outfit.role && outfit.skin&&(outfit.role!==list[0]||outfit.skin!==list[1])) {
+      const outfitStr = `${outfit.role},${outfit.skin}`;
+      localStorage.setItem('outfit', outfitStr);
+      updateUser({ username, outfit: outfitStr });
+    }
   }
 
   return (

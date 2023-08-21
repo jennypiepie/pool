@@ -34,7 +34,7 @@ function LikesList() {
         <div className="imgs">
           {listRender}
         </div>
-        <div className="liked_title">Like</div>
+        <div className="liked_title">Likes</div>
         {likesList.length===0&& <div className="empty"><FolderOpenFilled /></div>}
         <div className="close_btn" onClick={closeLikesList}>X</div>
       </div>

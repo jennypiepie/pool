@@ -1,6 +1,6 @@
 import { ILoginParams, loginApi, registerApi } from '@/src/request/api';
 import { useGlobalStore } from '@/src/store/useGlobalStore';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined,LoadingOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
 import { useNavigate} from 'react-router-dom'
@@ -11,8 +11,10 @@ function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const { changeState } = useGlobalStore();
+    const [loading, setLoading] = useState(false);
 
     const login = (params: ILoginParams) => {
+        setLoading(true);
         loginApi({
             username: params.username,
             password: params.password,
@@ -33,10 +35,13 @@ function Login() {
             }
         }).catch(err => {
             console.log(err);
+        }).finally(() => {
+            setLoading(false);
         })
     };
 
     const register = (params: ILoginParams) => {
+        setLoading(true);
         registerApi({
         username: params.username,
         password: params.password
@@ -47,9 +52,11 @@ function Login() {
             setTimeout(() => {
                 changeView();
             }, 1500);
-        }else{
-            message.error(data.message);
-        }
+            }else{
+                message.error(data.message);
+            }
+        }).finally(() => {
+            setLoading(false);
         })
     };
 
@@ -124,11 +131,16 @@ function Login() {
                     <Form.Item>
                         <Button size='large'
                         style={{
-                            background: '#6a9e9c',
+                            background: '#6a949e',
                             color: '#e2f5f5',
                             outline: 'none',
-                            border:'none',
-                        }} htmlType="submit" block>{show ? ' 注册 ':'登录'}</Button>
+                            border: 'none',
+                            boxShadow: '2px 2px 2px 1px rgba(0, 0, 0, 0.2)'
+                        }}
+                        htmlType="submit" block>
+                            {show ? ' 注册 ' : '登录'}
+                            {loading&&<LoadingOutlined style={{ position:'absolute',right:'100px', fontSize: '22px',color: '#fff' }} />}
+                        </Button>
                     </Form.Item>
                     <Form.Item>
                         <div onClick={changeView} className='switch'>{show?'已有账号？前往登录':'还没账号？立即注册'}</div>
