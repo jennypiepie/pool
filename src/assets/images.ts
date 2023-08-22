@@ -5,7 +5,7 @@ import pic4 from '@/assets/textures/paintings/pic4.png';
 import pic5 from '@/assets/textures/paintings/pic5.png';
 import pic6 from '@/assets/textures/paintings/pic6.png';
 import pic7 from '@/assets/textures/paintings/pic7.png';
-import BeachBabeBlack from '@/assets/textures/BeachBabe_Black.png';
+// import BeachBabeBlack from '@/assets/textures/BeachBabe_Black.png';
 
-const images = { pic1, pic2, pic3, pic4, pic5, pic6, pic7,BeachBabeBlack };
+const images = { pic1, pic2, pic3, pic4, pic5, pic6, pic7 };
 export default images;
