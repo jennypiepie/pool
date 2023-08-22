@@ -69,6 +69,9 @@ function Login() {
         <div className="hero">
             <h1>WELCOME</h1>
         </div>
+          <div className="bubble" style={{left:5,animationDelay: '-3s'}}/>
+          <div className="bubble small_size " style={{left:650}}/>
+          <div className="bubble large_size" style={{left:1100,animationDelay: '-5s'}}/>
         <div className="container">
             <div className="login">
                 <Form
