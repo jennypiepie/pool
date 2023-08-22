@@ -9,6 +9,7 @@ import { useInput } from '../hooks/useInput';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useOutfitStore } from '../store/useOutfitStore';
 import { useExhibitsStore } from '../store/useExhibitsStore';
+import images from '@/assets/images'
 
 interface IPlayerProps{
     controlsRef: React.MutableRefObject<OrbitControls | null>;
@@ -20,12 +21,12 @@ function Player(props: IPlayerProps) {
     const { outfit, outfitShow } = useOutfitStore();
     const { sculpture } = useExhibitsStore();
     const list = localStorage.getItem('outfit')?.split(',')!;
-    const { role, skin } = (outfit.role&&outfit.skin) ? outfit : { role: list[0], skin: list[1] };
+    const { role } = (outfit.role&&outfit.skin) ? outfit : { role: list[0]};
     const action = useInput();
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Group>(null);
     const currentAction = useRef('Idle');
-    const texture = useTexture(require(`@/assets/textures/${role}_${skin}.png`));
+    const texture = useTexture(images.BeachBabeBlack);
     const fbx = useFBX(require(`@/assets/model/${role}.fbx`));
 
     // const [currentFbx, setCurrentFbx] = useState(fbx);
