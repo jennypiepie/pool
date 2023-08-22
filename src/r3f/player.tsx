@@ -25,7 +25,7 @@ function Player(props: IPlayerProps) {
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Group>(null);
     const currentAction = useRef('Idle');
-    const texture = useTexture(require(`@/assets/textures/SimplePeople_${role}_${skin}.png`));
+    const texture = useTexture(require(`@/assets/textures/${role}_${skin}.png`));
     const fbx = useFBX(require(`@/assets/model/${role}.fbx`));
 
     // const [currentFbx, setCurrentFbx] = useState(fbx);
