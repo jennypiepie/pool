@@ -5,6 +5,7 @@ import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { HeartFilled } from "@ant-design/icons";
 import { useState } from "react";
 import { updateLikes } from "@/src/request/api";
+import images from "@/src/assets/images";
 
 function Display() {
   const { display, close } = useExhibitsStore();
@@ -31,7 +32,7 @@ function Display() {
         <div className="title">{title}</div>
         <div className="content">
           <div className="img_container">
-            <Image src={require(`@/assets/textures/paintings/${name}`)}/>
+            <Image src={images[name as keyof typeof images]}/>
           </div>
           <div className="desc">{desc}</div>
           <div className="liked_btn"

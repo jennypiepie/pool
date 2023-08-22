@@ -1,6 +1,7 @@
 import { useTexture } from "@react-three/drei";
 import { Texture,Vector3Tuple } from "three";
 import { useExhibitsStore } from "../store/useExhibitsStore";
+import images from '@/assets/images'
 
 interface IPaintingProps{
     name: string,
@@ -11,8 +12,8 @@ interface IPaintingProps{
 }
 
 function Painting(props: IPaintingProps) {
-    const { name, size, position, rotation, onClickPainting} = props;
-    const texture = useTexture(require(`@/assets/textures/paintings/${name}`)) as Texture;
+    const { name, size, position, rotation, onClickPainting } = props;
+    const texture = useTexture(images[name as keyof typeof images]) as Texture;
     const { sculpture } = useExhibitsStore();
 
     return (

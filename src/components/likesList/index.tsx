@@ -4,6 +4,7 @@ import { FolderOpenFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import './index.scss';
+import images from "@/src/assets/images";
 
 
 function LikesList() {
@@ -24,7 +25,7 @@ function LikesList() {
   }, [needUpdate]);
 
   const listRender = likesList.map((item, index) =>
-    <img src={require(`@/assets/textures/paintings/${item}`)} alt='' key={index} />
+    <img src={images[item as keyof typeof images]} alt='' key={index} />
   );
   
   return ReactDOM.createPortal(
