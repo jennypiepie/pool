@@ -80,38 +80,6 @@ function Exhibits() {
 
 
     return (<>
-        {/* <Sculpture
-            name='Monument.fbx'
-            position={[0, 4, 0]}
-            rotation={[0, 0, 0]}
-            scale={15}
-            onClickSculpture={() => clickSculpture(
-                {id:4,
-                name: 'Monument.fbx',
-                title: 'ttt',
-                desc: 'dannaafa',
-                position: [0,4,0],
-                rotation: [0, 0, 0],
-                scale: 10}
-            )}
-        /> */}
-        {/* <Painting
-            key={3}
-            name='pic3.png'
-            size={[24,16]}
-            position={[45,15,-35]}
-            rotation={[0,Math.PI,0]}
-            onClickPainting={() => select({
-                id:4,
-                name:'pic3.png',
-                title:'titieeee',
-                desc:'bvansg hbwiwwi',
-                position: [0,0,0],
-                rotation:[0,0,0] ,
-                size: [24,16],
-                beliked:'', 
-            })}
-        /> */}
         {paintings}
         {sculptures}
     </>);

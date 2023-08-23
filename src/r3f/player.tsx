@@ -3,8 +3,6 @@ import { useTexture,useFBX,useGLTF} from '@react-three/drei';
 import { useEffect,useRef } from 'react'; 
 import { AnimationMixer, Vector3, Raycaster, Mesh} from 'three';
 import { useInput } from '../hooks/useInput';
-// import texSrc from '@/assets/textures/SimplePeople_BeachBabe_White.png';
-// import modelSrc from '@/assets/model/BeachBabe.fbx';
 // import { RigidBody } from "@react-three/rapier";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useOutfitStore } from '../store/useOutfitStore';

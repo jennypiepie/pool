@@ -1,8 +1,9 @@
-import { useFBX } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import { Vector3Tuple, Mesh} from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
+import models from '../assets/models';
 
 interface ISculptureProps {
     name: string,
@@ -15,8 +16,9 @@ interface ISculptureProps {
 function Sculpture(props: ISculptureProps) {
     const { sculpture } = useExhibitsStore();
     const { name, position, rotation, scale, onClickSculpture } = props;
-    const model = useFBX(require(`@/assets/model/exhibits/${name}`));
-    
+    const model = useGLTF(models[name as keyof typeof models]);
+    //@ts-ignore
+    const group = model.scene;
     const modelRef = useRef();
     const positionY = position[1];
     const rotationY = rotation[1];
@@ -33,7 +35,7 @@ function Sculpture(props: ISculptureProps) {
     }
   })
     return (
-        <primitive object={model}
+        <primitive object={group}
             position={position}
             rotation={rotation}
             scale={[scale, scale, scale]}
