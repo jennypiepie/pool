@@ -19,6 +19,7 @@ interface ISculptureInfo {
     hide: boolean;
     name: string;
     position: Vector3Tuple;
+    center: Vector3Tuple;
     title: string;
     desc: string;
 }
@@ -53,6 +54,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         hide: false,
         name:'',
         position: [0, -2, 0],
+        center: [0, 0, 0],
         title: '',
         desc:'',
     },
@@ -103,7 +105,8 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 name:selected.name,
                 position: selected.position,
                 title: selected.title,
-                desc:selected.desc,
+                desc: selected.desc,
+                center: selected.center
             }
         }
     }),

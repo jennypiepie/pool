@@ -24,24 +24,17 @@ export interface ISculpture{
     position: Vector3Tuple;
     rotation: Vector3Tuple;
     scale: number;
+    center:Vector3Tuple;
 }
 
 function Exhibits() {
-    const { select,needUpdate,clickSculpture } = useExhibitsStore();
+    const { select,needUpdate } = useExhibitsStore();
     const [paintList, setPaintList] = useState([]);
     const [sculpList, setSculpList] = useState([]);
 
     const sculptures = sculpList.map((item) => {
-        const { _id, name,scale,position,rotation } = item;
         return (
-            <Sculpture 
-                key={_id}
-                name={name}
-                scale={scale}
-                position={position}
-                rotation={rotation}
-                onClickSculpture={()=>clickSculpture(item)}
-            />
+            <Sculpture item={item} />
         )
     })
     

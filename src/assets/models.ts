@@ -1,7 +1,7 @@
 import thinker from '@/assets/model/exhibits/thinker.glb';
 import kraken from '@/assets/model/exhibits/kraken.glb';
-import women from '@/assets/model/exhibits/women.glb';
+import donut from '@/assets/model/exhibits/donut.glb';
 
 
-const models = { thinker,kraken,women };
+const models = { thinker,kraken,donut };
 export default models;

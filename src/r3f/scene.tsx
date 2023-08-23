@@ -88,13 +88,13 @@ function Scene() {
               {/* </Physics> */}
         {<OrbitControls 
           minDistance={10} maxDistance={80}
-          minPolarAngle={0}
-          maxPolarAngle={Math.PI / 2.1}
+          // minPolarAngle={0}
+          // maxPolarAngle={Math.PI / 2.1}
           enablePan={false}
           enableDamping={true}
           dampingFactor={0.5}
-          target={[sculpture.position[0],
-          sculpture.position[1] + 10, sculpture.position[2]]}
+          target={[sculpture.center[0],
+          sculpture.center[1], sculpture.center[2]]}
           ref={controlsRef}
         />}
         <Lights />
