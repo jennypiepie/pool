@@ -5,13 +5,14 @@ import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
 import { useNavigate} from 'react-router-dom'
 import './index.scss';
-
+import { useOutfitStore } from '@/src/store/useOutfitStore';
 
 function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const { changeState } = useGlobalStore();
     const [loading, setLoading] = useState(false);
+    const { reset } = useOutfitStore();
 
     const login = (params: ILoginParams) => {
         setLoading(true);
@@ -26,6 +27,7 @@ function Login() {
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('outfit', data.outfit);
                 localStorage.setItem('time', Date.now().toString());
+                reset();
                 setTimeout(() => {
                     navigate('/');
                     changeState(true);

@@ -20,6 +20,7 @@ import PhotoList from '../components/photoList';
 import SculpturePanel from '../components/sculpturePanel';
 import BGM from '../hooks/bgm';
 import { useGlobalStore } from '../store/useGlobalStore';
+import R3FLoading from './r3fLoading';
 // import RetroTV from './retroTV';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
@@ -80,12 +81,18 @@ function Scene() {
         camera={{ fov: 45, far: 800, near: 0.1, position: [7, 24, 50], }}>
         <color attach="background" args={["#88ccee"]} />
         <fog attach="fog" color="#88ccee" near={1} far={600} />
-            {/* <Physics debug> */}
+      {/* <Physics debug> */}
+      <Suspense fallback={<R3FLoading />}>
         <Player controlsRef={controlsRef} collidersRef={collidersRef} />
+      </Suspense>
+      {/* <Suspense fallback={<R3FLoading />}> */}
         <Pool getColliders={getColliders} />
+      {/* </Suspense> */}
+      <Suspense fallback={<R3FLoading />}>
         <Exhibits />
+      </Suspense>
         {/* <RetroTV/> */}
-              {/* </Physics> */}
+        {/* </Physics> */}
         {<OrbitControls 
           minDistance={10} maxDistance={80}
           // minPolarAngle={0}
