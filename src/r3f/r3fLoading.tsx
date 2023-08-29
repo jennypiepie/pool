@@ -8,23 +8,23 @@ function R3FLoading() {
   const ref3 = useRef<Mesh>(new Mesh());
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    ref1.current!.position.y = Math.sin(t * 3) / 3;
-    ref2.current!.position.y = Math.sin(t * 3 + 1) / 3;
-    ref3.current!.position.y = Math.sin(t * 3 + 2) / 3;
+    ref1.current!.position.y = Math.sin(t * 3) * 2 + 10;
+    ref2.current!.position.y = Math.sin(t * 3 + 1) * 2 + 10;
+    ref3.current!.position.y = Math.sin(t * 3 + 2) * 2 + 10;
   })
   return (
       <group>
-          <mesh ref={ref1} position={[-2,15,-5]} scale={1}>
+          <mesh ref={ref1} position={[-2,0,-5]} scale={1}>
             <sphereGeometry />
-            <meshStandardMaterial color={'hotpink'} />  
+            <meshStandardMaterial color={'#81ceeb'} />  
         </mesh>
-          <mesh ref={ref2} position={[0, 15, -5]} scale={1}>
+          <mesh ref={ref2} position={[0, 0, -5]} scale={1}>
             <sphereGeometry />
-            <meshStandardMaterial color={'yellow'} />  
+            <meshStandardMaterial color={'#cdfffe'} />  
         </mesh>
-        <mesh ref={ref3} position={[2, 15, -5]} scale={1}>
+        <mesh ref={ref3} position={[2, 0, -5]} scale={1}>
             <sphereGeometry  />
-            <meshStandardMaterial color={'green'} />  
+            <meshStandardMaterial color={'#a4e7ff'} />  
           </mesh>
     </group>
   );

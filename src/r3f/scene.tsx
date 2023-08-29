@@ -85,9 +85,7 @@ function Scene() {
       <Suspense fallback={<R3FLoading />}>
         <Player controlsRef={controlsRef} collidersRef={collidersRef} />
       </Suspense>
-      {/* <Suspense fallback={<R3FLoading />}> */}
         <Pool getColliders={getColliders} />
-      {/* </Suspense> */}
       <Suspense fallback={<R3FLoading />}>
         <Exhibits />
       </Suspense>
