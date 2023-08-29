@@ -32,9 +32,9 @@ function Exhibits() {
     const [paintList, setPaintList] = useState([]);
     const [sculpList, setSculpList] = useState([]);
 
-    const sculptures = sculpList.map((item) => {
+    const sculptures = sculpList.map((item:any) => {
         return (
-            <Sculpture item={item} />
+            <Sculpture item={item} key={item._id}/>
         )
     })
     

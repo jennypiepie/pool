@@ -20,9 +20,7 @@ function Menu() {
   }
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('time');
+    localStorage.clear();
     setTimeout(() => {
       navigate('/login');
       clearStore();

@@ -1,7 +1,9 @@
+import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { Navigate, useLocation } from "react-router-dom"
 
 const AuthRoute = (props:any) => {
-    const { children } = props
+    const { children } = props;
+    const { reset } = useOutfitStore();
     // 拿到判断是否登录的变量
     const location = useLocation();
     const expire = 24 * 60 * 60 * 1000;
@@ -11,6 +13,7 @@ const AuthRoute = (props:any) => {
     } else {
         const time = localStorage.getItem('time');
         isLoggedIn = Date.now() - Number(time) < expire;
+        !isLoggedIn && reset();
     }
 
     return isLoggedIn ? (
