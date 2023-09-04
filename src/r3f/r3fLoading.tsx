@@ -14,7 +14,7 @@ function R3FLoading() {
   })
   return (
       <group>
-          <mesh ref={ref1} position={[-2,0,-5]} scale={1}>
+        <mesh ref={ref1} position={[-2,0,-5]} scale={1}>
             <sphereGeometry />
             <meshStandardMaterial color={'#81ceeb'} />  
         </mesh>

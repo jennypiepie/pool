@@ -25,15 +25,15 @@ function Sculpture(props: ISculptureProps) {
     const visible = !sculpture.hide || sculpture.name === name;
 
     useFrame((state) => {
-    if (modelRef.current) {
-        const t = state.clock.getElapsedTime();
-        const mesh = modelRef.current as THREE.Mesh;
-        // mesh.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
-        // mesh.rotation.x = Math.cos(t / 4) / 8;
-        mesh.rotation.y = Math.sin(t / 4) / 4 + rotationY;
-        mesh.position.y = (1 + Math.sin(t / 1.5)) + positionY;
-    }
-  })
+        if (modelRef.current) {
+            const t = state.clock.getElapsedTime();
+            const mesh = modelRef.current as THREE.Mesh;
+            // mesh.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
+            // mesh.rotation.x = Math.cos(t / 4) / 8;
+            mesh.rotation.y = Math.sin(t / 4) / 4 + rotationY;
+            mesh.position.y = (1 + Math.sin(t / 1.5)) + positionY;
+        }
+    })
     return (
         <primitive object={group}
             position={position}

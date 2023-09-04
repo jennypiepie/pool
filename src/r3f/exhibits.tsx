@@ -69,7 +69,6 @@ function Exhibits() {
             }
         });
     }, [needUpdate])
-    
 
 
     return (<>

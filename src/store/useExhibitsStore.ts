@@ -46,7 +46,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         beliked: false,
         likedNum: 0,
     },
-    needUpdate: true,
+    needUpdate: false,
     likesList: {
         visible: false,
     },
@@ -72,7 +72,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 beliked,
                 likedNum
             },
-            needUpdate:true,
+            needUpdate:false,
         }
     }),
     close: () => set(({display}) => {
@@ -81,7 +81,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 ...display,
                 visible: false,
             },
-            needUpdate:false,
+            needUpdate:true,
         }
     }),
     openLikesList:() => set(() => {

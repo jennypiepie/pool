@@ -86,9 +86,9 @@ function Scene() {
         <Player controlsRef={controlsRef} collidersRef={collidersRef} />
       </Suspense>
         <Pool getColliders={getColliders} />
-      <Suspense fallback={<R3FLoading />}>
-        <Exhibits />
-      </Suspense>
+        <Suspense fallback={null}>
+          <Exhibits />
+        </Suspense>
         {/* <RetroTV/> */}
         {/* </Physics> */}
         {<OrbitControls 
