@@ -69,7 +69,7 @@ function Login() {
   return (
       <div className="site">
         <div className="hero">
-            <h1>WELCOME</h1>
+            <h1>POOL</h1>
         </div>
           <div className="bubble" style={{left:5,animationDelay: '-3s'}}/>
           <div className="bubble small_size " style={{left:650}}/>

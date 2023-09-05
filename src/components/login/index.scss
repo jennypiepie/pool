@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 :root {
     --primary-color: #4460f1;
     --white-color: #ffffff;
@@ -46,7 +48,7 @@ ul {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: radial-gradient(circle, rgba(0, 119, 137, 0.7), rgba(1, 58, 67, 0.7));;
+    background: radial-gradient(circle, rgba(44, 193, 243, 0.7), rgba(1, 58, 67, 0.7));;
 
     h1 {
         font-size: 3em;
@@ -92,6 +94,18 @@ ul {
     gap: 50px;
     padding: 70px 0;
     z-index: 99;
+    font-size: 20px;
+    h1 {
+        font-family: 'Press Start 2P', cursive;
+        text-shadow: 1px 3px 5px rgba(0, 0, 0, .3);
+        letter-spacing: 6px;
+        &::before{
+            content:'POOL';
+            position: absolute;
+            transform: rotateX(-180deg) translateY(-65px) translateX(15px) skewX(-30deg);
+            mask:linear-gradient(transparent,rgba(0, 0, 0, .8));
+        }
+    }
 
     &::before {
         content: '';
