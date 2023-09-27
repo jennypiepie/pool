@@ -4,10 +4,12 @@ interface IOutfitStore {
     outfitShow: boolean;
     outfit: {
         role: string | undefined;
-        skin:string | undefined;
+        skin: string | undefined;
     }
+    roleList: string[];
+    skinList: string[];
     onClick: () => void;
-    onFinish: () => void;
+    close: () => void;
     reset: () => void;
     changeRole: (dir: string) => void;
     changeSkin: (color: string) => void;
@@ -16,21 +18,25 @@ interface IOutfitStore {
 const roleList = ['BeachBabe', 'BusinessMan', 'Doctor', 'FireFighter', 'Policeman',
     'Prostitute', 'Punk', 'RiotCop', 'Robber', 'Sheriff', 'StreetMan', 'Waitress'];
 
+const skinList = ['White', 'Brown', 'Black'];
+
 const list = localStorage.getItem('outfit')?.split(',') || [];
 
 export const useOutfitStore = create<IOutfitStore>((set) => ({
     outfitShow: false,
     outfit: {
         role: list[0],
-        skin:list[1],
+        skin: list[1],
     },
+    roleList: roleList,
+    skinList: skinList,
     onClick: () => set(() => {
         return {
             outfitShow: true,
         }
     }),
 
-    onFinish: () => set(() => {
+    close: () => set(() => {
         return {
             outfitShow: false
         }
@@ -39,19 +45,26 @@ export const useOutfitStore = create<IOutfitStore>((set) => ({
         return {
             outfit: {
                 role: undefined,
-                skin:undefined,
+                skin: undefined,
             }
         }
     }),
-    changeRole: (dir: string) => set(({ outfit }) => {
+    changeRole: (role: string) => set(({ outfit }) => {
         const list = localStorage.getItem('outfit')?.split(',')!;
         const currentIndex = roleList.findIndex(item => item === (outfit.role || list[0]));
-        const index = dir === 'pre' ? (currentIndex + roleList.length - 1) % roleList.length
-            : (currentIndex + 1) % roleList.length;
+        let res;
+        if (role === 'pre' || role === 'next') {
+            const index = role === 'pre' ? (currentIndex + roleList.length - 1) % roleList.length
+                : (currentIndex + 1) % roleList.length;
+            res = roleList[index];
+        } else {
+            res = role;
+        }
+
         return {
             outfit: {
-                role: roleList[index],
-                skin: outfit.skin||list[1],
+                role: res,
+                skin: outfit.skin || list[1],
             }
         }
     }),
@@ -63,5 +76,5 @@ export const useOutfitStore = create<IOutfitStore>((set) => ({
                 skin: color,
             }
         }
-    }),
+    })
 }));

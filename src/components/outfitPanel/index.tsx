@@ -2,27 +2,45 @@ import { updateUser } from "@/src/request/api";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import './index.scss'
-
-const skinList = ['White', 'Brown', 'Black'];
+import dice from '@/assets/imgs/dice.png';
+import { useState } from "react";
 
 function OutfitPanel() {
-  const { onFinish, changeRole, changeSkin, outfit } = useOutfitStore();
+  const { close, changeRole, changeSkin, outfit, skinList, roleList } = useOutfitStore();
+  const [active, setActive] = useState(false);
   const list = localStorage.getItem('outfit')?.split(',')!;
-  
+
   const selectStyle = (color: string) => {
     return {
-      border: (outfit.skin || list[1] )=== color ? '2px solid #85cbf8' : 'none',
+      border: (outfit.skin || list[1]) === color ? '2px solid #85cbf8' : 'none',
     }
   }
 
   const finish = () => {
-    onFinish();
+    close();
     const username = localStorage.getItem('username') || '';
-    if (outfit.role && outfit.skin&&(outfit.role!==list[0]||outfit.skin!==list[1])) {
+    if (outfit.role && outfit.skin && (outfit.role !== list[0] || outfit.skin !== list[1])) {
       const outfitStr = `${outfit.role},${outfit.skin}`;
       localStorage.setItem('outfit', outfitStr);
       updateUser({ username, outfit: outfitStr });
     }
+  }
+
+  const quit = () => {
+    close();
+    changeSkin(list[1]);
+    changeRole(list[0]);
+  }
+
+  const chooseRandom = () => {
+    setActive(true);
+    const skinIndex = Math.floor(Math.random() * skinList.length);
+    const roleIndex = Math.floor(Math.random() * roleList.length);
+    changeSkin(skinList[skinIndex]);
+    changeRole(roleList[roleIndex]);
+    setTimeout(() => {
+      setActive(false);
+    }, 1000);
   }
 
   return (
@@ -30,9 +48,13 @@ function OutfitPanel() {
       <div className="skin_btn">
         {skinList.map((skin, index) => <li onClick={() => changeSkin(skin)} style={selectStyle(skin)} key={index} />)}
       </div>
-      <div className="pre_btn" onClick={()=>changeRole('pre')}><LeftOutlined /></div>
-      <div className="next_btn" onClick={()=>changeRole('next')}><RightOutlined /></div>
+      <div className={`${active ? 'random_btn dice' : 'random_btn'}`} onClick={chooseRandom}>
+        <img src={dice} style={{ width: '100%', transform: 'scale(1.2)' }} />
+      </div>
+      <div className="pre_btn" onClick={() => changeRole('pre')}><LeftOutlined /></div>
+      <div className="next_btn" onClick={() => changeRole('next')}><RightOutlined /></div>
       <div className="finish_btn" onClick={finish}>Finish</div>
+      <div className="close_btn" onClick={quit}>X</div>
     </div>
   );
 }
