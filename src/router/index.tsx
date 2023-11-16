@@ -1,13 +1,15 @@
-import App from '../App'
+import App from '../pages/app/App'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from '../components/login';
+import Login from '../pages/login';
 import AuthRoute from '../components/AuthRoute';
+import Site from '../pages/site';
 
 const BaseRouter = () => (
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<AuthRoute><App /></AuthRoute>}></Route>
             <Route path='/login' element={<Login />}></Route>
+            <Route path='/site' element={<Site />}></Route>
         </Routes>
     </BrowserRouter>
 )

@@ -21,7 +21,6 @@ import SculpturePanel from '../components/sculpturePanel';
 import BGM from '../hooks/bgm';
 import { useGlobalStore } from '../store/useGlobalStore';
 import R3FLoading from './r3fLoading';
-// import RetroTV from './retroTV';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 function Scene() {
@@ -29,11 +28,11 @@ function Scene() {
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
 
-  const { display,sculpture,likesList } = useExhibitsStore();
+  const { display, sculpture, likesList } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
   const { changePopoverState } = useGlobalStore()
-  
+
   // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
     collidersRef.current = colliders;
@@ -44,7 +43,7 @@ function Scene() {
       gl.render(scene, camera);
       const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
       const username = Number(localStorage.getItem('username'));
-      const timestamp=(new Date()).valueOf();
+      const timestamp = (new Date()).valueOf();
       const name = `${username}_${timestamp}`;
 
       const pObj = {
@@ -52,7 +51,7 @@ function Scene() {
         url: imgData
       };
 
-      
+
       addPhoto(pObj)
       setShoot(false);
       changePopoverState(true);
@@ -63,11 +62,11 @@ function Scene() {
   const MoveCamera = () => {
     const { camera } = useThree();
     useFrame(() => {
-      camera.position.lerp(new Vector3(0,8,20), 0.05);
+      camera.position.lerp(new Vector3(0, 8, 20), 0.05);
     });
     return null
   }
-  
+
   return (<>
     <Suspense fallback={<Loading />}>
       <BGM />
@@ -79,19 +78,18 @@ function Scene() {
         }}
         shadows={{ type: THREE.VSMShadowMap }}
         camera={{ fov: 45, far: 800, near: 0.1, position: [7, 24, 50], }}>
-        <color attach="background" args={["#88ccee"]} />
-        <fog attach="fog" color="#88ccee" near={1} far={600} />
-      {/* <Physics debug> */}
-      <Suspense fallback={<R3FLoading />}>
-        <Player controlsRef={controlsRef} collidersRef={collidersRef} />
-      </Suspense>
+        <color attach="background" args={["#01222e"]} />
+        <fog attach="fog" color="#042738" near={1} far={600} />
+        {/* <Physics debug> */}
+        <Suspense fallback={<R3FLoading />}>
+          <Player controlsRef={controlsRef} collidersRef={collidersRef} />
+        </Suspense>
         <Pool getColliders={getColliders} />
         <Suspense fallback={null}>
           <Exhibits />
         </Suspense>
-        {/* <RetroTV/> */}
         {/* </Physics> */}
-        {<OrbitControls 
+        {<OrbitControls
           minDistance={10} maxDistance={80}
           // minPolarAngle={0}
           // maxPolarAngle={Math.PI / 2.1}
@@ -108,7 +106,7 @@ function Scene() {
         {/* {controlsHook} */}
         {/* <axesHelper args={[50]} /> */}
       </Canvas >
-      {!outfitShow&& !sculpture.hide && <Panel />}
+      {!outfitShow && !sculpture.hide && <Panel />}
       {display.visible && <Display />}
       {outfitShow && <OutfitPanel />}
       {likesList.visible && <LikesList />}

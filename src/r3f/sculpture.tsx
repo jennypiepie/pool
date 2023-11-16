@@ -40,10 +40,10 @@ function Sculpture(props: ISculptureProps) {
             rotation={rotation}
             scale={[scale, scale, scale]}
             ref={modelRef}
-            onClick={()=>clickSculpture({...props.item,center:center.toArray()})}
+            onClick={() => clickSculpture({ ...props.item, center: center.toArray() })}
             visible={visible}
         />
-        
+
     )
 }
 

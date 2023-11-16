@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap');
+
+.site-container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Holtwood One SC';
+}
+
+.enter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background: none;
+    border: none;
+    outline: none;
+    font-weight: 300;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: 2em;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Holtwood One SC';
+}
+
+.text-container {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #40bede;
+    z-index: -1;
+}
+
+.text-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: -30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: default;
+}
+
+.text {
+    width: 300%;
+    font-size: 5vw;
+    color: #0f0f0f;
+    text-transform: uppercase;
+    opacity: 0.1;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    color: #0f0f0f;
+    z-index: -2;
+    font-size: 8em;
+
+    .clipper {
+        background: #fff;
+        position: fixed;
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .clipper-left {
+        justify-content: flex-end;
+    }
+
+    .clipper-right {
+        right: 0;
+        justify-content: flex-start;
+    }
+
+    span {
+        position: relative;
+        z-index: 10;
+    }
+
+    .video-container {
+        position: fixed;
+        z-index: -3;
+        width: 100%;
+        height: 100%;
+
+        >video {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 90%;
+        }
+    }
+
+}
+
+.login-btn {
+    opacity: 0;
+    position: absolute;
+    top: 4vh;
+    right: 2vw;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Holtwood One SC';
+}
+
+.lt-text {
+    opacity: 0;
+    position: absolute;
+    top: 4vh;
+    left: 2vw;
+    font-size: 1.5rem;
+    color: #0f0f0f;
+    font-family: 'Holtwood One SC';
+}
+
+.transition-bg {
+    position: relative;
+    z-index: -10;
+    height: 100vh;
+    opacity: 0;
+    background-image: url('~@/assets/imgs/bg.jpg');
+    background-position: center center;
+    background-size: cover;
+}
