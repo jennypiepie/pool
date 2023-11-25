@@ -1,14 +1,15 @@
 import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import models from '../assets/models';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useGlobalStore } from '../store/useGlobalStore';
+import { ISculpture } from './exhibits';
 
 interface ISculptureProps {
-    item: any;
+    item: ISculpture;
 }
 
 function Sculpture(props: ISculptureProps) {
@@ -26,6 +27,19 @@ function Sculpture(props: ISculptureProps) {
     const positionY = position[1];
     const rotationY = rotation[1];
     const visible = !sculpture.hide || sculpture.name === name;
+
+    useEffect(() => {
+        if (!group) return
+        group.traverse(function (child) {
+            //@ts-ignore
+            if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                //@ts-ignore
+                child.material.opacity = 0.5;
+            }
+        });
+    }, [group])
 
     useFrame((state) => {
         if (modelRef.current) {
@@ -53,7 +67,6 @@ function Sculpture(props: ISculptureProps) {
             onClick={toDtails}
             visible={visible}
         />
-
     )
 }
 

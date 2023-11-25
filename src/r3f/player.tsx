@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useOutfitStore } from '../store/useOutfitStore';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useGlobalStore } from '../store/useGlobalStore';
+import { usePhotoStore } from '../store/usePhotoStore';
 
 interface IPlayerProps {
     controlsRef: React.MutableRefObject<OrbitControls | null>;
@@ -17,8 +18,11 @@ interface IPlayerProps {
 function Player(props: IPlayerProps) {
 
     const { outfit, outfitShow } = useOutfitStore();
-    const { sculpture } = useExhibitsStore();
+    const { display, sculpture, likesList } = useExhibitsStore();
+    const { photos } = usePhotoStore();
     const { setPlayer } = useGlobalStore();
+
+    const movable = !likesList.visible && !photos.visible && !display.visible && !outfitShow && !sculpture.hide;
     const list = localStorage.getItem('outfit')?.split(',')!;
     const { role, skin } = (outfit.role && outfit.skin) ? outfit : { role: list[0], skin: list[1] };
     const action = useInput();
@@ -27,9 +31,6 @@ function Player(props: IPlayerProps) {
     const currentAction = useRef('Idle');
     const texture = useTexture(require(`@/assets/textures/${role}_${skin}.png`));
     const fbx = useFBX(require(`@/assets/model/${role}.fbx`));
-
-    // const [currentFbx, setCurrentFbx] = useState(fbx);
-
     fbx.scale.set(0.05, 0.05, 0.05);
 
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Jumping', 'Idle'];
@@ -149,9 +150,10 @@ function Player(props: IPlayerProps) {
         meshRef.current.rotation.y = radian * (v1.y > 0 ? -1 : 1);
     }
 
+
     useFrame((_, delta) => {
         mixer?.update(delta);
-        !outfitShow && move(action, delta);
+        movable && move(action, delta);
         if (outfitShow) {
             meshRef.current?.position.lerp(new Vector3(0, 0, 0), 0.05);
             meshRef.current?.rotation.set(0, 0, 0);

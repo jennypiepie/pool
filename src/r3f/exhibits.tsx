@@ -5,7 +5,7 @@ import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useEffect, useState } from 'react';
 import { getExhibits, getSculptures } from '../request/api';
 
-export interface IExhibits{
+export interface IExhibits {
     _id: string;
     name: string;
     title: string;
@@ -16,7 +16,7 @@ export interface IExhibits{
     likes: string;
 }
 
-export interface ISculpture{
+export interface ISculpture {
     _id: string;
     name: string;
     title: string;
@@ -24,31 +24,23 @@ export interface ISculpture{
     position: Vector3Tuple;
     rotation: Vector3Tuple;
     scale: number;
-    center:Vector3Tuple;
+    center: Vector3Tuple;
 }
 
 function Exhibits() {
-    const { select,needUpdate } = useExhibitsStore();
+    const { needUpdate } = useExhibitsStore();
     const [paintList, setPaintList] = useState([]);
     const [sculpList, setSculpList] = useState([]);
 
-    const sculptures = sculpList.map((item:any) => {
+    const sculptures = sculpList.map((item: ISculpture) => {
         return (
-            <Sculpture item={item} key={item._id}/>
+            <Sculpture item={item} key={item._id} />
         )
     })
-    
-    const paintings = paintList.map((item) => {
-        const { _id, name,size,position,rotation } = item;
+
+    const paintings = paintList.map((item: IExhibits) => {
         return (
-            <Painting
-                key={_id}
-                name={name}
-                size={size}
-                position={position}
-                rotation={rotation}
-                onClickPainting={()=>select(item)}
-            />
+            <Painting item={item} key={item._id} />
         )
     })
 
@@ -59,7 +51,7 @@ function Exhibits() {
                 setSculpList(data)
             }
         });
-    },[])
+    }, [])
 
     useEffect(() => {
         getExhibits().then(result => {
@@ -75,7 +67,7 @@ function Exhibits() {
         {paintings}
         {sculptures}
     </>);
-    
+
 }
 
 export default Exhibits;
