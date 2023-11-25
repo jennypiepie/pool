@@ -1,10 +1,11 @@
 import { useGLTF } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import models from '../assets/models';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useGlobalStore } from '../store/useGlobalStore';
 
 interface ISculptureProps {
     item: any;
@@ -12,6 +13,8 @@ interface ISculptureProps {
 
 function Sculpture(props: ISculptureProps) {
     const { sculpture, clickSculpture } = useExhibitsStore();
+    const { setCamera } = useGlobalStore();
+
     const { name, position, rotation, scale } = props.item;
     const model: GLTF = useGLTF(models[name as keyof typeof models]) as GLTF;
     const group = model.scene;
@@ -34,13 +37,20 @@ function Sculpture(props: ISculptureProps) {
             mesh.position.y = (1 + Math.sin(t / 1.5)) + positionY;
         }
     })
+
+    const { camera } = useThree();
+    const toDtails = () => {
+        setCamera(camera.position.clone(), camera.rotation.clone());
+        clickSculpture({ ...props.item, center: center.toArray() });
+    }
+
     return (
         <primitive object={group}
             position={position}
             rotation={rotation}
             scale={[scale, scale, scale]}
             ref={modelRef}
-            onClick={() => clickSculpture({ ...props.item, center: center.toArray() })}
+            onClick={toDtails}
             visible={visible}
         />
 

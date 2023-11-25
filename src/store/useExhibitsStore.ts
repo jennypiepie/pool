@@ -1,6 +1,6 @@
 import { Vector3Tuple } from 'three';
 import { create } from 'zustand'
-import { IExhibits,ISculpture } from '../r3f/exhibits';
+import { IExhibits, ISculpture } from '../r3f/exhibits';
 interface IDisplay {
     exhibitsId: string;
     name: string,
@@ -32,14 +32,14 @@ interface IExhibitsStore {
     close: () => void;
     openLikesList: () => void;
     closeLikesList: () => void;
-    clickSculpture: (selected:ISculpture) => void;
+    clickSculpture: (selected: ISculpture) => void;
     closeSculpture: () => void;
 };
 
 export const useExhibitsStore = create<IExhibitsStore>((set) => ({
     display: {
         exhibitsId: '-1',
-        visible:false,
+        visible: false,
         name: '',
         title: '',
         desc: '',
@@ -52,16 +52,16 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
     },
     sculpture: {
         hide: false,
-        name:'',
+        name: 'donut',
         position: [0, -2, 0],
         center: [0, 0, 0],
         title: '',
-        desc:'',
+        desc: '',
     },
     select: (selected: IExhibits) => set(() => {
         const list = selected.likes;
         const likedNum = list.length;
-        const beliked = list.includes(localStorage.getItem('username')||'');
+        const beliked = list.includes(localStorage.getItem('username') || '');
         return {
             display: {
                 exhibitsId: selected._id,
@@ -72,29 +72,29 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 beliked,
                 likedNum
             },
-            needUpdate:false,
+            needUpdate: false,
         }
     }),
-    close: () => set(({display}) => {
+    close: () => set(({ display }) => {
         return {
             display: {
                 ...display,
                 visible: false,
             },
-            needUpdate:true,
+            needUpdate: true,
         }
     }),
-    openLikesList:() => set(() => {
+    openLikesList: () => set(() => {
         return {
             likesList: {
-                visible:true
+                visible: true
             }
         }
     }),
-    closeLikesList:() => set(() => {
+    closeLikesList: () => set(() => {
         return {
             likesList: {
-                visible:false
+                visible: false
             }
         }
     }),
@@ -102,7 +102,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         return {
             sculpture: {
                 hide: true,
-                name:selected.name,
+                name: selected.name,
                 position: selected.position,
                 title: selected.title,
                 desc: selected.desc,
@@ -110,7 +110,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             }
         }
     }),
-    closeSculpture: () => set(({sculpture}) => {
+    closeSculpture: () => set(({ sculpture }) => {
         return {
             sculpture: {
                 ...sculpture,

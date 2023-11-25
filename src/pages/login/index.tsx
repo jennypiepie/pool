@@ -3,7 +3,7 @@ import { useGlobalStore } from '@/src/store/useGlobalStore';
 import { LockOutlined, UserOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './index.scss';
 import { useOutfitStore } from '@/src/store/useOutfitStore';
 import gsap from "gsap";

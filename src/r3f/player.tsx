@@ -1,14 +1,15 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { useTexture,useFBX,useGLTF} from '@react-three/drei';
-import { useEffect,useRef } from 'react'; 
-import { AnimationMixer, Vector3, Raycaster, Mesh} from 'three';
+import { useTexture, useFBX, useGLTF } from '@react-three/drei';
+import { useEffect, useRef } from 'react';
+import { AnimationMixer, Vector3, Raycaster, Mesh } from 'three';
 import { useInput } from '../hooks/useInput';
 // import { RigidBody } from "@react-three/rapier";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useOutfitStore } from '../store/useOutfitStore';
 import { useExhibitsStore } from '../store/useExhibitsStore';
+import { useGlobalStore } from '../store/useGlobalStore';
 
-interface IPlayerProps{
+interface IPlayerProps {
     controlsRef: React.MutableRefObject<OrbitControls | null>;
     collidersRef: React.MutableRefObject<Mesh[] | null>;
 }
@@ -17,8 +18,9 @@ function Player(props: IPlayerProps) {
 
     const { outfit, outfitShow } = useOutfitStore();
     const { sculpture } = useExhibitsStore();
+    const { setPlayer } = useGlobalStore();
     const list = localStorage.getItem('outfit')?.split(',')!;
-    const { role, skin } = (outfit.role&&outfit.skin) ? outfit : { role: list[0], skin: list[1] };
+    const { role, skin } = (outfit.role && outfit.skin) ? outfit : { role: list[0], skin: list[1] };
     const action = useInput();
     const camera = useThree((state) => state.camera);
     const meshRef = useRef<THREE.Group>(null);
@@ -29,7 +31,7 @@ function Player(props: IPlayerProps) {
     // const [currentFbx, setCurrentFbx] = useState(fbx);
 
     fbx.scale.set(0.05, 0.05, 0.05);
-    
+
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Jumping', 'Idle'];
     const postures = useGLTF(anims.map((anim) => require(`@/assets/model/animations/${anim}.glb`)));
 
@@ -46,7 +48,7 @@ function Player(props: IPlayerProps) {
     //@ts-ignore
     actions[action].play();
 
-    function move(action: string,dt: number) {
+    function move(action: string, dt: number) {
         const p1 = meshRef!.current!.position;
         const p2 = camera.position;
         const v1 = p1.clone().sub(p2);
@@ -93,7 +95,7 @@ function Player(props: IPlayerProps) {
         if (intersects.length > 0) {
             if (intersects[0].distance < 5) blocked = true;
         }
-        
+
         //垂直方向碰撞检测
         const dir2 = new Vector3(0, -1, 0);
         const rayOrigin2 = p1.clone();
@@ -108,7 +110,7 @@ function Player(props: IPlayerProps) {
             vy = 0;
         } else {
             vy += dt * gravity;
-			p1.y -= vy;
+            p1.y -= vy;
             if (p1.y < targetY) {
                 vy = 0;
                 p1.y = targetY;
@@ -142,7 +144,7 @@ function Player(props: IPlayerProps) {
         // 叉乘求方向
         v1.cross(origin);
         // console.log(v1);
-        
+
         //@ts-ignore
         meshRef.current.rotation.y = radian * (v1.y > 0 ? -1 : 1);
     }
@@ -169,7 +171,7 @@ function Player(props: IPlayerProps) {
                 child.material.map = texture;
             }
         });
-    }, [fbx,texture])
+    }, [fbx, texture])
 
 
     useEffect(() => {
@@ -182,13 +184,18 @@ function Player(props: IPlayerProps) {
             nextAction?.reset().fadeIn(0.3).play();
             currentAction.current = action;
         }
-    },[action])
+
+    }, [action])
+
+    useEffect(() => {
+        setPlayer(meshRef.current);
+    }, [])
 
     return (
         // <RigidBody>
-            <group ref={meshRef} position={[0,0,0]} dispose={null} visible={!sculpture.hide}>
-                <primitive object={fbx} key={role} />
-            </group>
+        <group ref={meshRef} position={[0, 0, 0]} dispose={null} visible={!sculpture.hide}>
+            <primitive object={fbx} key={role} />
+        </group>
         // </RigidBody>
     );
 }
