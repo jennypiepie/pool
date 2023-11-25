@@ -22,8 +22,10 @@ function Painting(props: IPaintingProps) {
         <mesh position={position}
             rotation={rotation}
             onClick={() => {
-                setCamera(camera.position.clone(), camera.rotation.clone());
-                select(props.item);
+                if (!sculpture.hide) {
+                    setCamera(camera.position.clone(), camera.rotation.clone());
+                    select(props.item);
+                }
             }}
             visible={!sculpture.hide}
         >

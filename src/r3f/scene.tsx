@@ -18,7 +18,7 @@ import OutfitPanel from '../components/outfitPanel';
 import LikesList from '../components/likesList';
 import PhotoList from '../components/photoList';
 import SculpturePanel from '../components/sculpturePanel';
-// import BGM from '../hooks/bgm';
+import BGM from '../hooks/bgm';
 import { useGlobalStore } from '../store/useGlobalStore';
 import R3FLoading from './r3fLoading';
 // import { useWasdMove } from '../hooks/useWsadMove';
@@ -93,7 +93,7 @@ function Scene() {
 
   return (<>
     <Suspense fallback={<Loading />}>
-      {/* <BGM /> */}
+      <BGM />
       <Canvas
         gl={{
           pixelRatio: window.devicePixelRatio,
