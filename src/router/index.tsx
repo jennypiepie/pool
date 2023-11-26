@@ -1,7 +1,7 @@
 import App from '../pages/app/App'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from '../pages/login';
-import AuthRoute from '../components/AuthRoute';
+import AuthRoute from '../components/authRoute';
 import Site from '../pages/site';
 
 const BaseRouter = () => (

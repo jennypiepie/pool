@@ -31,7 +31,7 @@ function Scene() {
   const { display, sculpture, likesList } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
-  const { changePopoverState, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
+  const { changePopoverState, setCamera, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
 
   // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
@@ -40,6 +40,7 @@ function Scene() {
   const GetPhotos = () => {
     const { gl, scene, camera } = useThree();
     if (photos.shoot) {
+      camera.lookAt(new Vector3(playerPosition.x, playerPosition.y + 8, playerPosition.z));
       gl.render(scene, camera);
       const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
       const username = Number(localStorage.getItem('username'));
@@ -74,6 +75,7 @@ function Scene() {
         camera.rotation.set(cameraRotation.x, cameraRotation.y, cameraRotation.z);
         //@ts-ignore
         controlsRef.current.update();
+        setCamera(undefined, undefined);
       }
     }
     return (

@@ -1,22 +1,23 @@
 import ReactDOM from "react-dom";
 import './index.scss';
-import {Image} from 'antd'
+import { Image } from 'antd'
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { HeartFilled } from "@ant-design/icons";
 import { useState } from "react";
 import { updateLikes } from "@/src/request/api";
 import images from "@/src/assets/images";
+import Mask from "../mask";
 
 function Display() {
   const { display, close } = useExhibitsStore();
-  const { title, desc, name,beliked,likedNum } = display;
+  const { title, desc, name, beliked, likedNum } = display;
   const [liked, setLiked] = useState(beliked);
-  const [lNum,setLNum] = useState(likedNum)
+  const [lNum, setLNum] = useState(likedNum)
 
   const finish = async () => {
     const username = localStorage.getItem('username');
-    if (username && name && beliked!==liked) {
-      await updateLikes({ exhibitsName:name, username });
+    if (username && name && beliked !== liked) {
+      await updateLikes({ exhibitsName: name, username });
     }
     close();
   }
@@ -32,7 +33,7 @@ function Display() {
         <div className="title">{title}</div>
         <div className="content">
           <div className="img_container">
-            <Image src={images[name as keyof typeof images]}/>
+            <Image src={images[name]} />
           </div>
           <div className="desc">{desc}</div>
           <div className="liked_btn"
@@ -43,10 +44,10 @@ function Display() {
             <span className="btn_num">{lNum}</span>
           </div>
         </div>
-        
+
         <div className="close_btn" onClick={finish}>X</div>
       </div>
-      <div className="mask" />
+      <Mask />
     </div>,
     document.body
   )

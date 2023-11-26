@@ -19,13 +19,13 @@ const DetailLights = () => {
   return (<>
     <directionalLight color='#eeb8ee'
       position={[-5, 10, 3]}
-      intensity={0.2}
+      intensity={0.5}
     />
     <directionalLight color='#b8eec0'
-      position={[5, 10, -3]}
-      intensity={0.2}
+      position={[5, -10, -3]}
+      intensity={0.5}
     />
-    <hemisphereLight groundColor='#caecf2' intensity={0.05} />
+    <hemisphereLight groundColor='#caecf2' intensity={0.1} />
   </>)
 }
 

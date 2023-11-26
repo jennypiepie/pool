@@ -8,7 +8,7 @@ interface IGlobalStore {
     changePopoverState: (state: boolean) => void;
     playerPosition: Vector3;
     setPlayer: (player: any) => void;
-    setCamera: (position: Vector3, rotation: Euler) => void;
+    setCamera: (position: Vector3 | undefined, rotation: Euler | undefined) => void;
     cameraPosition: Vector3 | undefined;
     cameraRotation: Euler | undefined;
 };
@@ -34,7 +34,7 @@ export const useGlobalStore = create<IGlobalStore>((set) => ({
             playerPosition: player.position
         }
     }),
-    setCamera: (position: Vector3, rotation: Euler) => set(() => {
+    setCamera: (position: Vector3 | undefined, rotation: Euler | undefined) => set(() => {
         return {
             cameraPosition: position,
             cameraRotation: rotation,
