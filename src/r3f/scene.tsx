@@ -21,6 +21,7 @@ import SculpturePanel from '../components/sculpturePanel';
 import BGM from '../hooks/bgm';
 import { useGlobalStore } from '../store/useGlobalStore';
 import R3FLoading from './r3fLoading';
+import { uploadPhotos } from '../request/api';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 function Scene() {
@@ -43,16 +44,11 @@ function Scene() {
       camera.lookAt(new Vector3(playerPosition.x, playerPosition.y + 8, playerPosition.z));
       gl.render(scene, camera);
       const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
-      const username = Number(localStorage.getItem('username'));
-      const timestamp = (new Date()).valueOf();
-      const name = `${username}_${timestamp}`;
-
-      const pObj = {
-        name,
-        url: imgData
-      };
-
-      addPhoto(pObj)
+      const username = localStorage.getItem('username');
+      // const timestamp = (new Date()).valueOf();
+      // const name = `${username}_${timestamp}`;
+      username && uploadPhotos({ username, base64: imgData });
+      addPhoto(imgData);
       setShoot(false);
       changePopoverState(true);
     }

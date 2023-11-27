@@ -25,7 +25,7 @@ function PhotoList() {
   //     </div>
   //   </div>);
 
-  const urls = list.map((item: any) => item.url)
+  // const urls = list.map((item: string) => item)
 
   return ReactDOM.createPortal(
     <div className="photo_list">
@@ -37,7 +37,7 @@ function PhotoList() {
         {list.length===0&& <div className="empty"><FolderOpenFilled /></div>}
         <div className="close_btn" onClick={onClose}>X</div>
       </div> */}
-      <WaterFall title='Photos' onClose={onClose} urls={urls} />
+      <WaterFall title='Photos' onClose={onClose} urls={list} />
       <Mask />
     </div>
     , document.body)

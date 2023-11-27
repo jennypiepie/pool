@@ -1,18 +1,14 @@
 import { create } from 'zustand';
 
-interface IPhotoInfo {
-    name: string;
-    url: string;
-}
 interface IPhotoStore {
     photos: {
         current: string;
         shoot: boolean;
         visible: boolean;
     };
-    list: IPhotoInfo[];
+    list: string[];
     setShoot: (state: boolean) => void;
-    addPhoto: (pObj:IPhotoInfo) => void;
+    addPhoto: (photo: string) => void;
     openPhotoList: () => void;
     onClose: () => void;
     clear: () => void;
@@ -24,43 +20,45 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
         shoot: false,
         visible: false,
     },
-    list:[],
-    setShoot: (state:boolean) => set(({photos}) => {
+    list: [],
+    setShoot: (state: boolean) => set(({ photos }) => {
         return {
             photos: {
                 ...photos,
-                shoot:state
+                shoot: state
             },
         }
     }),
-    addPhoto: (pObj: IPhotoInfo) => set(({ photos, list }) => {
-        list.unshift(pObj);
+    addPhoto: (photo: string | string[]) => set(({ photos, list }) => {
+        const newList = Array.isArray(photo) ? list.concat(photo) : [photo, ...list];
+        const current = Array.isArray(photo) ? '' : photo;
         return {
             photos: {
                 ...photos,
-                current:pObj.url
+                current
+            },
+            list: newList
+        }
+    }),
+    openPhotoList: () => set(({ photos }) => {
+        return {
+            photos: {
+                ...photos,
+                visible: true
             },
         }
     }),
-    openPhotoList: () => set(({photos}) => {
+    onClose: () => set(({ photos }) => {
         return {
             photos: {
                 ...photos,
-                visible:true
+                visible: false
             },
         }
     }),
-     onClose: () => set(({photos}) => {
-        return {
-            photos: {
-                ...photos,
-                visible:false
-            },
-        }
-     }),
     clear: () => set(() => {
         return {
-            list:[],
+            list: [],
         }
-     })
+    })
 }));
