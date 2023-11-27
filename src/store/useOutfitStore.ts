@@ -8,7 +8,7 @@ interface IOutfitStore {
     }
     roleList: string[];
     skinList: string[];
-    onClick: () => void;
+    setOutfit: () => void;
     close: () => void;
     reset: () => void;
     changeRole: (dir: string) => void;
@@ -30,7 +30,7 @@ export const useOutfitStore = create<IOutfitStore>((set) => ({
     },
     roleList: roleList,
     skinList: skinList,
-    onClick: () => set(() => {
+    setOutfit: () => set(() => {
         return {
             outfitShow: true,
         }

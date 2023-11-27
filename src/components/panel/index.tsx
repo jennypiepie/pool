@@ -7,9 +7,10 @@ import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { usePhotoStore } from "@/src/store/usePhotoStore";
 import { useGlobalStore } from "@/src/store/useGlobalStore";
 import { useState } from "react";
+import Btn from "../btn";
 
 function Panel() {
-	const { onClick } = useOutfitStore();
+	const { setOutfit } = useOutfitStore();
 	const { setShoot, photos } = usePhotoStore();
 	const { changeState, bgm, photoPopVisible, changePopoverState } = useGlobalStore();
 	const [tipsVisible, setTipsVisible] = useState(false);
@@ -44,12 +45,12 @@ function Panel() {
 			{tipsVisible && tipsPanel()}
 			<div className="top_right">
 				<Popover placement="leftTop" arrow={false} content={<Menu />}>
-					<div className="btn"><SmileFilled /></div>
+					<div><Btn><SmileFilled /></Btn></div>
 				</Popover>
 			</div>
 			<div className="btn_group">
-				<div className="btn" onClick={() => changeState(!bgm)}><SoundFilled /></div>
-				<div className="btn" onClick={onClick}><SkinFilled /></div>
+				<Btn onClick={() => changeState(!bgm)}><SoundFilled /></Btn>
+				<Btn onClick={setOutfit}><SkinFilled /></Btn>
 				{photos.current !== '' ?
 					<Popover
 						placement="left"
@@ -57,11 +58,11 @@ function Panel() {
 							<Image src={photos.current} />
 						</div>}
 						open={photoPopVisible}>
-						<div className="btn" onClick={() => setShoot(true)}><CameraFilled /></div>
+						<Btn onClick={() => setShoot(true)}><CameraFilled /></Btn>
 					</Popover> :
-					<div className="btn" onClick={() => setShoot(true)}><CameraFilled /></div>
+					<Btn onClick={() => setShoot(true)}><CameraFilled /></Btn>
 				}
-				<div className="btn" onClick={() => setTipsVisible(true)}><QuestionOutlined /></div>
+				<Btn onClick={() => setTipsVisible(true)}><QuestionOutlined /></Btn>
 			</div>
 		</div>,
 		document.body

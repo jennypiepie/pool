@@ -1,9 +1,10 @@
 import { updateUser } from "@/src/request/api";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { CloseOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import './index.scss'
 import dice from '@/assets/imgs/dice.png';
 import { useState } from "react";
+import Btn from "../btn";
 
 function OutfitPanel() {
   const { close, changeRole, changeSkin, outfit, skinList, roleList } = useOutfitStore();
@@ -51,10 +52,26 @@ function OutfitPanel() {
       <div className={`${active ? 'random_btn dice' : 'random_btn'}`} onClick={chooseRandom}>
         <img src={dice} style={{ width: '100%', transform: 'scale(1.2)' }} />
       </div>
-      <div className="pre_btn" onClick={() => changeRole('pre')}><LeftOutlined /></div>
-      <div className="next_btn" onClick={() => changeRole('next')}><RightOutlined /></div>
+      <Btn
+        onClick={() => changeRole('pre')}
+        size={50}
+        YCenter={true}
+        customStyle={{ left: 150 }}>
+        <LeftOutlined />
+      </Btn>
+      <Btn
+        onClick={() => changeRole('next')}
+        size={50}
+        YCenter={true}
+        customStyle={{ right: 150 }}>
+        <RightOutlined />
+      </Btn>
       <div className="finish_btn" onClick={finish}>Finish</div>
-      <div className="close_btn" onClick={quit}>X</div>
+      <Btn onClick={quit}
+        size={40}
+        customStyle={{ position: 'absolute', top: 35, right: 135 }}>
+        <CloseOutlined />
+      </Btn>
     </div>
   );
 }
