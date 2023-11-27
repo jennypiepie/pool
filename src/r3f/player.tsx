@@ -18,11 +18,11 @@ interface IPlayerProps {
 function Player(props: IPlayerProps) {
 
     const { outfit, outfitShow } = useOutfitStore();
-    const { display, sculpture, likesList } = useExhibitsStore();
+    const { display, sculpture, likes } = useExhibitsStore();
     const { photos } = usePhotoStore();
     const { setPlayer } = useGlobalStore();
 
-    const movable = !likesList.visible && !photos.visible && !display.visible && !outfitShow && !sculpture.hide;
+    const movable = !likes.visible && !photos.visible && !display.visible && !outfitShow && !sculpture.hide;
     const list = localStorage.getItem('outfit')?.split(',')!;
     const { role, skin } = (outfit.role && outfit.skin) ? outfit : { role: list[0], skin: list[1] };
     const action = useInput();

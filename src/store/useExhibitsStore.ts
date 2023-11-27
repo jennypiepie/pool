@@ -13,6 +13,7 @@ interface IDisplay {
 
 interface ILikedList {
     visible: boolean;
+    list: string[];
 }
 
 interface ISculptureInfo {
@@ -26,10 +27,11 @@ interface ISculptureInfo {
 interface IExhibitsStore {
     display: IDisplay;
     needUpdate: boolean;
-    likesList: ILikedList,
+    likes: ILikedList,
     sculpture: ISculptureInfo;
     select: (selected: IExhibits) => void;
     close: () => void;
+    setLikes: (name: string | string[], add?: boolean) => void;
     openLikesList: () => void;
     closeLikesList: () => void;
     clickSculpture: (selected: ISculpture) => void;
@@ -47,21 +49,27 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         likedNum: 0,
     },
     needUpdate: false,
-    likesList: {
+    likes: {
         visible: false,
+        list: []
     },
     sculpture: {
         hide: false,
-        name: 'donut',
+        name: '',
         position: [0, -2, 0],
         center: [0, 0, 0],
         title: '',
         desc: '',
     },
-    select: (selected: IExhibits) => set(() => {
+    select: (selected: IExhibits) => set(({ display }) => {
         const list = selected.likes;
-        const likedNum = list.length;
-        const beliked = list.includes(localStorage.getItem('username') || '');
+        let likedNum = selected._id === display.exhibitsId ?
+            display.likedNum :
+            list.length;
+        let beliked = selected._id === display.exhibitsId ?
+            display.beliked :
+            list.includes(localStorage.getItem('username') || '');
+
         return {
             display: {
                 exhibitsId: selected._id,
@@ -84,16 +92,49 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             needUpdate: true,
         }
     }),
-    openLikesList: () => set(() => {
+    setLikes: (name: string | string[], add = true) => set(({ likes, display }) => {
+        const orginList = likes.list;
+        const list = Array.isArray(name) ?
+            orginList.concat(name) :
+            add ?
+                [...orginList, name] :
+                orginList.filter((item) => item !== name);
+
+        const likedNum = Array.isArray(name) ?
+            display.likedNum :
+            add ?
+                display.likedNum + 1 :
+                display.likedNum - 1;
+        const beliked = Array.isArray(name) ?
+            display.beliked :
+            add ?
+                true :
+                false;
+
         return {
-            likesList: {
+            likes: {
+                ...likes,
+                list
+            },
+            display: {
+                ...display,
+                beliked,
+                likedNum
+            }
+        }
+    }),
+    openLikesList: () => set(({ likes }) => {
+        return {
+            likes: {
+                ...likes,
                 visible: true
             }
         }
     }),
-    closeLikesList: () => set(() => {
+    closeLikesList: () => set(({ likes }) => {
         return {
-            likesList: {
+            likes: {
+                ...likes,
                 visible: false
             }
         }

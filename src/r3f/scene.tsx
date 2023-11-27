@@ -28,7 +28,7 @@ function Scene() {
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
 
-  const { display, sculpture, likesList } = useExhibitsStore();
+  const { display, sculpture, likes } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
   const { setShoot, addPhoto, photos } = usePhotoStore();
   const { changePopoverState, setCamera, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
@@ -128,7 +128,7 @@ function Scene() {
       {!outfitShow && !sculpture.hide && <Panel />}
       {display.visible && <Display />}
       {outfitShow && <OutfitPanel />}
-      {likesList.visible && <LikesList />}
+      {likes.visible && <LikesList />}
       {photos.visible && <PhotoList />}
       {sculpture.hide && <SculpturePanel />}
     </Suspense>

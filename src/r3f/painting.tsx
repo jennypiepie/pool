@@ -11,8 +11,7 @@ interface IPaintingProps {
 function Painting(props: IPaintingProps) {
     const { name, size, position, rotation } = props.item;
     const texture = useTexture(images[name]) as Texture;
-    const { sculpture } = useExhibitsStore();
-    const { select } = useExhibitsStore();
+    const { sculpture, select } = useExhibitsStore();
     return (
         <mesh position={position}
             rotation={rotation}

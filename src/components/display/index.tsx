@@ -9,17 +9,18 @@ import images from "@/src/assets/images";
 import Mask from "../mask";
 
 function Display() {
-  const { display, close } = useExhibitsStore();
+  const { display, close, setLikes } = useExhibitsStore();
   const { title, desc, name, beliked, likedNum } = display;
   const [liked, setLiked] = useState(beliked);
   const [lNum, setLNum] = useState(likedNum)
 
   const finish = async () => {
+    close();
     const username = localStorage.getItem('username');
     if (username && name && beliked !== liked) {
+      liked ? setLikes(name) : setLikes(name, false);
       await updateLikes({ exhibitsName: name, username });
     }
-    close();
   }
 
   const onClick = () => {

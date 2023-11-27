@@ -13,7 +13,7 @@ export interface IExhibits {
     position: Vector3Tuple;
     rotation: Vector3Tuple;
     size: number[];
-    likes: string;
+    likes: string[];
 }
 
 export interface ISculpture {
@@ -28,7 +28,8 @@ export interface ISculpture {
 }
 
 function Exhibits() {
-    const { needUpdate } = useExhibitsStore();
+    const { setLikes, needUpdate } = useExhibitsStore();
+
     const [paintList, setPaintList] = useState([]);
     const [sculpList, setSculpList] = useState([]);
 
@@ -51,6 +52,17 @@ function Exhibits() {
                 setSculpList(data)
             }
         });
+
+        const username = localStorage.getItem('username');
+        if (username) {
+            getExhibits({ username: username }).then(result => {
+                const data = result.data;
+                if (data.length) {
+                    const resList = (data as any[]).map(item => item.name) as string[];
+                    setLikes(resList);
+                }
+            });
+        }
     }, [])
 
     useEffect(() => {
