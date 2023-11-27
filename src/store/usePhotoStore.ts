@@ -11,7 +11,7 @@ interface IPhotoStore {
     addPhoto: (photo: string | string[]) => void;
     openPhotoList: () => void;
     onClose: () => void;
-    clear: () => void;
+    clearPhotos: () => void;
 };
 
 export const usePhotoStore = create<IPhotoStore>((set) => ({
@@ -30,7 +30,7 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
         }
     }),
     addPhoto: (photo: string | string[]) => set(({ photos, list }) => {
-        const newList = Array.isArray(photo) ? list.concat(photo) : [photo, ...list];
+        const newList = Array.isArray(photo) ? list.concat(photo) : [...list, photo];
         const current = Array.isArray(photo) ? '' : photo;
         return {
             photos: {
@@ -56,7 +56,7 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
             },
         }
     }),
-    clear: () => set(() => {
+    clearPhotos: () => set(() => {
         return {
             list: [],
         }

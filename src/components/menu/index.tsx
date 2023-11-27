@@ -2,13 +2,13 @@ import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { useGlobalStore } from "@/src/store/useGlobalStore";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { usePhotoStore } from "@/src/store/usePhotoStore";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import './index.scss'
 
 function Menu() {
-  const { openLikesList } = useExhibitsStore();
-  const { openPhotoList,clear } = usePhotoStore();
-  const { changeState,changePopoverState } = useGlobalStore();
+  const { openLikesList, clearLikesList } = useExhibitsStore();
+  const { openPhotoList, clearPhotos } = usePhotoStore();
+  const { changeState, changePopoverState } = useGlobalStore();
   const { reset } = useOutfitStore();
   const navigate = useNavigate();
 
@@ -16,7 +16,8 @@ function Menu() {
     changeState(false);
     changePopoverState(false)
     reset();
-    clear();
+    clearPhotos();
+    clearLikesList();
   }
 
   const logout = () => {
