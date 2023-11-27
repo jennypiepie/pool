@@ -43,10 +43,8 @@ function Scene() {
     if (photos.shoot) {
       camera.lookAt(new Vector3(playerPosition.x, playerPosition.y + 8, playerPosition.z));
       gl.render(scene, camera);
-      const imgData = gl.domElement.toDataURL("image/jpeg", 1.0);
+      const imgData = gl.domElement.toDataURL("image/jpeg", 0.6);
       const username = localStorage.getItem('username');
-      // const timestamp = (new Date()).valueOf();
-      // const name = `${username}_${timestamp}`;
       username && uploadPhotos({ username, base64: imgData });
       addPhoto(imgData);
       setShoot(false);

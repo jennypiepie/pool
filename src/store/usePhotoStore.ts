@@ -8,7 +8,7 @@ interface IPhotoStore {
     };
     list: string[];
     setShoot: (state: boolean) => void;
-    addPhoto: (photo: string) => void;
+    addPhoto: (photo: string | string[]) => void;
     openPhotoList: () => void;
     onClose: () => void;
     clear: () => void;

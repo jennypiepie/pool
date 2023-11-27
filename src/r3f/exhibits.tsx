@@ -4,6 +4,7 @@ import { Vector3Tuple } from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useEffect, useState } from 'react';
 import { getExhibits, getPhotos, getSculptures } from '../request/api';
+import { usePhotoStore } from '../store/usePhotoStore';
 
 export interface IExhibits {
     _id: string;
@@ -29,6 +30,7 @@ export interface ISculpture {
 
 function Exhibits() {
     const { setLikes, needUpdate } = useExhibitsStore();
+    const { addPhoto } = usePhotoStore();
 
     const [paintList, setPaintList] = useState([]);
     const [sculpList, setSculpList] = useState([]);
@@ -67,7 +69,7 @@ function Exhibits() {
                 const data = result.data;
                 if (data.length) {
                     const resList = (data as any[]).map(item => item.base64) as string[];
-                    setLikes(resList);
+                    addPhoto(resList);
                 }
             });
         }
