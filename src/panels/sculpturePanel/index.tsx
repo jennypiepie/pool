@@ -1,7 +1,7 @@
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import ReactDOM from "react-dom";
 import './index.scss';
-import Btn from "../btn";
+import Btn from "../../components/btn";
 import { CloseOutlined } from "@ant-design/icons";
 
 

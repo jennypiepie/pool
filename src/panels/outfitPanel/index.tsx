@@ -4,7 +4,7 @@ import { CloseOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import './index.scss'
 import dice from '@/assets/imgs/dice.png';
 import { useState } from "react";
-import Btn from "../btn";
+import Btn from "../../components/btn";
 
 function OutfitPanel() {
   const { close, changeRole, changeSkin, outfit, skinList, roleList } = useOutfitStore();

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import './index.scss';
 import { FolderOpenFilled } from '@ant-design/icons';
+import Card from '../card';
 
 interface IWaterFallProps {
     urls: string[];
@@ -62,14 +63,12 @@ function WaterFall(props: IWaterFallProps) {
     }, [])
 
     return (<>
-        <div className="wrapper">
-            <div className="flow-title">{title}</div>
-            <div className="close_btn" onClick={onClose}>X</div>
+        <Card width={'80vw'} height={'80vh'} title={title} close={onClose}>
             <div className="flow-container" ref={containerRef}>
                 {listRender}
             </div>
             {urls.length === 0 && <div className="empty"><FolderOpenFilled /></div>}
-        </div>
+        </Card>
     </>)
 }
 

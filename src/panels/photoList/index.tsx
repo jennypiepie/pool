@@ -2,9 +2,7 @@ import { usePhotoStore } from "@/src/store/usePhotoStore";
 // import { DownloadOutlined, FolderOpenFilled } from "@ant-design/icons";
 import ReactDOM from "react-dom";
 import './index.scss';
-import WaterFall from "../waterFall";
-import Mask from "../mask";
-
+import WaterFall from "../../components/waterFall";
 
 function PhotoList() {
   const { onClose, list } = usePhotoStore();
@@ -20,7 +18,6 @@ function PhotoList() {
   return ReactDOM.createPortal(
     <div className="photo_list">
       <WaterFall title='Photos' onClose={onClose} urls={list} />
-      <Mask />
     </div>
     , document.body)
 }

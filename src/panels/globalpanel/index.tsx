@@ -2,12 +2,12 @@ import { SkinFilled, SoundFilled, CameraFilled, SmileFilled, QuestionOutlined, C
 import ReactDOM from "react-dom";
 import './index.scss';
 import { Popover, Image } from "antd";
-import Menu from "../menu";
+import Menu from "../../components/menu";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
 import { usePhotoStore } from "@/src/store/usePhotoStore";
 import { useGlobalStore } from "@/src/store/useGlobalStore";
 import { useState } from "react";
-import Btn from "../btn";
+import Btn from "../../components/btn";
 
 function Panel() {
 	const { setOutfit } = useOutfitStore();
