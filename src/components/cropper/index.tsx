@@ -9,10 +9,11 @@ import { usePhotoStore } from '@/src/store/usePhotoStore';
 interface ICropperProps {
     url: string;
     close: () => void;
+    finish: () => void;
 }
 
 function CropperModal(props: ICropperProps) {
-    const { url, close } = props;
+    const { url, close, finish } = props;
     const imgRef = useRef(null);
     const previewRef = useRef(null);
     const [cropper, setCropper] = useState<Cropper | null>(null);
@@ -24,7 +25,7 @@ function CropperModal(props: ICropperProps) {
         const username = localStorage.getItem('username');
         username && uploadPhotos({ username, base64 });
         addPhoto(base64);
-        close();
+        finish();
     }
 
     useEffect(() => {

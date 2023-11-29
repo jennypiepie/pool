@@ -1,0 +1,55 @@
+.message {
+    position: absolute;
+    min-width: 100px;
+    box-sizing: border-box;
+    height: 30px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    z-index: 999;
+    left: 50%;
+    top: -50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 12px;
+    transition: all .3s;
+
+    .close-btn {
+        margin-left: 8px;
+        cursor: pointer;
+    }
+}
+
+
+.down-in {
+    animation: downIn 0.3s both;
+}
+
+@keyframes downIn {
+    from {
+        transform: translate(-50%, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 70px);
+        opacity: 1;
+    }
+}
+
+.down-out {
+    animation: downOut 0.3s both;
+}
+
+@keyframes downOut {
+    from {
+        transform: translate(-50%, 70px);
+        opacity: 1;
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 0;
+    }
+}

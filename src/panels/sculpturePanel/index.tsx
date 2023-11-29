@@ -5,10 +5,23 @@ import Btn from "../../components/btn";
 import { CameraFilled, CloseOutlined } from "@ant-design/icons";
 import { usePhotoStore } from "@/src/store/usePhotoStore";
 import CropperModal from "@/src/components/cropper";
+import Message from "@/src/components/message";
+import { useState } from "react";
 
 function SculpturePanel() {
   const { closeSculpture, sculpture } = useExhibitsStore();
-  const { setShoot, setIsCrop, photos } = usePhotoStore();
+  const { setShoot, setIsCrop, openPhotoList, photos } = usePhotoStore();
+  const [mesVisible, setMesVisible] = useState(false);
+
+  const finish = () => {
+    setIsCrop(false);
+    setMesVisible(true);
+  }
+
+  const open = () => {
+    setMesVisible(false);
+    openPhotoList();
+  }
 
   return ReactDOM.createPortal(
     <div className="sculpture">
@@ -26,7 +39,18 @@ function SculpturePanel() {
         <Btn onClick={() => setShoot(true)} position={{ b: 40, r: 40 }}>
           <CameraFilled />
         </Btn>
-        {photos.isCrop && <CropperModal url={photos.origin} close={() => setIsCrop(false)} />}
+        {photos.isCrop && <CropperModal
+          url={photos.origin}
+          close={() => setIsCrop(false)}
+          finish={finish} />}
+        <Message
+          isVisible={mesVisible}
+          setVisible={(state: boolean) => setMesVisible(state)}
+          duration={5}
+        >
+          Save Successfully!&nbsp;
+          <a onClick={open}>Open the Album</a>
+        </Message>
       </div>
     </div>,
     document.body
