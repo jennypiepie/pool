@@ -69,7 +69,7 @@ function OutfitPanel() {
       <div className="finish_btn" onClick={finish}>Finish</div>
       <Btn onClick={quit}
         size={40}
-        customStyle={{ position: 'absolute', top: 35, right: 135 }}>
+        position={{ t: 35, r: 135 }}>
         <CloseOutlined />
       </Btn>
     </div>

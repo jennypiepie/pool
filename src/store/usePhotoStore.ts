@@ -2,12 +2,15 @@ import { create } from 'zustand';
 
 interface IPhotoStore {
     photos: {
-        current: string;
+        origin: string;
         shoot: boolean;
         visible: boolean;
+        isCrop: boolean;
     };
     list: string[];
     setShoot: (state: boolean) => void;
+    setIsCrop: (state: boolean) => void;
+    setOriginImg: (photo: string) => void;
     addPhoto: (photo: string | string[]) => void;
     openPhotoList: () => void;
     onClose: () => void;
@@ -16,9 +19,10 @@ interface IPhotoStore {
 
 export const usePhotoStore = create<IPhotoStore>((set) => ({
     photos: {
-        current: '',
+        origin: '',
         shoot: false,
         visible: false,
+        isCrop: false,
     },
     list: [],
     setShoot: (state: boolean) => set(({ photos }) => {
@@ -29,14 +33,26 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
             },
         }
     }),
-    addPhoto: (photo: string | string[]) => set(({ photos, list }) => {
-        const newList = Array.isArray(photo) ? list.concat(photo) : [...list, photo];
-        const current = Array.isArray(photo) ? '' : photo;
+    setIsCrop: (state: boolean) => set(({ photos }) => {
         return {
             photos: {
                 ...photos,
-                current
+                isCrop: state
             },
+        }
+    }),
+    setOriginImg: (img: string) => set(({ photos }) => {
+        return {
+            photos: {
+                ...photos,
+                origin: img
+            }
+        }
+    }),
+    addPhoto: (photo: string | string[]) => set(({ list }) => {
+        const newList = Array.isArray(photo) ? list.concat(photo) : [...list, photo];
+
+        return {
             list: newList
         }
     }),

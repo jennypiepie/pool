@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap');
+
 .card {
     position: absolute;
     padding: 80px 20px 20px 20px;
@@ -34,7 +36,8 @@
         top: 5%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 24px;
-        font-weight: 700;
+        font-size: 28px;
+        // font-weight: 700;
+        font-family: 'Holtwood One SC';
     }
 }

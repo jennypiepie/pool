@@ -1,4 +1,4 @@
-import { Vector3Tuple } from 'three';
+import { Vector3Tuple, Vector3 } from 'three';
 import { create } from 'zustand'
 import { IExhibits, ISculpture } from '../r3f/exhibits';
 interface IDisplay {
@@ -20,7 +20,7 @@ interface ISculptureInfo {
     hide: boolean;
     name: string;
     position: Vector3Tuple;
-    center: Vector3Tuple;
+    center: Vector3;
     title: string;
     desc: string;
 }
@@ -58,7 +58,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         hide: false,
         name: '',
         position: [0, -2, 0],
-        center: [0, 0, 0],
+        center: new Vector3(),
         title: '',
         desc: '',
     },

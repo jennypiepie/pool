@@ -55,7 +55,7 @@ function Sculpture(props: ISculptureProps) {
     const { camera } = useThree();
     const toDtails = () => {
         setCamera(camera.position.clone(), camera.rotation.clone());
-        clickSculpture({ ...props.item, center: center.toArray() });
+        clickSculpture({ ...props.item, center: center });
     }
 
     return (

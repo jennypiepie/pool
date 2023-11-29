@@ -7,11 +7,17 @@ interface IBtnProps {
     color?: string;
     customStyle?: any
     YCenter?: boolean;
+    position?: {
+        l?: number,
+        r?: number,
+        t?: number,
+        b?: number
+    };
 }
 
 function Btn(props: IBtnProps) {
-    const { onClick, children, size = 46, color = 'white', customStyle, YCenter = false } = props;
-    const btnStyle = {
+    const { onClick, children, size = 46, color = 'white', customStyle, YCenter = false, position } = props;
+    const btnStyle: React.CSSProperties = {
         width: size,
         height: size,
         borderRadius: size / 2,
@@ -19,6 +25,14 @@ function Btn(props: IBtnProps) {
         color: color,
         ...customStyle,
     };
+
+    position && Object.assign(btnStyle, {
+        position: 'absolute',
+        left: position.l ? position.l : 'unset',
+        right: position.r ? position.r : 'unset',
+        top: position.t ? position.t : 'unset',
+        bottom: position.b ? position.b : 'unset',
+    });
 
     YCenter && Object.assign(btnStyle, {
         position: 'absolute',

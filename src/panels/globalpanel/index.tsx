@@ -1,24 +1,23 @@
-import { SkinFilled, SoundFilled, CameraFilled, SmileFilled, QuestionOutlined, CheckOutlined } from "@ant-design/icons";
+import { SkinFilled, SoundFilled, SmileFilled, QuestionOutlined } from "@ant-design/icons";
 import ReactDOM from "react-dom";
 import './index.scss';
-import { Popover, Image } from "antd";
+import { Popover, } from "antd";
 import Menu from "../../components/menu";
 import { useOutfitStore } from "@/src/store/useOutfitStore";
-import { usePhotoStore } from "@/src/store/usePhotoStore";
 import { useGlobalStore } from "@/src/store/useGlobalStore";
 import { useState } from "react";
 import Btn from "../../components/btn";
+import Card from "@/src/components/card";
+import BtnGroup from "@/src/components/btn/btnGroup";
 
 function Panel() {
 	const { setOutfit } = useOutfitStore();
-	const { setShoot, photos } = usePhotoStore();
-	const { changeState, bgm, photoPopVisible, changePopoverState } = useGlobalStore();
+	const { changeState, bgm } = useGlobalStore();
 	const [tipsVisible, setTipsVisible] = useState(false);
 
 	const tipsPanel = () => {
 		return (
-			<div className="tips_container">
-				<p className="title">Tips</p>
+			<Card title="Tips" width={460} height={260} close={() => setTipsVisible(false)}>
 				<p>
 					<span className="action">MOVE:</span>
 					<span className="keyboard">W</span>
@@ -31,12 +30,7 @@ function Panel() {
 					<span className="action">RUN:</span>
 					<span className="keyboard">E</span>
 				</p>
-				<button className="tips_btn"
-					onClick={() => setTipsVisible(false)}
-				>
-					<CheckOutlined />
-				</button>
-			</div>
+			</Card>
 		)
 	}
 
@@ -48,22 +42,11 @@ function Panel() {
 					<div><Btn><SmileFilled /></Btn></div>
 				</Popover>
 			</div>
-			<div className="btn_group">
+			<BtnGroup position={{ r: 10, b: 10 }}>
 				<Btn onClick={() => changeState(!bgm)}><SoundFilled /></Btn>
 				<Btn onClick={setOutfit}><SkinFilled /></Btn>
-				{photos.current !== '' ?
-					<Popover
-						placement="left"
-						content={<div style={{ width: 100, height: 50 }} onClick={() => changePopoverState(false)}>
-							<Image src={photos.current} />
-						</div>}
-						open={photoPopVisible}>
-						<Btn onClick={() => setShoot(true)}><CameraFilled /></Btn>
-					</Popover> :
-					<Btn onClick={() => setShoot(true)}><CameraFilled /></Btn>
-				}
 				<Btn onClick={() => setTipsVisible(true)}><QuestionOutlined /></Btn>
-			</div>
+			</BtnGroup>
 		</div>,
 		document.body
 	);

@@ -21,7 +21,6 @@ import SculpturePanel from '../panels/sculpturePanel';
 import BGM from '../hooks/bgm';
 import { useGlobalStore } from '../store/useGlobalStore';
 import R3FLoading from './r3fLoading';
-import { uploadPhotos } from '../request/api';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 function Scene() {
@@ -31,8 +30,8 @@ function Scene() {
 
   const { display, sculpture, likes } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
-  const { setShoot, addPhoto, photos } = usePhotoStore();
-  const { changePopoverState, setCamera, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
+  const { setShoot, setOriginImg, setIsCrop, photos } = usePhotoStore();
+  const { setCamera, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
 
   // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
@@ -41,14 +40,12 @@ function Scene() {
   const GetPhotos = () => {
     const { gl, scene, camera } = useThree();
     if (photos.shoot) {
-      camera.lookAt(new Vector3(playerPosition.x, playerPosition.y + 8, playerPosition.z));
+      camera.lookAt(sculpture.center);
       gl.render(scene, camera);
-      const imgData = gl.domElement.toDataURL("image/jpeg", 0.6);
-      const username = localStorage.getItem('username');
-      username && uploadPhotos({ username, base64: imgData });
-      addPhoto(imgData);
+      const imgData = gl.domElement.toDataURL("image/jpeg");
+      setOriginImg(imgData);
       setShoot(false);
-      changePopoverState(true);
+      setIsCrop(true);
     }
     return null;
   };

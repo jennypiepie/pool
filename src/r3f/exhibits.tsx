@@ -1,6 +1,6 @@
 import Sculpture from './sculpture';
 import Painting from './painting';
-import { Vector3Tuple } from 'three';
+import { Vector3Tuple, Vector3 } from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useEffect, useState } from 'react';
 import { getExhibits, getPhotos, getSculptures } from '../request/api';
@@ -25,7 +25,7 @@ export interface ISculpture {
     position: Vector3Tuple;
     rotation: Vector3Tuple;
     scale: number;
-    center: Vector3Tuple;
+    center: Vector3;
 }
 
 function Exhibits() {

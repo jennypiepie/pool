@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
 import './index.scss';
-import { Image } from 'antd'
 import { useExhibitsStore } from "@/src/store/useExhibitsStore";
 import { HeartFilled } from "@ant-design/icons";
 import { useState } from "react";
@@ -33,7 +32,7 @@ function Display() {
       <Card width={800} height={380} title={title} close={finish}>
         <div className="content">
           <div className="img_container">
-            <Image src={images[name]} />
+            <img src={images[name]} alt='' />
             <div className="liked_btn"
               style={{ color: liked ? '#85cbf8' : '#8d8d8d' }}
               onClick={onClick}

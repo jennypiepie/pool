@@ -8,13 +8,12 @@ import './index.scss'
 function Menu() {
   const { openLikesList, clearLikesList } = useExhibitsStore();
   const { openPhotoList, clearPhotos } = usePhotoStore();
-  const { changeState, changePopoverState } = useGlobalStore();
+  const { changeState } = useGlobalStore();
   const { reset } = useOutfitStore();
   const navigate = useNavigate();
 
   const clearStore = () => {
     changeState(false);
-    changePopoverState(false)
     reset();
     clearPhotos();
     clearLikesList();
