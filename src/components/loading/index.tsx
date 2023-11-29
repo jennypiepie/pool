@@ -1,15 +1,16 @@
-import './index.scss'
+import ReactDOM from 'react-dom';
+import './index.scss';
 
-function Loading() {
-  return (
+function Loading({ text }: { text: string }) {
+  return ReactDOM.createPortal(
     <div className="loading_container">
-      <div className="loading_text">Loading...</div>
-        <div className='wave1' />
-        <div className='wave2'/>
-        <div className="loading" >
+      <div className="loading_text">{text}</div>
+      <div className='wave1' />
+      <div className='wave2' />
+      <div className="loading" >
       </div>
-    </div>
-  );
+    </div>,
+    document.body);
 }
 
 export default Loading;

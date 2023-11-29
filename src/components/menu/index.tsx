@@ -33,7 +33,7 @@ function Menu() {
     <div className='menu'>
       <div className="user">{localStorage.getItem('username')}</div>
       <div className='menu_item' onClick={openLikesList}>Likes</div>
-      <div className='menu_item' onClick={openPhotoList}>Photos</div>
+      <div className='menu_item' onClick={openPhotoList}>Album</div>
       <div className='menu_item' onClick={logout}>Logout</div>
     </div>
   );

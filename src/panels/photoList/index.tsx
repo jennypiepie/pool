@@ -17,7 +17,7 @@ function PhotoList() {
 
   return ReactDOM.createPortal(
     <div className="photo_list">
-      <WaterFall title='Photos' onClose={onClose} urls={list} />
+      <WaterFall title='Album' onClose={onClose} urls={list} />
     </div>
     , document.body)
 }

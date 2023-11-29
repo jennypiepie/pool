@@ -6,21 +6,15 @@ import * as THREE from 'three';
 // import { Physics } from "@react-three/rapier";
 import { OrbitControls } from '@react-three/drei';
 import { Mesh, Vector3 } from 'three';
-import Display from '../panels/display';
 import Exhibits from './exhibits';
-import Loading from '../components/loading';
-import Panel from '../panels/globalpanel';
+// import Loading from '../components/loading';
 import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useOutfitStore } from '../store/useOutfitStore';
 import { usePhotoStore } from '../store/usePhotoStore';
-import OutfitPanel from '../panels/outfitPanel';
-import LikesList from '../panels/likesList';
-import PhotoList from '../panels/photoList';
-import SculpturePanel from '../panels/sculpturePanel';
-import BGM from '../hooks/bgm';
 import { useGlobalStore } from '../store/useGlobalStore';
 import R3FLoading from './r3fLoading';
+import Loader from './loader';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 function Scene() {
@@ -28,7 +22,7 @@ function Scene() {
   const controlsRef = useRef(null);
   const collidersRef = useRef<Mesh[] | null>(null);
 
-  const { display, sculpture, likes } = useExhibitsStore();
+  const { sculpture } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
   const { setShoot, setOriginImg, setIsCrop, photos } = usePhotoStore();
   const { setCamera, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
@@ -85,16 +79,16 @@ function Scene() {
   }
 
   return (<>
-    <Suspense fallback={<Loading />}>
-      <BGM />
-      <Canvas
-        gl={{
-          pixelRatio: window.devicePixelRatio,
-          outputEncoding: THREE.sRGBEncoding,
-          toneMapping: THREE.ACESFilmicToneMapping,
-        }}
-        shadows={{ type: THREE.VSMShadowMap }}
-        camera={{ fov: 45, far: 800, near: 0.1, position: [7, 24, 50] }}>
+    <Canvas
+      gl={{
+        pixelRatio: window.devicePixelRatio,
+        outputEncoding: THREE.sRGBEncoding,
+        toneMapping: THREE.ACESFilmicToneMapping,
+      }}
+      shadows={{ type: THREE.VSMShadowMap }}
+      camera={{ fov: 45, far: 800, near: 0.1, position: [7, 24, 50] }}>
+      <Suspense fallback={<Loader />}>
+
         <color attach="background" args={["#01222e"]} />
         <fog attach="fog" color="#042738" near={1} far={600} />
         <Suspense fallback={<R3FLoading />}>
@@ -113,16 +107,10 @@ function Scene() {
           target={sculpture.center}
         />}
         <Lights />
-        <GetPhotos />
-        {outfitShow && <MoveCamera />}
-      </Canvas >
-      {!outfitShow && !sculpture.hide && <Panel />}
-      {display.visible && <Display />}
-      {outfitShow && <OutfitPanel />}
-      {likes.visible && <LikesList />}
-      {photos.visible && <PhotoList />}
-      {sculpture.hide && <SculpturePanel />}
-    </Suspense>
+      </Suspense>
+      <GetPhotos />
+      {outfitShow && <MoveCamera />}
+    </Canvas >
   </>);
 }
 

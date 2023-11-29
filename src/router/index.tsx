@@ -1,4 +1,4 @@
-import App from '../pages/app/App'
+import App from '../pages/app'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from '../pages/login';
 import AuthRoute from '../components/authRoute';
