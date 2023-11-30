@@ -1,20 +1,19 @@
-import { useRef, Suspense } from 'react';
+import { useRef, Suspense, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import Player from './player';
 import Pool from './pool';
 import * as THREE from 'three';
 // import { Physics } from "@react-three/rapier";
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useProgress } from '@react-three/drei';
 import { Mesh, Vector3 } from 'three';
 import Exhibits from './exhibits';
-// import Loading from '../components/loading';
+import Loading from '../components/loading';
 import Lights from './lights';
 import { useExhibitsStore } from '../store/useExhibitsStore';
 import { useOutfitStore } from '../store/useOutfitStore';
 import { usePhotoStore } from '../store/usePhotoStore';
 import { useGlobalStore } from '../store/useGlobalStore';
 import R3FLoading from './r3fLoading';
-import Loader from './loader';
 // import { useWasdMove } from '../hooks/useWsadMove';
 
 function Scene() {
@@ -25,7 +24,8 @@ function Scene() {
   const { sculpture } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
   const { setShoot, setOriginImg, setIsCrop, photos } = usePhotoStore();
-  const { setCamera, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
+  const { setCamera, setIsLoading, setProgress, progress,
+    isLoading, playerPosition, cameraPosition, cameraRotation } = useGlobalStore();
 
   // const { controlsHook, } = useWasdMove();
   const getColliders = (colliders: Mesh[]) => {
@@ -78,6 +78,22 @@ function Scene() {
     );
   }
 
+  function Loader() {
+    const { loaded } = useProgress();
+    const total = 44;
+    const p = Math.floor(loaded / total * 100 * 100) / 100;
+    setProgress(p > 100 ? 100 : p);
+    return null;
+  }
+
+  useEffect(() => {
+    if (progress === 100) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2500);
+    }
+  }, [progress])
+
   return (<>
     <Canvas
       gl={{
@@ -87,17 +103,15 @@ function Scene() {
       }}
       shadows={{ type: THREE.VSMShadowMap }}
       camera={{ fov: 45, far: 800, near: 0.1, position: [7, 24, 50] }}>
+      <Loader />
       <Suspense fallback={<Loader />}>
-
         <color attach="background" args={["#01222e"]} />
         <fog attach="fog" color="#042738" near={1} far={600} />
         <Suspense fallback={<R3FLoading />}>
           <Player controlsRef={controlsRef} collidersRef={collidersRef} />
         </Suspense>
         <Pool getColliders={getColliders} />
-        <Suspense fallback={null}>
-          <Exhibits />
-        </Suspense>
+        <Exhibits />
         <CachedControls />
         {sculpture.hide && <OrbitControls
           minDistance={1} maxDistance={80}
@@ -111,6 +125,7 @@ function Scene() {
       <GetPhotos />
       {outfitShow && <MoveCamera />}
     </Canvas >
+    {isLoading && <Loading text={`${progress}%`} />}
   </>);
 }
 

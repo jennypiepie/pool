@@ -8,24 +8,28 @@ import SculpturePanel from '@/src/panels/sculpturePanel';
 import { useExhibitsStore } from '@/src/store/useExhibitsStore';
 import { useOutfitStore } from '@/src/store/useOutfitStore';
 import { usePhotoStore } from '@/src/store/usePhotoStore';
-import BGM from '@/src/components/bgm';
-
+import { useGlobalStore } from '@/src/store/useGlobalStore';
+// import BGM from '@/src/components/bgm';
 
 function App() {
   const { display, sculpture, likes } = useExhibitsStore();
   const { outfitShow } = useOutfitStore();
   const { photos } = usePhotoStore();
+  const { isLoading } = useGlobalStore();
+
 
   return (
     <>
       <Scene />
-      {!outfitShow && !sculpture.hide && <Panel />}
-      {display.visible && <Display />}
-      {outfitShow && <OutfitPanel />}
-      {likes.visible && <LikesList />}
-      {photos.visible && <PhotoList />}
-      {sculpture.hide && <SculpturePanel />}
-      <BGM />
+      {!isLoading && <>
+        {!outfitShow && !sculpture.hide && <Panel />}
+        {display.visible && <Display />}
+        {outfitShow && <OutfitPanel />}
+        {likes.visible && <LikesList />}
+        {photos.visible && <PhotoList />}
+        {sculpture.hide && <SculpturePanel />}
+        {/* <BGM /> */}
+      </>}
     </>
   );
 }

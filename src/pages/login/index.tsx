@@ -11,7 +11,7 @@ import gsap from "gsap";
 function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
-    const { changeState } = useGlobalStore();
+    const { turnOnOff } = useGlobalStore();
     const [loading, setLoading] = useState(false);
     const { reset } = useOutfitStore();
 
@@ -31,7 +31,7 @@ function Login() {
                 reset();
                 setTimeout(() => {
                     navigate('/');
-                    changeState(true);
+                    turnOnOff(true);
                 }, 1500);
             } else {
                 message.error(data.message);

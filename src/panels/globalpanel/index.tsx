@@ -12,7 +12,7 @@ import BtnGroup from "@/src/components/btn/btnGroup";
 
 function Panel() {
 	const { setOutfit } = useOutfitStore();
-	const { changeState, bgm } = useGlobalStore();
+	const { turnOnOff, bgm } = useGlobalStore();
 	const [tipsVisible, setTipsVisible] = useState(false);
 
 	const tipsPanel = () => {
@@ -43,7 +43,7 @@ function Panel() {
 				</Popover>
 			</div>
 			<BtnGroup position={{ r: 10, b: 10 }}>
-				<Btn onClick={() => changeState(!bgm)}><SoundFilled /></Btn>
+				<Btn onClick={() => turnOnOff(!bgm)}><SoundFilled /></Btn>
 				<Btn onClick={setOutfit}><SkinFilled /></Btn>
 				<Btn onClick={() => setTipsVisible(true)}><QuestionOutlined /></Btn>
 			</BtnGroup>
