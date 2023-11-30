@@ -80,7 +80,7 @@ function Scene() {
 
   function Loader() {
     const { loaded } = useProgress();
-    const total = 44;
+    const total = 40;
     const p = Math.floor(loaded / total * 100 * 100) / 100;
     setProgress(p > 100 ? 100 : p);
     return null;
@@ -103,7 +103,6 @@ function Scene() {
       }}
       shadows={{ type: THREE.VSMShadowMap }}
       camera={{ fov: 45, far: 800, near: 0.1, position: [7, 24, 50] }}>
-      <Loader />
       <Suspense fallback={<Loader />}>
         <color attach="background" args={["#01222e"]} />
         <fog attach="fog" color="#042738" near={1} far={600} />
