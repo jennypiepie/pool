@@ -13,7 +13,7 @@ interface IPhotoStore {
     setOriginImg: (photo: string) => void;
     addPhoto: (photo: string | string[]) => void;
     openPhotoList: () => void;
-    onClose: () => void;
+    closePhotoList: () => void;
     clearPhotos: () => void;
 };
 
@@ -64,7 +64,7 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
             },
         }
     }),
-    onClose: () => set(({ photos }) => {
+    closePhotoList: () => set(({ photos }) => {
         return {
             photos: {
                 ...photos,

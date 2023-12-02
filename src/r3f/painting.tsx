@@ -15,7 +15,8 @@ function Painting(props: IPaintingProps) {
     return (
         <mesh position={position}
             rotation={rotation}
-            onClick={() => {
+            onClick={(e) => {
+                e.stopPropagation();
                 if (!sculpture.hide) {
                     select(props.item);
                 }

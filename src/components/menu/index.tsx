@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import './index.scss'
 
 function Menu() {
-  const { openLikesList, clearLikesList } = useExhibitsStore();
-  const { openPhotoList, clearPhotos } = usePhotoStore();
+  const { openLikesList, closeLikesList, clearLikesList, likes } = useExhibitsStore();
+  const { openPhotoList, closePhotoList, clearPhotos, photos } = usePhotoStore();
   const { turnOnOff } = useGlobalStore();
   const { reset } = useOutfitStore();
   const navigate = useNavigate();
@@ -29,11 +29,21 @@ function Menu() {
     }, 500);
   }
 
+  const openLikes = () => {
+    photos.visible && closePhotoList();
+    openLikesList();
+  }
+
+  const openAlbum = () => {
+    likes.visible && closeLikesList();
+    openPhotoList();
+  }
+
   return (
     <div className='menu'>
       <div className="user">{localStorage.getItem('username')}</div>
-      <div className='menu_item' onClick={openLikesList}>Likes</div>
-      <div className='menu_item' onClick={openPhotoList}>Album</div>
+      <div className='menu_item' onClick={openLikes}>Likes</div>
+      <div className='menu_item' onClick={openAlbum}>Album</div>
       <div className='menu_item' onClick={logout}>Logout</div>
     </div>
   );

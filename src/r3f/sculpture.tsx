@@ -1,5 +1,5 @@
 import { useGLTF } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useExhibitsStore } from '../store/useExhibitsStore';
@@ -64,7 +64,10 @@ function Sculpture(props: ISculptureProps) {
             rotation={rotation}
             scale={[scale, scale, scale]}
             ref={modelRef}
-            onClick={toDtails}
+            onClick={(e: ThreeEvent<MouseEvent>) => {
+                e.stopPropagation();
+                toDtails();
+            }}
             visible={visible}
         />
     )

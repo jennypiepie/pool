@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './index.scss';
 import { FolderOpenFilled } from '@ant-design/icons';
 import Card from '../card';
-
+import Preview from '../preview';
 interface IWaterFallProps {
     urls: string[];
     title: string;
@@ -13,6 +13,8 @@ function WaterFall(props: IWaterFallProps) {
     const { urls, title, onClose } = props;
     const containerRef = useRef<HTMLDivElement>(null);
     const imgWidth = 320;
+    const [previewImg, setPreviewImg] = useState<HTMLElement>();
+    const [preview, setPreiew] = useState(false);
 
     const calc = () => {
         if (!containerRef.current) return;
@@ -43,6 +45,12 @@ function WaterFall(props: IWaterFallProps) {
         }
     }
 
+    const openPreview = (e: React.MouseEvent) => {
+        const origin = e.target as HTMLElement;
+        setPreviewImg(origin);
+        setPreiew(true);
+    }
+
     const listRender = urls.map((item, index) =>
         <div className="img-wrapper" key={index}>
             <img src={item}
@@ -63,8 +71,9 @@ function WaterFall(props: IWaterFallProps) {
     }, [])
 
     return (<>
+        {preview && <Preview origin={previewImg} close={() => setPreiew(false)} />}
         <Card width={'80vw'} height={'80vh'} title={title} close={onClose}>
-            <div className="flow-container" ref={containerRef}>
+            <div className="flow-container" ref={containerRef} onClick={(e) => openPreview(e)}>
                 {listRender}
             </div>
             {urls.length === 0 && <div className="empty"><FolderOpenFilled /></div>}

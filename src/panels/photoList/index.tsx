@@ -5,7 +5,7 @@ import './index.scss';
 import WaterFall from "../../components/waterFall";
 
 function PhotoList() {
-  const { onClose, list } = usePhotoStore();
+  const { closePhotoList, list } = usePhotoStore();
 
   // const download=(item:any)=> {
   //   const a = document.createElement('a')
@@ -17,7 +17,7 @@ function PhotoList() {
 
   return ReactDOM.createPortal(
     <div className="photo_list">
-      <WaterFall title='Album' onClose={onClose} urls={list} />
+      <WaterFall title='Album' onClose={closePhotoList} urls={list} />
     </div>
     , document.body)
 }
