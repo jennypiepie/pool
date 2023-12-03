@@ -22,9 +22,10 @@ function CropperModal(props: ICropperProps) {
 
     const save = () => {
         const base64 = cropper!.getCroppedCanvas().toDataURL('image/jpg', 0.6);
-        const username = localStorage.getItem('username');
-        username && uploadPhotos({ username, base64 });
-        addPhoto(base64);
+        const username = localStorage.getItem('username')!;
+        const name = `${username}_${Date.now()}`;
+        username && uploadPhotos({ username, base64, name });
+        addPhoto({ url: base64, name });
         finish();
     }
 

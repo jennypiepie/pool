@@ -6,12 +6,15 @@ import { useState } from "react";
 import { updateLikes } from "@/src/request/api";
 import images from "@/src/assets/images";
 import Card from "../../components/card";
+import Preview from "@/src/components/preview";
 
 function Display() {
   const { display, close, setLikes } = useExhibitsStore();
   const { title, desc, name, beliked, likedNum } = display;
   const [liked, setLiked] = useState(beliked);
-  const [lNum, setLNum] = useState(likedNum)
+  const [lNum, setLNum] = useState(likedNum);
+  const [previewImg, setPreviewImg] = useState<HTMLElement>();
+  const [preview, setPreiew] = useState(false);
 
   const finish = async () => {
     close();
@@ -32,7 +35,8 @@ function Display() {
       <Card width={800} height={380} title={title} close={finish}>
         <div className="content">
           <div className="img_container">
-            <img src={images[name]} alt='' />
+            {preview && <Preview origin={previewImg} close={() => setPreiew(false)} />}
+            <img src={images[name]} alt='' onClick={(e) => { setPreiew(true); setPreviewImg(e.target as HTMLElement) }} />
             <div className="liked_btn"
               style={{ color: liked ? '#85cbf8' : '#8d8d8d' }}
               onClick={onClick}

@@ -17,7 +17,8 @@ export interface IOutfitParams {
 
 export interface IPhotoParams {
     username: string,
-    base64: string
+    base64: string,
+    name: string
 }
 
 export const registerApi = (params: ILoginParams) => request.post('/register', params);
@@ -33,5 +34,7 @@ export const updateLikes = (params: ICollectParams) => request.post('./updateLik
 export const getSculptures = () => request.get('/getSculptures');
 
 export const uploadPhotos = (params: IPhotoParams) => request.post('./uploadPhotos', params);
+
+export const deletePhoto = (params: { name: string }) => request.post('./deletePhoto', params);
 
 export const getPhotos = (params: { username: string }) => request.post('/getPhotos', params);

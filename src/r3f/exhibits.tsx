@@ -68,7 +68,12 @@ function Exhibits() {
             getPhotos({ username }).then(result => {
                 const data = result.data;
                 if (data.length) {
-                    const resList = (data as any[]).map(item => item.base64) as string[];
+                    const resList = (data as any[]).map(item => {
+                        return {
+                            name: item.name,
+                            url: item.base64,
+                        }
+                    });
                     addPhoto(resList);
                 }
             });

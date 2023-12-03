@@ -1,20 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import './index.scss';
-import { FolderOpenFilled } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, FolderOpenFilled } from '@ant-design/icons';
 import Card from '../card';
-import Preview from '../preview';
+// import Preview from '../preview';
 interface IWaterFallProps {
-    urls: string[];
+    items: any[];
     title: string;
     onClose: () => void;
+    itemClick?: (e: React.MouseEvent) => void;
+    itemDelete?: (item: any) => void;
+}
+
+const download = (url: string) => {
+    const a = document.createElement('a')
+    const event = new MouseEvent('click')
+    a.download = Date.now() + '';
+    a.href = url;
+    a.dispatchEvent(event);
 }
 
 function WaterFall(props: IWaterFallProps) {
-    const { urls, title, onClose } = props;
+    const { items, title, onClose, itemClick, itemDelete } = props;
     const containerRef = useRef<HTMLDivElement>(null);
     const imgWidth = 320;
-    const [previewImg, setPreviewImg] = useState<HTMLElement>();
-    const [preview, setPreiew] = useState(false);
+    // const [previewImg, setPreviewImg] = useState<HTMLElement>();
+    // const [preview, setPreiew] = useState(false);
+    const [overlay, setOverlay] = useState<number>();
 
     const calc = () => {
         if (!containerRef.current) return;
@@ -45,38 +56,50 @@ function WaterFall(props: IWaterFallProps) {
         }
     }
 
-    const openPreview = (e: React.MouseEvent) => {
-        const origin = e.target as HTMLElement;
-        setPreviewImg(origin);
-        setPreiew(true);
+    // const openPreview = (e: React.MouseEvent) => {
+    //     const origin = e.target as HTMLElement;
+    //     setPreviewImg(origin);
+    //     setPreiew(true);
+    // }
+
+    const click = (e: React.MouseEvent) => {
+        if (itemClick) {
+            itemClick(e);
+            setOverlay(undefined);
+        }
     }
 
-    const listRender = urls.map((item, index) =>
-        <div className="img-wrapper" key={index}>
-            <img src={item}
-                alt=''
-                onLoad={setPosition}
-            />
+    const listRender = items.map((item, index) =>
+        <div className="img-wrapper" key={index}
+            onMouseEnter={() => setOverlay(index)}
+            onMouseLeave={() => setOverlay(undefined)}>
+            <img src={item.url} alt='' onLoad={setPosition} />
+            {overlay === index && <div className="overlay" key={index}>
+                {itemDelete && <div className="o-btn" onClick={() => itemDelete(item)}>
+                    <DeleteOutlined />
+                </div>}
+                <div className="o-btn" onClick={() => download(item.url)}>
+                    <DownloadOutlined />
+                </div>
+            </div>}
         </div>
     );
 
     useEffect(() => {
         let timeId: any = null;
         window.onresize = function () {
-            if (timeId) {
-                clearTimeout(timeId);
-            }
+            timeId && clearTimeout(timeId);
             timeId = setTimeout(setPosition, 300);
         }
     }, [])
 
     return (<>
-        {preview && <Preview origin={previewImg} close={() => setPreiew(false)} />}
+        {/* {preview && <Preview origin={previewImg} close={() => setPreiew(false)} />} */}
         <Card width={'80vw'} height={'80vh'} title={title} close={onClose}>
-            <div className="flow-container" ref={containerRef} onClick={(e) => openPreview(e)}>
+            <div className="flow-container" ref={containerRef} onClick={(e) => click(e)}>
                 {listRender}
             </div>
-            {urls.length === 0 && <div className="empty"><FolderOpenFilled /></div>}
+            {items.length === 0 && <div className="empty"><FolderOpenFilled /></div>}
         </Card>
     </>)
 }

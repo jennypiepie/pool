@@ -7,11 +7,16 @@ import WaterFall from "../../components/waterFall";
 function LikesList() {
   const { closeLikesList, likes } = useExhibitsStore();
 
-  const urls = likes.list.map((name) => images[name]);
+  const items = likes.list.map((name) => {
+    return {
+      name,
+      url: images[name]
+    }
+  });
 
   return ReactDOM.createPortal(
     <div className="liked_list">
-      <WaterFall title='Likes' onClose={closeLikesList} urls={urls} />
+      <WaterFall title='Likes' onClose={closeLikesList} items={items} />
     </div>,
     document.body
   )
