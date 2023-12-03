@@ -11,7 +11,7 @@ function PhotoList() {
   const [previewImg, setPreviewImg] = useState<HTMLElement>();
   const [preview, setPreiew] = useState(false);
 
-  const openPreview = (e: React.MouseEvent) => {
+  const openPreview = (e: React.MouseEvent, _: any) => {
     const origin = e.target as HTMLElement;
     setPreviewImg(origin);
     setPreiew(true);

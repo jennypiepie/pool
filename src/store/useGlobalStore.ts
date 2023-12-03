@@ -22,28 +22,28 @@ export const useGlobalStore = create<IGlobalStore>((set) => ({
     cameraPosition: undefined,
     cameraRotation: undefined,
     progress: 0,
-    turnOnOff: (state: boolean) => set(() => {
+    turnOnOff: (state) => set(() => {
         return {
             bgm: state,
         }
     }),
-    setIsLoading: (state: boolean) => set(() => {
+    setIsLoading: (state) => set(() => {
         return {
             isLoading: state,
         }
     }),
-    setPlayer: (player: any) => set(() => {
+    setPlayer: (player) => set(() => {
         return {
             playerPosition: player.position
         }
     }),
-    setCamera: (position: Vector3 | undefined, rotation: Euler | undefined) => set(() => {
+    setCamera: (position, rotation) => set(() => {
         return {
             cameraPosition: position,
             cameraRotation: rotation,
         }
     }),
-    setProgress: (progress: number) => set(() => {
+    setProgress: (progress) => set(() => {
         return {
             progress
         }

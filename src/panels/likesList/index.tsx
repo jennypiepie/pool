@@ -6,7 +6,7 @@ import WaterFall from "../../components/waterFall";
 import { updateLikes } from "@/src/request/api";
 
 function LikesList() {
-  const { closeLikesList, likes, setLikes, updateData } = useExhibitsStore();
+  const { closeLikesList, likes, setLikes, select } = useExhibitsStore();
 
   const items = likes.list.map((name) => {
     return {
@@ -15,16 +15,20 @@ function LikesList() {
     }
   });
 
-  const itemDelete = async (item: any) => {
+  const itemDelete = (item: any) => {
     const username = localStorage.getItem('username');
     setLikes(item.name, false);
-    username && await updateLikes({ exhibitsName: item.name, username });
-    updateData();
+    username && updateLikes({ exhibitsName: item.name, username });
+  }
+
+  const openDisplay = (_: React.MouseEvent, item: any) => {
+    closeLikesList();
+    select(item.name, true);
   }
 
   return ReactDOM.createPortal(
     <div className="liked_list">
-      <WaterFall title='Likes' onClose={closeLikesList} items={items} itemDelete={itemDelete} />
+      <WaterFall title='Likes' onClose={closeLikesList} items={items} itemClick={openDisplay} itemDelete={itemDelete} />
     </div>,
     document.body
   )

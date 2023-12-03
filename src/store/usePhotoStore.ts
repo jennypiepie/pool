@@ -31,7 +31,7 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
         isCrop: false,
     },
     list: [],
-    setShoot: (state: boolean) => set(({ photos }) => {
+    setShoot: (state) => set(({ photos }) => {
         return {
             photos: {
                 ...photos,
@@ -39,7 +39,7 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
             },
         }
     }),
-    setIsCrop: (state: boolean) => set(({ photos }) => {
+    setIsCrop: (state) => set(({ photos }) => {
         return {
             photos: {
                 ...photos,
@@ -47,7 +47,7 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
             },
         }
     }),
-    setOriginImg: (img: string) => set(({ photos }) => {
+    setOriginImg: (img) => set(({ photos }) => {
         return {
             photos: {
                 ...photos,
@@ -55,14 +55,14 @@ export const usePhotoStore = create<IPhotoStore>((set) => ({
             }
         }
     }),
-    addPhoto: (photo: IPhotoInfo | IPhotoInfo[]) => set(({ list }) => {
+    addPhoto: (photo) => set(({ list }) => {
         const newList = Array.isArray(photo) ? list.concat(photo) : [...list, photo];
 
         return {
             list: newList
         }
     }),
-    delPhoto: (photo: IPhotoInfo) => set(({ list }) => {
+    delPhoto: (photo) => set(({ list }) => {
         const newList = list.filter(item => item.name !== photo.name);
 
         return {

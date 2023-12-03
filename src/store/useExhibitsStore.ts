@@ -1,14 +1,22 @@
 import { Vector3Tuple, Vector3 } from 'three';
 import { create } from 'zustand'
-import { IExhibits, ISculpture } from '../r3f/exhibits';
+import { ISculpture } from '../r3f/exhibits';
 interface IDisplay {
-    exhibitsId: string;
     name: string,
     title: string,
     desc: string,
     visible: boolean,
     beliked: boolean;
     likedNum: number;
+    fromLikes: boolean;
+}
+
+interface IListItem {
+    _id: string;
+    name: string,
+    title: string,
+    desc: string,
+    likes: string[]
 }
 
 interface ILikedList {
@@ -26,10 +34,10 @@ interface ISculptureInfo {
 }
 interface IExhibitsStore {
     display: IDisplay;
-    needUpdate: boolean;
+    displayList: IListItem[];
     likes: ILikedList,
     sculpture: ISculptureInfo;
-    select: (selected: IExhibits) => void;
+    select: (selected: string, fromLikes?: boolean) => void;
     close: () => void;
     setLikes: (name: string | string[], add?: boolean) => void;
     openLikesList: () => void;
@@ -37,23 +45,23 @@ interface IExhibitsStore {
     clickSculpture: (selected: ISculpture) => void;
     closeSculpture: () => void;
     clearLikesList: () => void;
-    updateData: () => void;
+    initList: (list: IListItem[]) => void;
 };
 
 export const useExhibitsStore = create<IExhibitsStore>((set) => ({
     display: {
-        exhibitsId: '-1',
         visible: false,
         name: '',
         title: '',
         desc: '',
         beliked: false,
         likedNum: 0,
+        fromLikes: false
     },
-    needUpdate: false,
+    displayList: [],
     likes: {
         visible: false,
-        list: []
+        list: [],
     },
     sculpture: {
         hide: false,
@@ -63,24 +71,19 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
         title: '',
         desc: '',
     },
-    select: (selected: IExhibits) => set(({ display }) => {
-        const list = selected.likes;
-        let likedNum = selected._id === display.exhibitsId ?
-            display.likedNum :
-            list.length;
-        let beliked = selected._id === display.exhibitsId ?
-            display.beliked :
-            list.includes(localStorage.getItem('username') || '');
+    select: (selected, fromLikes = false) => set(({ displayList }) => {
+        const d = displayList.find(item => item.name === selected)!;
+        const beliked = d.likes.includes(localStorage.getItem('username') || '');
 
         return {
             display: {
-                exhibitsId: selected._id,
-                name: selected.name,
-                title: selected.title,
-                desc: selected.desc,
+                name: d.name,
+                title: d.title,
+                desc: d.desc,
                 visible: true,
                 beliked,
-                likedNum
+                likedNum: d.likes.length,
+                fromLikes: fromLikes
             },
         }
     }),
@@ -92,7 +95,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             }
         }
     }),
-    setLikes: (name: string | string[], add = true) => set(({ likes, display }) => {
+    setLikes: (name, add = true) => set(({ likes, displayList }) => {
         const orginList = likes.list;
         const list = Array.isArray(name) ?
             orginList.concat(name) :
@@ -100,26 +103,17 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 [...orginList, name] :
                 orginList.filter((item) => item !== name);
 
-        const likedNum = Array.isArray(name) ?
-            display.likedNum :
-            add ?
-                display.likedNum + 1 :
-                display.likedNum - 1;
-        const beliked = Array.isArray(name) ?
-            display.beliked :
-            add ?
-                true :
-                false;
+        if (!Array.isArray(name)) {
+            const d = displayList.find(item => item.name === name)!;
+            const username = localStorage.getItem('username') || '';
+            const index = d.likes.findIndex(item => item === username);
+            index === -1 ? d.likes.push(username) : d.likes.splice(index, 1);
+        }
 
         return {
             likes: {
                 ...likes,
                 list
-            },
-            display: {
-                ...display,
-                beliked,
-                likedNum
             }
         }
     }),
@@ -131,15 +125,19 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             }
         }
     }),
-    closeLikesList: () => set(({ likes }) => {
+    closeLikesList: () => set(({ likes, display }) => {
         return {
             likes: {
                 ...likes,
                 visible: false
+            },
+            display: {
+                ...display,
+                fromLikes: false
             }
         }
     }),
-    clickSculpture: (selected: ISculpture) => set(() => {
+    clickSculpture: (selected) => set(() => {
         return {
             sculpture: {
                 hide: true,
@@ -167,9 +165,9 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             },
         }
     }),
-    updateData: () => set(({ needUpdate }) => {
+    initList: (list) => set(() => {
         return {
-            needUpdate: !needUpdate
+            displayList: list
         }
     })
 }));

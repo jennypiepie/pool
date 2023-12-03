@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import './index.scss';
 import { DeleteOutlined, DownloadOutlined, FolderOpenFilled } from '@ant-design/icons';
 import Card from '../card';
-// import Preview from '../preview';
 interface IWaterFallProps {
     items: any[];
     title: string;
     onClose: () => void;
-    itemClick?: (e: React.MouseEvent) => void;
+    itemClick?: (e: React.MouseEvent, item: any) => void;
     itemDelete?: (item: any) => void;
 }
 
@@ -23,8 +22,6 @@ function WaterFall(props: IWaterFallProps) {
     const { items, title, onClose, itemClick, itemDelete } = props;
     const containerRef = useRef<HTMLDivElement>(null);
     const imgWidth = 320;
-    // const [previewImg, setPreviewImg] = useState<HTMLElement>();
-    // const [preview, setPreiew] = useState(false);
     const [overlay, setOverlay] = useState<number>();
 
     const calc = () => {
@@ -56,15 +53,9 @@ function WaterFall(props: IWaterFallProps) {
         }
     }
 
-    // const openPreview = (e: React.MouseEvent) => {
-    //     const origin = e.target as HTMLElement;
-    //     setPreviewImg(origin);
-    //     setPreiew(true);
-    // }
-
-    const click = (e: React.MouseEvent) => {
+    const click = (e: React.MouseEvent, item: any) => {
         if (itemClick) {
-            itemClick(e);
+            itemClick(e, item);
             setOverlay(undefined);
         }
     }
@@ -73,7 +64,7 @@ function WaterFall(props: IWaterFallProps) {
         <div className="img-wrapper" key={index}
             onMouseEnter={() => setOverlay(index)}
             onMouseLeave={() => setOverlay(undefined)}>
-            <img src={item.url} alt='' onLoad={setPosition} />
+            <img src={item.url} alt='' onLoad={setPosition} onClick={(e) => click(e, item)} />
             {overlay === index && <div className="overlay" key={index}>
                 {itemDelete && <div className="o-btn" onClick={() => { itemDelete(item) }}>
                     <DeleteOutlined />
@@ -94,9 +85,8 @@ function WaterFall(props: IWaterFallProps) {
     }, [])
 
     return (<>
-        {/* {preview && <Preview origin={previewImg} close={() => setPreiew(false)} />} */}
         <Card width={'80vw'} height={'80vh'} title={title} close={onClose}>
-            <div className="flow-container" ref={containerRef} onClick={(e) => click(e)}>
+            <div className="flow-container" ref={containerRef}>
                 {listRender}
             </div>
             {items.length === 0 && <div className="empty"><FolderOpenFilled /></div>}

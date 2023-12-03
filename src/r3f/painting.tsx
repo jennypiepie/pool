@@ -18,7 +18,7 @@ function Painting(props: IPaintingProps) {
             onClick={(e) => {
                 e.stopPropagation();
                 if (!sculpture.hide) {
-                    select(props.item);
+                    select(name);
                 }
             }}
             visible={!sculpture.hide}

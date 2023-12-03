@@ -9,20 +9,20 @@ import Card from "../../components/card";
 import Preview from "@/src/components/preview";
 
 function Display() {
-  const { display, close, setLikes, updateData } = useExhibitsStore();
+  const { display, close, setLikes, openLikesList } = useExhibitsStore();
   const { title, desc, name, beliked, likedNum } = display;
   const [liked, setLiked] = useState(beliked);
   const [lNum, setLNum] = useState(likedNum);
   const [previewImg, setPreviewImg] = useState<HTMLElement>();
   const [preview, setPreiew] = useState(false);
 
-  const finish = async () => {
+  const finish = () => {
     close();
+    display.fromLikes && openLikesList();
     const username = localStorage.getItem('username');
     if (username && name && beliked !== liked) {
       liked ? setLikes(name) : setLikes(name, false);
-      await updateLikes({ exhibitsName: name, username });
-      updateData();
+      updateLikes({ exhibitsName: name, username });
     }
   }
 

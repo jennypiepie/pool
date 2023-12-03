@@ -32,11 +32,11 @@ function SculpturePanel() {
         </div>
         <Btn onClick={closeSculpture}
           size={40}
-          position={{ t: 35, r: 135 }}
+          position={{ t: 100, r: 100 }}
         >
           <CloseOutlined />
         </Btn>
-        <Btn onClick={() => setShoot(true)} position={{ b: 40, r: 40 }}>
+        <Btn onClick={() => setShoot(true)} size={50} position={{ r: 100, b: 100 }}>
           <CameraFilled />
         </Btn>
         {photos.isCrop && <CropperModal
@@ -48,7 +48,7 @@ function SculpturePanel() {
           setVisible={(state: boolean) => setMesVisible(state)}
           duration={5}
         >
-          Save Successfully!&nbsp;
+          Successfully Saved!&nbsp;
           <a onClick={open}>Open the Album</a>
         </Message>
       </div>

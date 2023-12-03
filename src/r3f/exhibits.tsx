@@ -29,7 +29,7 @@ export interface ISculpture {
 }
 
 function Exhibits() {
-    const { setLikes, needUpdate } = useExhibitsStore();
+    const { setLikes, initList } = useExhibitsStore();
     const { addPhoto } = usePhotoStore();
 
     const [paintList, setPaintList] = useState([]);
@@ -59,6 +59,11 @@ function Exhibits() {
             const data = result.data;
             if (data.length) {
                 setPaintList(data);
+                const list = data.map((item: IExhibits) => {
+                    const { position, rotation, size, ...display } = item;
+                    return display;
+                })
+                initList(list);
             }
         });
 
@@ -86,16 +91,6 @@ function Exhibits() {
             });
         }
     }, [])
-
-    useEffect(() => {
-        getExhibits().then(result => {
-            const data = result.data;
-            if (data.length) {
-                setPaintList(data);
-            }
-        });
-    }, [needUpdate])
-
 
     return (<>
         {paintings}

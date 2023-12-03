@@ -49,7 +49,7 @@ export const useOutfitStore = create<IOutfitStore>((set) => ({
             }
         }
     }),
-    changeRole: (role: string) => set(({ outfit }) => {
+    changeRole: (role) => set(({ outfit }) => {
         const list = localStorage.getItem('outfit')?.split(',')!;
         const currentIndex = roleList.findIndex(item => item === (outfit.role || list[0]));
         let res;
@@ -68,7 +68,7 @@ export const useOutfitStore = create<IOutfitStore>((set) => ({
             }
         }
     }),
-    changeSkin: (color: string) => set(({ outfit }) => {
+    changeSkin: (color) => set(({ outfit }) => {
         const list = localStorage.getItem('outfit')?.split(',')!;
         return {
             outfit: {
