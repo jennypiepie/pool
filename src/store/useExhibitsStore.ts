@@ -37,6 +37,7 @@ interface IExhibitsStore {
     clickSculpture: (selected: ISculpture) => void;
     closeSculpture: () => void;
     clearLikesList: () => void;
+    updateData: () => void;
 };
 
 export const useExhibitsStore = create<IExhibitsStore>((set) => ({
@@ -81,7 +82,6 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 beliked,
                 likedNum
             },
-            needUpdate: false,
         }
     }),
     close: () => set(({ display }) => {
@@ -89,8 +89,7 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
             display: {
                 ...display,
                 visible: false,
-            },
-            needUpdate: true,
+            }
         }
     }),
     setLikes: (name: string | string[], add = true) => set(({ likes, display }) => {
@@ -166,6 +165,11 @@ export const useExhibitsStore = create<IExhibitsStore>((set) => ({
                 visible: false,
                 list: []
             },
+        }
+    }),
+    updateData: () => set(({ needUpdate }) => {
+        return {
+            needUpdate: !needUpdate
         }
     })
 }));

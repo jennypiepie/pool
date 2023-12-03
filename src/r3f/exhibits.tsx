@@ -55,6 +55,13 @@ function Exhibits() {
             }
         });
 
+        getExhibits().then(result => {
+            const data = result.data;
+            if (data.length) {
+                setPaintList(data);
+            }
+        });
+
         const username = localStorage.getItem('username');
         if (username) {
             getExhibits({ username }).then(result => {

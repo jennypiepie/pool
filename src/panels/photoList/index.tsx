@@ -19,7 +19,7 @@ function PhotoList() {
 
   const itemDelete = (item: any) => {
     delPhoto(item);
-    deletePhoto(item.name);
+    deletePhoto({ name: item.name });
   }
 
   return ReactDOM.createPortal(

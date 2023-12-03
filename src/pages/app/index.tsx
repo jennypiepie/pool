@@ -9,7 +9,7 @@ import { useExhibitsStore } from '@/src/store/useExhibitsStore';
 import { useOutfitStore } from '@/src/store/useOutfitStore';
 import { usePhotoStore } from '@/src/store/usePhotoStore';
 import { useGlobalStore } from '@/src/store/useGlobalStore';
-import BGM from '@/src/components/bgm';
+// import BGM from '@/src/components/bgm';
 
 function App() {
   const { display, sculpture, likes } = useExhibitsStore();
@@ -28,7 +28,7 @@ function App() {
         {likes.visible && <LikesList />}
         {photos.visible && <PhotoList />}
         {sculpture.hide && <SculpturePanel />}
-        <BGM />
+        {/* <BGM /> */}
       </>}
     </>
   );

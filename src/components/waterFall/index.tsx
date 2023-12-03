@@ -75,7 +75,7 @@ function WaterFall(props: IWaterFallProps) {
             onMouseLeave={() => setOverlay(undefined)}>
             <img src={item.url} alt='' onLoad={setPosition} />
             {overlay === index && <div className="overlay" key={index}>
-                {itemDelete && <div className="o-btn" onClick={() => itemDelete(item)}>
+                {itemDelete && <div className="o-btn" onClick={() => { itemDelete(item) }}>
                     <DeleteOutlined />
                 </div>}
                 <div className="o-btn" onClick={() => download(item.url)}>

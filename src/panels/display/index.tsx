@@ -9,7 +9,7 @@ import Card from "../../components/card";
 import Preview from "@/src/components/preview";
 
 function Display() {
-  const { display, close, setLikes } = useExhibitsStore();
+  const { display, close, setLikes, updateData } = useExhibitsStore();
   const { title, desc, name, beliked, likedNum } = display;
   const [liked, setLiked] = useState(beliked);
   const [lNum, setLNum] = useState(likedNum);
@@ -22,6 +22,7 @@ function Display() {
     if (username && name && beliked !== liked) {
       liked ? setLikes(name) : setLikes(name, false);
       await updateLikes({ exhibitsName: name, username });
+      updateData();
     }
   }
 
