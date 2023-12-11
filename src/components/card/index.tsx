@@ -1,5 +1,8 @@
+import { useLayoutEffect } from 'react';
 import Mask from '../mask';
 import './index.scss';
+import gsap from "gsap";
+
 
 interface ICardProps {
     children?: React.ReactNode;
@@ -11,6 +14,15 @@ interface ICardProps {
 
 function Card(props: ICardProps) {
     const { children, width, height, title, close } = props;
+
+    useLayoutEffect(() => {
+        gsap.to('.card', {
+            opacity: 1,
+            duration: 0.4,
+            scale: 1,
+            ease: 'power1.inOut',
+        });
+    }, [])
 
     return (<>
         <div className="card" style={{ width: width, height: height }}>

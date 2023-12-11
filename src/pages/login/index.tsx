@@ -68,9 +68,10 @@ function Login() {
     }
 
     useLayoutEffect(() => {
-        gsap.to('.login-container', {
+        gsap.to('.login-wrapper', {
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
+            scale: 1,
             ease: 'power1.inOut',
         });
     }, [])
