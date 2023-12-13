@@ -104,7 +104,7 @@ function Login() {
             y: 600
         }, {
             y: 0,
-            duration: 0.5,
+            duration: 0.8,
             ease: 'power1.inOut',
         });
     }, [])

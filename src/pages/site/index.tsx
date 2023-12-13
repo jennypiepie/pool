@@ -99,13 +99,13 @@ export default function Site() {
     function toLogin() {
         gsap.to('.site-container', {
             opacity: 0,
-            duration: 1,
+            duration: 0.8,
             ease: 'power1.inOut',
         });
 
         gsap.to('.transition-bg', {
             opacity: 1,
-            duration: 1,
+            duration: 0.8,
             ease: 'power1.inOut',
         });
 
