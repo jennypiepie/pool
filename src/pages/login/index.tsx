@@ -6,6 +6,7 @@ import { useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.scss';
 import { useOutfitStore } from '@/src/store/useOutfitStore';
+import Bubble from '@/src/components/bubble';
 import gsap from "gsap";
 
 function Login() {
@@ -67,6 +68,17 @@ function Login() {
         setShow(!show);
     }
 
+    const renderBubble = () => {
+        const n = Math.floor(Math.random() * 3 + 3);
+        return new Array(n).fill(0).map((_, index) => {
+            const size = Math.floor(Math.random() * 60 + 40);
+            const delay = Math.floor(Math.random() * 13 - 6);
+            const x = Math.floor(Math.random() * (100 / n) + (100 / n * index));
+            const speed = Math.floor(Math.random() * 5 + 1);
+            return <Bubble x={x} size={size} delay={delay} speed={speed} key={index} />
+        })
+    }
+
     useLayoutEffect(() => {
         gsap.to('.login-wrapper', {
             opacity: 1,
@@ -78,9 +90,7 @@ function Login() {
 
     return (
         <div className="login-container">
-            <div className="bubble" style={{ left: 5, animationDelay: '-3s' }} />
-            <div className="bubble small_size " style={{ left: 650 }} />
-            <div className="bubble large_size" style={{ left: 1100, animationDelay: '-5s' }} />
+            {renderBubble()}
             <div className="login-wrapper">
                 <div className="login">
                     <div className='login-title'>

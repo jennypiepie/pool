@@ -5,12 +5,14 @@ import video from '@/assets/video/1.mp4';
 import { useNavigate } from "react-router-dom";
 
 const textList = [
-    'Sanderia malayensis ',
-    'Halitrephes maasi',
+    'Phyllorhiza punctata',
+    'Bathykorus bouilloni',
+    'Chrysaora fuscescens',
+    'Phyllorhiza punctata',
     'Stygiomedusa gigantea',
-    'cotylorhiza tuberculata',
     'Turritopsis nutricula',
-    'Olindias formosa',
+    'Stomolophus meleagris',
+    'Tripedalia cystophora',
 ];
 
 export default function Site() {
@@ -61,7 +63,7 @@ export default function Site() {
                     bottom: '-100%',
                     ease: 'expo.easeInOut',
                     duration: 2
-                }, 6);
+                }, 5.5);
 
                 t1.from('span', {
                     y: 400,
