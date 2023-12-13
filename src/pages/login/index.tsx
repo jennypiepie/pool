@@ -2,7 +2,7 @@ import { ILoginParams, loginApi, registerApi } from '@/src/request/api';
 import { useGlobalStore } from '@/src/store/useGlobalStore';
 import { LockOutlined, UserOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.scss';
 import { useOutfitStore } from '@/src/store/useOutfitStore';
@@ -65,10 +65,30 @@ function Login() {
     };
 
     const changeView = () => {
-        setShow(!show);
+        setTimeout(() => {
+            setShow(!show);
+        }, 600);
+
+        gsap.fromTo('.login-wrapper', {
+            y: 0
+        }, {
+            y: -600,
+            duration: 0.5,
+            ease: 'power1.inOut',
+        });
+        gsap.set('.login-wrapper', {
+            y: 600,
+            delay: 0.7
+        })
+        gsap.to('.login-wrapper', {
+            y: 0,
+            delay: 0.7,
+            duration: 0.5,
+            ease: 'power1.inOut',
+        });
     }
 
-    const renderBubble = () => {
+    const renderBubble = useMemo(() => {
         const n = Math.floor(Math.random() * 3 + 3);
         return new Array(n).fill(0).map((_, index) => {
             const size = Math.floor(Math.random() * 60 + 40);
@@ -77,20 +97,21 @@ function Login() {
             const speed = Math.floor(Math.random() * 5 + 1);
             return <Bubble x={x} size={size} delay={delay} speed={speed} key={index} />
         })
-    }
+    }, [])
 
     useLayoutEffect(() => {
-        gsap.to('.login-wrapper', {
-            opacity: 1,
+        gsap.fromTo('.login-wrapper', {
+            y: 600
+        }, {
+            y: 0,
             duration: 0.5,
-            scale: 1,
             ease: 'power1.inOut',
         });
     }, [])
 
     return (
         <div className="login-container">
-            {renderBubble()}
+            {renderBubble}
             <div className="login-wrapper">
                 <div className="login">
                     <div className='login-title'>

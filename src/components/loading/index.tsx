@@ -36,6 +36,7 @@ function Loading({ text }: { text: string }) {
       setTimeout(() => {
         gsap.to('.loading_container', {
           y: -700,
+          opacity: 0,
           duration: 2,
           ease: 'power1.inOut',
         })
