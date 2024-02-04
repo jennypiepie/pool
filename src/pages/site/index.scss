@@ -109,6 +109,14 @@
     cursor: pointer;
     color: #fff;
     font-family: 'Holtwood One SC';
+    background: linear-gradient(to right, #fff, #fff) no-repeat right bottom;
+    background-size: 0 2px;
+    transition: background-size .3s;
+
+    &:hover {
+        background-size: 100% 2px;
+        background-position: left bottom;
+    }
 }
 
 .lt-text {
